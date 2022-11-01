@@ -43,7 +43,7 @@
 				<button id="resetDashboard"><p id="resetArrow">↺</p><p>RESET</p></button>
 				<p id="viewAsPDF" onclick="downloadPDF()">View or Print PDF</p>
 				<div id="navPanel">
-					<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/NYCHADashboard_16663637376880/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
+					<div class="navRadioButton" onclick="onSwitchDashboard(1327, 'https://public.tableau.com/views/NYCHADashboard_16663637376880/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
 						<span class="radioTextContainer">
 							<p class="code">NYCHA_01</p>
 							<p class="radioText">New York City Housing Authority Dashboard</p>
@@ -53,7 +53,7 @@
 							<span class="arrow"></span>
 						</span>
 					</div>
-					<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/NYCHADashboard_16663637376880/DashboardAnimation?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
+					<div class="navRadioButton" onclick="onSwitchDashboard(1327, 'https://public.tableau.com/views/NYCHADashboard_16663637376880/DashboardAnimation?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
 						<span class="radioTextContainer">
 							<p class="code">NYCHA_02</p>
 							<p class="radioText">New York City Housing Authority Dashboard (Animated)</p>
@@ -63,7 +63,7 @@
 							<span class="arrow"></span>
 						</span>
 					</div>
-					<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/NYCHADashboard_16663637376880/Glossary?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
+					<div class="navRadioButton" onclick="onSwitchDashboard(1500, 'https://public.tableau.com/views/NYCHADashboard_16663637376880/Glossary?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
 						<span class="radioTextContainer">
 							<p class="code">NYCHA_99</p>
 							<p class="radioText">Glossary</p>
@@ -100,7 +100,6 @@
 			flex-direction: column;
       		position: relative;
      		max-width: 1300px;
-			height: 1170px;
 			font-size: 15px;
 			font-family: Arial, Helvetica, sans-serif;
 			color: black;
@@ -121,6 +120,7 @@
 			margin: auto;
 			transform: scale(.8215);
 			transform-origin: top left;
+			margin-bottom: -157px;
 		}
 		#leftContainer {
 			padding: 0 10px;
@@ -331,7 +331,7 @@
 				resetButton.style.visibility = "visible";
 				resetButton.addEventListener("click", function() {
 					var url = viz.getWorkbook().getActiveSheet().getUrl();
-					switchDashboard(url);
+					switchDashboard(options.height, url);
 				});
 			}
 		};
@@ -349,19 +349,20 @@
 
 		checkRadioButton(radioButtons[0]);
 
-		function onSwitchDashboard(url) {
-			switchDashboard(url);
+		function onSwitchDashboard(height, url) {
+			switchDashboard(height, url);
 			uncheckRadioButtons();
 			checkRadioButton(event.target);
 		}
 
-		function switchDashboard(url) {
+		function switchDashboard(height, url) {
 			if (url == "") return;
 			viz.removeEventListener('filterchange', onFilterChange);
 			viz.removeEventListener('marksselection', onFilterChange);
 			viz.removeEventListener('parametervaluechange', onFilterChange);
 			viz.dispose();
 
+			options.height = height + "px";
 			viz = new tableau.Viz(placeholderDiv, url, options);
 			viz.addEventListener('filterchange', onFilterChange);
 			viz.addEventListener('marksselection', onFilterChange);
