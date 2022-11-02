@@ -43,7 +43,7 @@
 				<button id="resetDashboard"><p id="resetArrow">↺</p><p>RESET</p></button>
 				<p id="viewAsPDF" onclick="downloadPDF()">View or Print PDF</p>
 				<div id="navPanel">
-					<div class="navRadioButton" onclick="onSwitchDashboard(1327, 'https://public.tableau.com/views/NYCHADashboard_16663637376880/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
+					<div class="navRadioButton" onclick="onSwitchDashboard(1300, 'https://public.tableau.com/views/NYCHADashboard_16663637376880/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
 						<span class="radioTextContainer">
 							<p class="code">NYCHA_01</p>
 							<p class="radioText">New York City Housing Authority Dashboard</p>
@@ -53,7 +53,7 @@
 							<span class="arrow"></span>
 						</span>
 					</div>
-					<div class="navRadioButton" onclick="onSwitchDashboard(1327, 'https://public.tableau.com/views/NYCHADashboard_16663637376880/DashboardAnimation?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
+					<div class="navRadioButton" onclick="onSwitchDashboard(1300, 'https://public.tableau.com/views/NYCHADashboard_16663637376880/DashboardAnimation?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
 						<span class="radioTextContainer">
 							<p class="code">NYCHA_02</p>
 							<p class="radioText">New York City Housing Authority Dashboard (Animated)</p>
@@ -99,7 +99,7 @@
 			display: flex;
 			flex-direction: column;
       		position: relative;
-     		max-width: 1300px;
+     		max-width: 1532px;
 			font-size: 15px;
 			font-family: Arial, Helvetica, sans-serif;
 			color: black;
@@ -107,20 +107,12 @@
 			box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, .2);
 			border-radius: 6px;
 			border: 1px solid #ddd;
-			overflow: hidden;
+			transform: scale(.85);
 		}
 		#mainContent {
 			display: flex;
 			flex-direction: row;
-		}
-		#tableauContainer {
-			display: block;
-		}
-		#tableauViz {
-			margin: auto;
-			transform: scale(.8215);
-			transform-origin: top left;
-			margin-bottom: -157px;
+			min-height: 1427px;
 		}
 		#leftContainer {
 			padding: 0 10px;
@@ -267,6 +259,7 @@
 			position: absolute;
 			bottom: 0;
 			width: 100%;
+			height: 100px;
 		}
 		#poweredContainer {
 			display: flex;
@@ -297,7 +290,7 @@
 				top: -500px;
 				margin-bottom: -900px;
 			}
-		} */
+		}
 		@media only screen and (max-width: 400px) {
 			#mavQContainer {
 				height: calc(1170px * .305);
@@ -317,7 +310,7 @@
 			#footerLogo {
 				margin: 0;
 			}
-		}
+		} */
 	</style>
 	<script>
 		var placeholderDiv = document.getElementById("tableauViz");
@@ -325,7 +318,7 @@
 		var options = {
 			hideTabs: true,
 			width: "1300px",
-			height: "1327px",
+			height: "1330px",
 			onFirstInteractive: function() {
 				var resetButton = document.getElementById("resetDashboard");
 				resetButton.style.visibility = "visible";
@@ -361,8 +354,8 @@
 			viz.removeEventListener('marksselection', onFilterChange);
 			viz.removeEventListener('parametervaluechange', onFilterChange);
 			viz.dispose();
-
-			options.height = height + "px";
+			
+			options.height = height + 30 + "px";
 			viz = new tableau.Viz(placeholderDiv, url, options);
 			viz.addEventListener('filterchange', onFilterChange);
 			viz.addEventListener('marksselection', onFilterChange);
