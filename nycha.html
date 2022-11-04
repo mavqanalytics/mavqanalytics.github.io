@@ -95,7 +95,7 @@
 	</div>
 	<style>
 		#mavQContainer {
-			margin: auto;
+			margin-top: 12px;
 			display: flex;
 			flex-direction: column;
       		position: relative;
@@ -109,8 +109,8 @@
 			border-radius: 6px;
 			border: 1px solid #ddd;
 			transform: scale(.8);
-			margin-top: -120px;
-			margin-bottom: -120px;
+			transform-origin: top left;
+			margin-bottom: -280px;
 		}
 		#mainContent {
 			display: flex;
@@ -336,6 +336,27 @@
 		viz.addEventListener('marksselection', onFilterChange);
 		viz.addEventListener('parametervaluechange', onFilterChange);
 
+		window.onresize = scaleMavQContainer;
+		var mavQContainer = document.getElementById("mavQContainer");
+		var maxScale = .8;
+		var minScale = .2;
+		scaleMavQContainer();
+
+		function scaleMavQContainer() {
+			// scale mavQContainer to fit screen
+			var scale = Math.min(maxScale, Math.max(minScale, window.innerWidth / 1545));
+			mavQContainer.style.transform = "scale(" + scale + ")";
+			mavQContainer.style.transformOrigin = "top left";
+			
+			// center horizontally
+			var left = (window.innerWidth - (1545 * scale)) / 2;
+			mavQContainer.style.left = left + "px";
+
+			// decrement bottom margin to account for scale
+			var marginBottom = 1400 * (1 - scale);
+			mavQContainer.style.marginBottom = "-" + marginBottom + "px";
+		}
+
 		var radioButtons = document.getElementsByClassName("navRadioButton");
 		for (var i = 0; i < radioButtons.length; i++) {
 			radioButtons[i].addEventListener("mouseenter", onRadioButtonMouseEnter);
@@ -523,10 +544,7 @@ header {
 	color: #666;
 }
 #content {
-	margin: 20px 0;
 	flex: 1 0 auto;
-	align-items: center;
-	justify-content: center;
 }
 #footer {
 	flex-shrink: 0;
