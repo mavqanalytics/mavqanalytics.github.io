@@ -103,9 +103,6 @@
      		width: 1532px;
 			font-size: 15px;
 			font-family: Arial, Helvetica, sans-serif;
-			color: black;
-			background-color: white;
-			box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, .2);
 			border-radius: 6px;
 			border: 1px solid #ddd;
 			transform: scale(.8);
@@ -171,7 +168,7 @@
 		}
 		.likebtn-wrapper {
 			position: absolute;
-			top: 1030px;
+			bottom: 300px;
 			left: 20px;
 		}
 		#navPanel {
@@ -183,7 +180,7 @@
 			width: 210px;
 			min-width: 210px;
 			border-radius: 9px;
-			border: 1px solid #ccc;
+			border: 1px solid #999;
 			box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.2);
 			overflow: hidden;
 		}
@@ -196,6 +193,7 @@
 			border: none;
 			border-bottom: 1px solid #ddd;
 			cursor: pointer;
+			overflow: hidden;
 		}
 		.navRadioButton input {
 			position: absolute;
@@ -317,6 +315,7 @@
 	</style>
 	<script>
 		var mavQContainer = document.getElementById("mavQContainer");
+		var navPanel = document.getElementById("navPanel");
 		var initialContainerWidth = 1532;
 		var placeholderDiv = document.getElementById("tableauViz");
 		var url = "https://public.tableau.com/views/NYCHAREESmavQMTXDashboardDarkModeMockup/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link";
@@ -343,13 +342,12 @@
 		};
 		var viz = new tableau.Viz(placeholderDiv, url, options);
 
+		// Scale the mavQContainer to fit the screen
 		window.onresize = scaleMavQContainer;
 		var mavQContainer = document.getElementById("mavQContainer");
 		var maxScale = .8;
 		var minScale = .2;
 		scaleMavQContainer();
-
-		// Scale the mavQContainer to fit the screen
 		function scaleMavQContainer() {
 			// scale mavQContainer to fit screen
 			var scale = Math.min(maxScale, Math.max(minScale, window.innerWidth / initialContainerWidth));
@@ -373,19 +371,20 @@
 		}
 		var theme = "Light";
 		function changeTheme(changedTheme) {
-			var navPanel = document.getElementById("navPanel");
-
-			if (changedTheme === "Light") {
-				mavQContainer.style.backgroundColor = "white";
-				navPanel.style.backgroundColor = "white";
-			}
-			else {
-				mavQContainer.style.backgroundColor = "black";
-				navPanel.style.backgroundColor = "black";
-			}
-			theme = changedTheme;
+			if (changedTheme === "Light") switchToLightMode();
+			else if (changedTheme === "Dark") switchToDarkMode();
 			uncheckRadioButtons();
 			checkRadioButton(checkedButton);
+		}
+		function switchToLightMode() {
+			mavQContainer.style.backgroundColor = "white";
+			navPanel.style.backgroundColor = "white";
+			theme = "Light";
+		}
+		function switchToDarkMode() {
+			mavQContainer.style.backgroundColor = "black";
+			navPanel.style.backgroundColor = "black";
+			theme = "Dark";
 		}
 
 		// Initialize radio buttons
@@ -459,19 +458,18 @@
 			for (var i = 0; i < radioButtons.length; i++) {
 				radioButtons[i].firstChild.checked = false;
 				if (theme === "Light") {
-					radioButtons[i].style.backgroundColor = "#fff";
+					radioButtons[i].style.backgroundColor = radioColorLight;
 					radioButtons[i].style.color = "black";
 					radioButtons[i].getElementsByClassName("code")[0].style.color = "#bbb";
 					radioButtons[i].getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#F7F7F7";
 					radioButtons[i].getElementsByClassName("arrow")[0].style.borderColor = "rgb(74, 109, 147)";
 				}
-				else {
-					radioButtons[i].style.backgroundColor = "black";
-					radioButtons[i].style.color = "white";
-					radioButtons[i].getElementsByClassName("code")[0].style.color = "white";
-					radioButtons[i].getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#666";
-					radioButtons[i].getElementsByClassName("arrow")[0].style.borderColor = "white";
-				}
+				// else dark
+				radioButtons[i].style.backgroundColor = radioColorDark;
+				radioButtons[i].style.color = "white";
+				radioButtons[i].getElementsByClassName("code")[0].style.color = "white";
+				radioButtons[i].getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#666";
+				radioButtons[i].getElementsByClassName("arrow")[0].style.borderColor = "white";
 			}
 		}
 
@@ -486,7 +484,7 @@
 				button.getElementsByClassName("arrowBackground")[0].style.backgroundColor = hoveredColorLight;
 				return;
 			}
-			console.log("dark");
+			// else dark
 			button.style.backgroundColor = hoveredColorDark;
 			button.getElementsByClassName("arrowBackground")[0].style.backgroundColor = hoveredColorDark;
 		}
