@@ -43,7 +43,7 @@
 				<button id="resetDashboard"><p id="resetArrow">↺</p><p>RESET</p></button>
 				<p id="viewAsPDF" onclick="downloadPDF()">View or Print PDF</p>
 				<div id="navPanel">
-					<div class="navRadioButton" onclick="onSwitchDashboard(1300, 'https://public.tableau.com/views/NYCHAREESmavQMTXDashboardMockup1/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
+					<div class="navRadioButton" onclick="onSwitchDashboard(1300, 'https://public.tableau.com/views/NYCHAREESmavQMTXDashboardDarkModeMockup/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
 						<span class="radioTextContainer">
 							<p class="code">NYCHA_01</p>
 							<p class="radioText">New York City Housing Authority Dashboard</p>
@@ -99,8 +99,8 @@
 			display: flex;
 			flex-direction: column;
       		position: relative;
-     		max-width: 1533px;
-     		width: 1533px;
+     		max-width: 1532px;
+     		width: 1532px;
 			font-size: 15px;
 			font-family: Arial, Helvetica, sans-serif;
 			color: black;
@@ -111,6 +111,7 @@
 			transform: scale(.8);
 			transform-origin: top left;
 			margin-bottom: -280px;
+			overflow: hidden;
 		}
 		#mainContent {
 			display: flex;
@@ -195,7 +196,6 @@
 			border: none;
 			border-bottom: 1px solid #ddd;
 			cursor: pointer;
-			background-color: white;
 		}
 		.navRadioButton input {
 			position: absolute;
@@ -316,25 +316,32 @@
 		} */
 	</style>
 	<script>
+		var mavQContainer = document.getElementById("mavQContainer");
+		var initialContainerWidth = 1532;
 		var placeholderDiv = document.getElementById("tableauViz");
-		var url = "https://public.tableau.com/views/NYCHAREESmavQMTXDashboardMockup1/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link";
+		var url = "https://public.tableau.com/views/NYCHAREESmavQMTXDashboardDarkModeMockup/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link";
 		var options = {
 			hideTabs: true,
 			width: "1300px",
 			height: "1330px",
 			onFirstInteractive: function() {
+
+				// Reset dashboard button and event handler
 				var resetButton = document.getElementById("resetDashboard");
 				resetButton.style.visibility = "visible";
 				resetButton.addEventListener("click", function() {
 					var url = viz.getWorkbook().getActiveSheet().getUrl();
 					switchDashboard(options.height, url);
 				});
+
+				// Viz event handlers
+				viz.addEventListener('filterchange', onFilterChange);
+				viz.addEventListener('marksselection', onFilterChange);
+				viz.addEventListener('parametervaluechange', onFilterChange);
+				viz.addEventListener('parametervaluechange', onParameterValueChange);
 			}
 		};
 		var viz = new tableau.Viz(placeholderDiv, url, options);
-		viz.addEventListener('filterchange', onFilterChange);
-		viz.addEventListener('marksselection', onFilterChange);
-		viz.addEventListener('parametervaluechange', onFilterChange);
 
 		window.onresize = scaleMavQContainer;
 		var mavQContainer = document.getElementById("mavQContainer");
@@ -342,14 +349,15 @@
 		var minScale = .2;
 		scaleMavQContainer();
 
+		// Scale the mavQContainer to fit the screen
 		function scaleMavQContainer() {
 			// scale mavQContainer to fit screen
-			var scale = Math.min(maxScale, Math.max(minScale, window.innerWidth / 1545));
+			var scale = Math.min(maxScale, Math.max(minScale, window.innerWidth / initialContainerWidth));
 			mavQContainer.style.transform = "scale(" + scale + ")";
 			mavQContainer.style.transformOrigin = "top left";
 			
 			// center horizontally
-			var left = (window.innerWidth - (1545 * scale)) / 2;
+			var left = (window.innerWidth - (initialContainerWidth * scale)) / 2;
 			mavQContainer.style.left = left + "px";
 
 			// decrement bottom margin to account for scale
@@ -357,21 +365,60 @@
 			mavQContainer.style.marginBottom = "-" + marginBottom + "px";
 		}
 
+		// Parameter value change event handler
+		function onParameterValueChange(e){
+			e.getParameterAsync().then(function(param) {
+				if (param.getName() == "Theme") changeTheme(param.getCurrentValue().value);
+			});
+		}
+		var theme = "Light";
+		function changeTheme(changedTheme) {
+			var navPanel = document.getElementById("navPanel");
+
+			if (changedTheme === "Light") {
+				mavQContainer.style.backgroundColor = "white";
+				navPanel.style.backgroundColor = "white";
+			}
+			else {
+				mavQContainer.style.backgroundColor = "black";
+				navPanel.style.backgroundColor = "black";
+			}
+			theme = changedTheme;
+			uncheckRadioButtons();
+			checkRadioButton(checkedButton);
+		}
+
+		// Initialize radio buttons
+		var checkedColor =  "#007097";
+		var checkedHoveredColor = "#1080a7";
+		var checkedArrowColor = "#035876";
+
+		var radioColorLight = "white";
+		var hoveredColorLight = "#f2f2f2";
+		var unhoveredColorLight = "#007097";
+		var arrowColorLight = "#f7f7f7";
+
+		var radioColorDark = "#333";
+		var hoveredColorDark = "#666";
+		var unhoveredColorDark = "#333";
+		var arrowColorDark = "#444";
+
+		var checkedButton = null;
+
 		var radioButtons = document.getElementsByClassName("navRadioButton");
 		for (var i = 0; i < radioButtons.length; i++) {
 			radioButtons[i].addEventListener("mouseenter", onRadioButtonMouseEnter);
 			radioButtons[i].addEventListener("mouseleave", onRadioButtonMouseLeave);
 		}
 		radioButtons[2].style.border = "none";
-
 		checkRadioButton(radioButtons[0]);
 
+		// Switch dashboards
 		function onSwitchDashboard(height, url) {
 			switchDashboard(height, url);
 			uncheckRadioButtons();
 			checkRadioButton(event.target);
 		}
-
 		function switchDashboard(height, url) {
 			if (url == "") return;
 			viz.removeEventListener('filterchange', onFilterChange);
@@ -398,11 +445,12 @@
 		}
 
 		function checkRadioButton(button) {
+			checkedButton = button;
 			button.firstChild.checked = true;
-			button.style.backgroundColor = "#007097";
+			button.style.backgroundColor = checkedColor;
 			button.style.color = "white";
 			button.getElementsByClassName("code")[0].style.color = "white";
-			button.getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#035876";
+			button.getElementsByClassName("arrowBackground")[0].style.backgroundColor = checkedArrowColor;
 			button.getElementsByClassName("arrow")[0].style.borderColor = "white";
 		}
 
@@ -410,26 +458,52 @@
 			var radioButtons = document.getElementsByClassName("navRadioButton");
 			for (var i = 0; i < radioButtons.length; i++) {
 				radioButtons[i].firstChild.checked = false;
-				radioButtons[i].style.backgroundColor = "#fff";
-				radioButtons[i].style.color = "black";
-				radioButtons[i].getElementsByClassName("code")[0].style.color = "#bbb";
-				radioButtons[i].getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#F7F7F7";
-				radioButtons[i].getElementsByClassName("arrow")[0].style.borderColor = "rgb(74, 109, 147)";
+				if (theme === "Light") {
+					radioButtons[i].style.backgroundColor = "#fff";
+					radioButtons[i].style.color = "black";
+					radioButtons[i].getElementsByClassName("code")[0].style.color = "#bbb";
+					radioButtons[i].getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#F7F7F7";
+					radioButtons[i].getElementsByClassName("arrow")[0].style.borderColor = "rgb(74, 109, 147)";
+				}
+				else {
+					radioButtons[i].style.backgroundColor = "black";
+					radioButtons[i].style.color = "white";
+					radioButtons[i].getElementsByClassName("code")[0].style.color = "white";
+					radioButtons[i].getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#666";
+					radioButtons[i].getElementsByClassName("arrow")[0].style.borderColor = "white";
+				}
 			}
 		}
 
 		function onRadioButtonMouseEnter() {
-			if (!event.target.firstChild.checked) {
-				event.target.style.backgroundColor = "#f2f2f2";
-				event.target.getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#f2f2f2";
+			var button = event.target;
+			if (button.firstChild.checked) {
+				button.style.backgroundColor = checkedHoveredColor;
+				return;
 			}
+			if (theme === "Light") {
+				button.style.backgroundColor = hoveredColorLight;
+				button.getElementsByClassName("arrowBackground")[0].style.backgroundColor = hoveredColorLight;
+				return;
+			}
+			console.log("dark");
+			button.style.backgroundColor = hoveredColorDark;
+			button.getElementsByClassName("arrowBackground")[0].style.backgroundColor = hoveredColorDark;
 		}
 
 		function onRadioButtonMouseLeave() {
-			if (!event.target.firstChild.checked) {
-				event.target.style.backgroundColor = "#fff";
-				event.target.getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#f7f7f7";
+			var button = event.target;
+			if (button.firstChild.checked) {
+				button.style.backgroundColor = checkedColor;
+				return;
 			}
+			if (theme === "Light") {
+				button.style.backgroundColor = radioColorLight;
+				button.getElementsByClassName("arrowBackground")[0].style.backgroundColor = arrowColorLight;
+				return;
+			}
+			button.style.backgroundColor = radioColorDark;
+			button.getElementsByClassName("arrowBackground")[0].style.backgroundColor = arrowColorDark;
 		}
 
 		function downloadPDF() {
