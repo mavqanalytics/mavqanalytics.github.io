@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NYCHA</title>
+<body>
+	<div id="tableauViz"></div>
+</body>
+</html>
+<script src="https://public.tableau.com/javascripts/api/tableau-2.9.1.min.js"></script>
+<script>
+	var placeholderDiv = document.getElementById("tableauViz");
+		var url = "https://public.tableau.com/views/NYCHAREESmavQMTXDashboardDarkModeMockup_16678365342890/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link";
+		var options = {
+			hideTabs: true,
+			width: "1300px",
+			height: "1330px",
+			"Theme": "Dark",
+			onFirstInteractive: function() {
+
+			}
+		};
+		var viz = new tableau.Viz(placeholderDiv, url, options);
+</script>
