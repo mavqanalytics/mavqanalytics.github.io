@@ -17,12 +17,9 @@
 				<p>Search all NYC.gov websites</p>
 			</span>
 		</div>
-
-		<div id="imgContainer">
-			<img src="https://www1.nyc.gov/assets/nycha/images/content/header/logo.png" alt="NYCHA Logo" id="logo">
-		</div>
 		<div id="navBar">
-			<a><img src="https://cdn-icons-png.flaticon.com/128/2920/2920665.png" style="width: 30px; height: 30px;"></a>
+			<a><img src="https://www1.nyc.gov/assets/nycha/images/content/header/logo.png" alt="NYCHA Logo" style="transform: scale(.66); margin-top: 6px"></a>
+			<a><img id="nychaLogo"src="https://cdn-icons-png.flaticon.com/128/2920/2920665.png" style="width: 30px; height: 30px;"></a>
 			<a>About</a>
 			<a>Residents</a>
 			<a>Need Housing</a>
@@ -532,10 +529,13 @@ header {
 }
 #vax {
 	padding: 0;
-	font-size: 15pt;
-	text-align: center;
+	height: 10px;
+	font-size: 10pt;
 	text-decoration: underline;
 	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 #blackBar {
 	margin: 0;
@@ -552,17 +552,6 @@ header {
 	flex-direction: row;
 	min-width: 200px; 
 }
-#imgContainer {
-	margin: 0;
-	padding: 0 260px;
-	display: flex;
-	justify-content: center;
-	background-color: white;
-}
-#imgContainer img {
-	width: 60px;
-	height: 90px;
-}
 #navBar {
 	margin: 0;
 	display: flex;
@@ -575,6 +564,9 @@ header {
 	background-color: white;
 	color: black;
 	font-weight: bold;
+}
+#navBar a:first-child {
+	border-left: none;
 }
 #navBar a {
 	display: flex;
