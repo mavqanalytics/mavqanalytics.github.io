@@ -287,6 +287,67 @@
 	</style>
 	<script>
 		var mavQContainer = document.getElementById("mavQContainer");
+		var checkedButton = null;
+
+		//Check first radio button
+		var radioButtons = document.getElementsByClassName("navRadioButton");
+		for (var i = 0; i < radioButtons.length; i++) {
+			radioButtons[i].addEventListener("mouseenter", onRadioButtonMouseEnter);
+			radioButtons[i].addEventListener("mouseleave", onRadioButtonMouseLeave);
+		}
+		radioButtons[2].style.border = "none";
+		checkRadioButton(radioButtons[0]);
+
+		// Color Schemes
+
+		// Radio Buttons
+		var checkedColor =  "#007097";
+		var checkedHoveredColor = "#1080a7";
+		var checkedArrowColor = "#035876";
+		var arrowColor = "rgb(74, 109, 147)";
+		var codeColor = "#bbb";
+
+		// Light mode scheme
+		const lightMode = {
+			name: 'Light',
+			backgroundColor: '#fff',
+			radioColor: 'white',
+			textColor: 'black',
+			hoveredColor: '#f2f2f2',
+			arrowBackgroundColor: '#f7f7f7'
+		}
+		// Dark blue mode scheme
+		const darkBlueMode = {
+			name: 'Dark Blue',
+			backgroundColor: '#365675',
+			radioColor: '#234',
+			textColor: 'white',
+			hoveredColor: '#345',
+			arrowBackgroundColor: '#456'
+		}
+		// Dark mode scheme
+		const darkMode = {
+			name: 'Dark',
+			backgroundColor: '#1e1e1e',
+			radioColor: '#333',
+			textColor: 'white',
+			hoveredColor: '#444',
+			arrowBackgroundColor: '#555'
+		}
+		// Black mode scheme
+		const blackMode = {
+			name: 'Black',
+			backgroundColor: '#000',
+			radioColor: '#333',
+			textColor: 'white',
+			hoveredColor: '#444',
+			arrowBackgroundColor: '#555'
+		}
+		theme = JSON.parse(localStorage.getItem("theme"))
+		if (theme == null) theme = lightMode;
+		changeHTMLTheme(theme.name);
+
+		// Initialize the dashboard
 		var navPanel = document.getElementById("navPanel");
 		var initialContainerWidth = 1532;
 		var placeholderDiv = document.getElementById("tableauViz");
@@ -295,6 +356,7 @@
 			hideTabs: true,
 			width: "1300px",
 			height: "1330px",
+			"Theme": theme.name,
 			onFirstInteractive: function() {
 				// Reset dashboard button and event handler
 				var resetButton = document.getElementById("resetDashboard");
@@ -334,62 +396,6 @@
 			mavQContainer.style.marginBottom = "-" + marginBottom + "px";
 		}
 
-		// Color Schemes
-
-		// Light mode scheme
-		const lightMode = {
-			backgroundColor: "#fff",
-			radioColor: "white",
-			textColor: "black",
-			hoveredColor: "#f2f2f2",
-			arrowBackgroundColor: "#f7f7f7"
-		}
-
-		// Dark blue mode scheme
-		const darkBlueMode = {
-			backgroundColor: "#365675",
-			radioColor: "#234",
-			textColor: "white",
-			hoveredColor: "#345",
-			arrowBackgroundColor: "#456"
-		}
-
-		// Dark mode scheme
-		const darkMode = {
-			backgroundColor: "#1e1e1e",
-			radioColor: "#333",
-			textColor: "white",
-			hoveredColor: "#444",
-			arrowBackgroundColor: "#555"
-		}
-
-		// Black mode scheme
-		const blackMode = {
-			backgroundColor: "#000",
-			radioColor: "#333",
-			textColor: "white",
-			hoveredColor: "#444",
-			arrowBackgroundColor: "#555"
-		}
-
-		// Initialize radio buttons
-		var checkedColor =  "#007097";
-		var checkedHoveredColor = "#1080a7";
-		var checkedArrowColor = "#035876";
-		var arrowColor = "rgb(74, 109, 147)";
-		var codeColor = "#bbb";
-
-		var checkedButton = null;
-
-		//Check first radio button
-		var radioButtons = document.getElementsByClassName("navRadioButton");
-		for (var i = 0; i < radioButtons.length; i++) {
-			radioButtons[i].addEventListener("mouseenter", onRadioButtonMouseEnter);
-			radioButtons[i].addEventListener("mouseleave", onRadioButtonMouseLeave);
-		}
-		radioButtons[2].style.border = "none";
-		checkRadioButton(radioButtons[0]);
-
 		// Switch dashboards
 		function onSwitchDashboard(height, url) {
 			switchDashboard(height, url);
@@ -405,6 +411,7 @@
 			viz.dispose();
 			
 			options.height = height + 30 + "px";
+			options["Theme"] = theme.name;
 			viz = new tableau.Viz(placeholderDiv, url, options);
 			viz.addEventListener('filterchange', onFilterChange);
 			viz.addEventListener('marksselection', onFilterChange);
@@ -462,20 +469,25 @@
 		// Parameter value change event handler
 		function onParameterValueChange(e){
 			e.getParameterAsync().then(function(param) {
-				if (param.getName() == "Theme") changeTheme(param.getCurrentValue().value);
+				if (param.getName() === "Theme") changeHTMLTheme(param.getCurrentValue().value);
 			});
 		}
-		var theme = lightMode;
-		function changeTheme(newThemeName) {
+		function changeHTMLTheme(newThemeName) {
 			if (newThemeName === "Light") theme = lightMode;
 			else if (newThemeName === "Black") theme = blackMode;
 			else if (newThemeName === "Dark") theme = darkMode;
 			else if (newThemeName === "Dark Blue") theme = darkBlueMode;
+			localStorage.setItem("theme", JSON.stringify(theme));
 			mavQContainer.style.backgroundColor = theme.backgroundColor;
 			uncheckRadioButtons();
 			checkRadioButton(checkedButton);
 		}
-
+		function changeVizThemeParameter() {
+			if (theme === lightMode) viz.getWorkbook().changeParameterValueAsync("Theme", "Light");
+			else if (theme === blackMode) viz.getWorkbook().changeParameterValueAsync("Theme", "Black");
+			else if (theme === darkMode) viz.getWorkbook().changeParameterValueAsync("Theme", "Dark");
+			else if (theme === darkBlueMode) viz.getWorkbook().changeParameterValueAsync("Theme", "Dark Blue");
+		}
 
 		// Filter change event handler
 		function onFilterChange() {
