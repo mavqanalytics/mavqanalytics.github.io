@@ -17,12 +17,9 @@
 				<p>Search all NYC.gov websites</p>
 			</span>
 		</div>
-
-		<div id="imgContainer">
-			<img src="https://www1.nyc.gov/assets/nycha/images/content/header/logo.png" alt="NYCHA Logo" id="logo">
-		</div>
 		<div id="navBar">
-			<a><img src="https://cdn-icons-png.flaticon.com/128/2920/2920665.png" style="width: 30px; height: 30px;"></a>
+			<a><img src="https://www1.nyc.gov/assets/nycha/images/content/header/logo.png" alt="NYCHA Logo" style="transform: scale(.66); margin-top: 6px"></a>
+			<a><img id="nychaLogo"src="https://cdn-icons-png.flaticon.com/128/2920/2920665.png" style="width: 30px; height: 30px;"></a>
 			<a>About</a>
 			<a>Residents</a>
 			<a>Need Housing</a>
@@ -35,7 +32,7 @@
 		</div>
 	</header>
 	<div id="content">
-		<script src="https://public.tableau.com/javascripts/api/tableau-2.9.1.min.js"></script>
+	<script src="https://public.tableau.com/javascripts/api/tableau-2.9.1.min.js"></script>
 
 	<div id="mavQContainer">
 		<div id="mainContent">
@@ -43,7 +40,7 @@
 				<button id="resetDashboard"><p id="resetArrow">↺</p><p>RESET</p></button>
 				<p id="viewAsPDF" onclick="downloadPDF()">View or Print PDF</p>
 				<div id="navPanel">
-					<div class="navRadioButton" onclick="onSwitchDashboard(1300, 'https://public.tableau.com/views/NYCHAREESmavQMTXDashboardMockup1/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
+					<div class="navRadioButton" onclick="onSwitchDashboard(1300, 'https://public.tableau.com/views/NYCHAREESmavQMTXDashboardDarkModeMockup_16678365342890/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
 						<span class="radioTextContainer">
 							<p class="code">NYCHA_01</p>
 							<p class="radioText">New York City Housing Authority Dashboard</p>
@@ -53,7 +50,7 @@
 							<span class="arrow"></span>
 						</span>
 					</div>
-					<div class="navRadioButton" onclick="onSwitchDashboard(1300, 'https://public.tableau.com/shared/PN4STKN69?:display_count=n&:origin=viz_share_link')">
+					<div class="navRadioButton" onclick="onSwitchDashboard(1300, 'https://public.tableau.com/views/NYCHAREESmavQMTXDashboardDarkModeMockup_16678365342890/Dashboard1Animation?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
 						<span class="radioTextContainer">
 							<p class="code">NYCHA_02</p>
 							<p class="radioText">New York City Housing Authority Dashboard (Animated)</p>
@@ -63,7 +60,7 @@
 							<span class="arrow"></span>
 						</span>
 					</div>
-					<div class="navRadioButton" onclick="onSwitchDashboard(1500, 'https://public.tableau.com/shared/WC8BGSNJ8?:display_count=n&:origin=viz_share_link')">
+					<div class="navRadioButton" onclick="onSwitchDashboard(1500, 'https://public.tableau.com/views/NYCHAREESmavQMTXDashboardDarkModeMockup_16678365342890/Glossary?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
 						<span class="radioTextContainer">
 							<p class="code">NYCHA_99</p>
 							<p class="radioText">Glossary</p>
@@ -99,18 +96,16 @@
 			display: flex;
 			flex-direction: column;
       		position: relative;
-     		max-width: 1533px;
-     		width: 1533px;
+     		max-width: 1532px;
+     		width: 1532px;
 			font-size: 15px;
 			font-family: Arial, Helvetica, sans-serif;
-			color: black;
-			background-color: white;
-			box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, .2);
 			border-radius: 6px;
 			border: 1px solid #ddd;
 			transform: scale(.8);
 			transform-origin: top left;
 			margin-bottom: -280px;
+			overflow: hidden;
 		}
 		#mainContent {
 			display: flex;
@@ -170,7 +165,7 @@
 		}
 		.likebtn-wrapper {
 			position: absolute;
-			top: 1030px;
+			bottom: 150px;
 			left: 20px;
 		}
 		#navPanel {
@@ -182,7 +177,7 @@
 			width: 210px;
 			min-width: 210px;
 			border-radius: 9px;
-			border: 1px solid #ccc;
+			border: 1px solid #999;
 			box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.2);
 			overflow: hidden;
 		}
@@ -195,7 +190,7 @@
 			border: none;
 			border-bottom: 1px solid #ddd;
 			cursor: pointer;
-			background-color: white;
+			overflow: hidden;
 		}
 		.navRadioButton input {
 			position: absolute;
@@ -286,70 +281,111 @@
 			margin: 0 0 6px 0;
 			color: rgb(121, 128, 171)
 		}
-		/* @media only screen and (max-width: 980px) {
-			#mavQContainer {
-				scale: 50%;
-				left: -386px;
-				top: -500px;
-				margin-bottom: -900px;
-			}
-		}
-		@media only screen and (max-width: 400px) {
-			#mavQContainer {
-				height: calc(1170px * .305);
-			}
-			#mainContent {
-				transform: scale(.305);
-				transform-origin: top left;
-			}
-			#mavQFooter {
-				height: 25px;
-				font-size: 9px;
-			}
-			#footerContents {
-				transform: scale(.4);
-				margin: -15px 0 0 0;
-			}
-			#footerLogo {
-				margin: 0;
-			}
-		} */
 	</style>
 	<script>
+		var mavQContainer = document.getElementById("mavQContainer");
+		var checkedButton = null;
+
+		//Check first radio button
+		var radioButtons = document.getElementsByClassName("navRadioButton");
+		for (var i = 0; i < radioButtons.length; i++) {
+			radioButtons[i].addEventListener("mouseenter", onRadioButtonMouseEnter);
+			radioButtons[i].addEventListener("mouseleave", onRadioButtonMouseLeave);
+		}
+		radioButtons[2].style.border = "none";
+		checkRadioButton(radioButtons[0]);
+
+		// Color Schemes
+
+		// Radio Buttons
+		var checkedColor =  "#007097";
+		var checkedHoveredColor = "#1080a7";
+		var checkedArrowColor = "#035876";
+		var arrowColor = "rgb(74, 109, 147)";
+		var codeColor = "#bbb";
+
+		// Light mode scheme
+		const lightMode = {
+			name: 'Light',
+			backgroundColor: '#fff',
+			radioColor: 'white',
+			textColor: 'black',
+			hoveredColor: '#f2f2f2',
+			arrowBackgroundColor: '#f7f7f7'
+		}
+		// Dark blue mode scheme
+		const darkBlueMode = {
+			name: 'Dark Blue',
+			backgroundColor: '#365675',
+			radioColor: '#234',
+			textColor: 'white',
+			hoveredColor: '#345',
+			arrowBackgroundColor: '#456'
+		}
+		// Dark mode scheme
+		const darkMode = {
+			name: 'Dark',
+			backgroundColor: '#1e1e1e',
+			radioColor: '#333',
+			textColor: 'white',
+			hoveredColor: '#444',
+			arrowBackgroundColor: '#555'
+		}
+		// Black mode scheme
+		const blackMode = {
+			name: 'Black',
+			backgroundColor: '#000',
+			radioColor: '#333',
+			textColor: 'white',
+			hoveredColor: '#444',
+			arrowBackgroundColor: '#555'
+		}
+		theme = JSON.parse(localStorage.getItem("theme"))
+		if (theme == null) theme = lightMode;
+		changeHTMLTheme(theme.name);
+
+		// Initialize the dashboard
+		var navPanel = document.getElementById("navPanel");
+		var initialContainerWidth = 1532;
 		var placeholderDiv = document.getElementById("tableauViz");
-		var url = "https://public.tableau.com/views/NYCHAREESmavQMTXDashboardMockup1/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link";
+		var url = "https://public.tableau.com/views/NYCHAREESmavQMTXDashboardDarkModeMockup_16678365342890/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link";
 		var options = {
 			hideTabs: true,
 			width: "1300px",
 			height: "1330px",
+			"Theme": theme.name,
 			onFirstInteractive: function() {
+				// Reset dashboard button and event handler
 				var resetButton = document.getElementById("resetDashboard");
 				resetButton.style.visibility = "visible";
 				resetButton.addEventListener("click", function() {
 					var url = viz.getWorkbook().getActiveSheet().getUrl();
 					switchDashboard(options.height, url);
 				});
+
+				// Viz event handlers
+				viz.addEventListener('filterchange', onFilterChange);
+				viz.addEventListener('marksselection', onFilterChange);
+				viz.addEventListener('parametervaluechange', onFilterChange);
+				viz.addEventListener('parametervaluechange', onParameterValueChange);
 			}
 		};
 		var viz = new tableau.Viz(placeholderDiv, url, options);
-		viz.addEventListener('filterchange', onFilterChange);
-		viz.addEventListener('marksselection', onFilterChange);
-		viz.addEventListener('parametervaluechange', onFilterChange);
 
+		// Scale the mavQContainer to fit the screen
 		window.onresize = scaleMavQContainer;
 		var mavQContainer = document.getElementById("mavQContainer");
 		var maxScale = .8;
 		var minScale = .2;
 		scaleMavQContainer();
-
 		function scaleMavQContainer() {
 			// scale mavQContainer to fit screen
-			var scale = Math.min(maxScale, Math.max(minScale, window.innerWidth / 1545));
+			var scale = Math.min(maxScale, Math.max(minScale, window.innerWidth / initialContainerWidth));
 			mavQContainer.style.transform = "scale(" + scale + ")";
 			mavQContainer.style.transformOrigin = "top left";
 			
 			// center horizontally
-			var left = (window.innerWidth - (1545 * scale)) / 2;
+			var left = (window.innerWidth - (initialContainerWidth * scale)) / 2;
 			mavQContainer.style.left = left + "px";
 
 			// decrement bottom margin to account for scale
@@ -357,33 +393,27 @@
 			mavQContainer.style.marginBottom = "-" + marginBottom + "px";
 		}
 
-		var radioButtons = document.getElementsByClassName("navRadioButton");
-		for (var i = 0; i < radioButtons.length; i++) {
-			radioButtons[i].addEventListener("mouseenter", onRadioButtonMouseEnter);
-			radioButtons[i].addEventListener("mouseleave", onRadioButtonMouseLeave);
-		}
-		radioButtons[2].style.border = "none";
-
-		checkRadioButton(radioButtons[0]);
-
+		// Switch dashboards
 		function onSwitchDashboard(height, url) {
 			switchDashboard(height, url);
 			uncheckRadioButtons();
 			checkRadioButton(event.target);
 		}
-
 		function switchDashboard(height, url) {
 			if (url == "") return;
 			viz.removeEventListener('filterchange', onFilterChange);
 			viz.removeEventListener('marksselection', onFilterChange);
 			viz.removeEventListener('parametervaluechange', onFilterChange);
+			viz.removeEventListener('parametervaluechange', onParameterValueChange);
 			viz.dispose();
 			
 			options.height = height + 30 + "px";
+			options["Theme"] = theme.name;
 			viz = new tableau.Viz(placeholderDiv, url, options);
 			viz.addEventListener('filterchange', onFilterChange);
 			viz.addEventListener('marksselection', onFilterChange);
 			viz.addEventListener('parametervaluechange', onFilterChange);
+			viz.addEventListener('parametervaluechange', onParameterValueChange);
 
 			var resetButton = document.getElementById("resetDashboard");
 			resetButton.style.backgroundColor = "#ccc";
@@ -391,47 +421,79 @@
 			resetButton.style.visibility = "hidden";
 		}
 
+		// Checking/unchecking radio button
+		function checkRadioButton(button) {
+			checkedButton = button;
+			button.firstChild.checked = true;
+			button.style.backgroundColor = checkedColor;
+			button.style.color = "white";
+			button.getElementsByClassName("code")[0].style.color = "white";
+			button.getElementsByClassName("arrowBackground")[0].style.backgroundColor = checkedArrowColor;
+			button.getElementsByClassName("arrow")[0].style.borderColor = "white";
+		}
+		function uncheckRadioButtons() {
+			var radioButtons = document.getElementsByClassName("navRadioButton");
+			for (var i = 0; i < radioButtons.length; i++) {
+				radioButtons[i].firstChild.checked = false;
+				radioButtons[i].getElementsByClassName("code")[0].style.color = codeColor;
+				radioButtons[i].getElementsByClassName("arrow")[0].style.borderColor = arrowColor;
+				radioButtons[i].style.backgroundColor = theme.radioColor;
+				radioButtons[i].style.color = theme.textColor;
+				radioButtons[i].getElementsByClassName("arrowBackground")[0].style.backgroundColor = theme.arrowBackgroundColor;
+			}
+		}
+
+		// Radio button event handlers
+		function onRadioButtonMouseEnter() {
+			var button = event.target;
+			if (button.firstChild.checked) {
+				button.style.backgroundColor = checkedHoveredColor;
+				return;
+			}
+			button.style.backgroundColor = theme.hoveredColor;
+			button.getElementsByClassName("arrowBackground")[0].style.backgroundColor = theme.hoveredColor;
+		}
+		function onRadioButtonMouseLeave() {
+			var button = event.target;
+			if (button.firstChild.checked) {
+				button.style.backgroundColor = checkedColor;
+				return;
+			}
+			button.style.backgroundColor = theme.radioColor;
+			button.getElementsByClassName("arrowBackground")[0].style.backgroundColor = theme.arrowBackgroundColor;
+		}
+
+		// Parameter value change event handler
+		function onParameterValueChange(e){
+			e.getParameterAsync().then(function(param) {
+				if (param.getName() === "Theme") changeHTMLTheme(param.getCurrentValue().value);
+			});
+		}
+		function changeHTMLTheme(newThemeName) {
+			if (newThemeName === "Light") theme = lightMode;
+			else if (newThemeName === "Black") theme = blackMode;
+			else if (newThemeName === "Dark") theme = darkMode;
+			else if (newThemeName === "Dark Blue") theme = darkBlueMode;
+			localStorage.setItem("theme", JSON.stringify(theme));
+			mavQContainer.style.backgroundColor = theme.backgroundColor;
+			uncheckRadioButtons();
+			checkRadioButton(checkedButton);
+		}
+		function changeVizThemeParameter() {
+			if (theme === lightMode) viz.getWorkbook().changeParameterValueAsync("Theme", "Light");
+			else if (theme === blackMode) viz.getWorkbook().changeParameterValueAsync("Theme", "Black");
+			else if (theme === darkMode) viz.getWorkbook().changeParameterValueAsync("Theme", "Dark");
+			else if (theme === darkBlueMode) viz.getWorkbook().changeParameterValueAsync("Theme", "Dark Blue");
+		}
+
+		// Filter change event handler
 		function onFilterChange() {
 			var resetButton = document.getElementById("resetDashboard");
 			resetButton.style.backgroundColor = "#800000";
       		resetButton.style.color = "white";
 		}
 
-		function checkRadioButton(button) {
-			button.firstChild.checked = true;
-			button.style.backgroundColor = "#007097";
-			button.style.color = "white";
-			button.getElementsByClassName("code")[0].style.color = "white";
-			button.getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#035876";
-			button.getElementsByClassName("arrow")[0].style.borderColor = "white";
-		}
-
-		function uncheckRadioButtons() {
-			var radioButtons = document.getElementsByClassName("navRadioButton");
-			for (var i = 0; i < radioButtons.length; i++) {
-				radioButtons[i].firstChild.checked = false;
-				radioButtons[i].style.backgroundColor = "#fff";
-				radioButtons[i].style.color = "black";
-				radioButtons[i].getElementsByClassName("code")[0].style.color = "#bbb";
-				radioButtons[i].getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#F7F7F7";
-				radioButtons[i].getElementsByClassName("arrow")[0].style.borderColor = "rgb(74, 109, 147)";
-			}
-		}
-
-		function onRadioButtonMouseEnter() {
-			if (!event.target.firstChild.checked) {
-				event.target.style.backgroundColor = "#f2f2f2";
-				event.target.getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#f2f2f2";
-			}
-		}
-
-		function onRadioButtonMouseLeave() {
-			if (!event.target.firstChild.checked) {
-				event.target.style.backgroundColor = "#fff";
-				event.target.getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#f7f7f7";
-			}
-		}
-
+		// Invoke download PDF
 		function downloadPDF() {
 			//var vizUrl = viz.getWorkbook().getActiveSheet().getUrl();
 			//var workbookName = vizUrl.split("/")[4];
@@ -467,10 +529,13 @@ header {
 }
 #vax {
 	padding: 0;
-	font-size: 15pt;
-	text-align: center;
+	height: 10px;
+	font-size: 10pt;
 	text-decoration: underline;
 	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 #blackBar {
 	margin: 0;
@@ -487,17 +552,6 @@ header {
 	flex-direction: row;
 	min-width: 200px; 
 }
-#imgContainer {
-	margin: 0;
-	padding: 0 260px;
-	display: flex;
-	justify-content: center;
-	background-color: white;
-}
-#imgContainer img {
-	width: 60px;
-	height: 90px;
-}
 #navBar {
 	margin: 0;
 	display: flex;
@@ -510,6 +564,9 @@ header {
 	background-color: white;
 	color: black;
 	font-weight: bold;
+}
+#navBar a:first-child {
+	border-left: none;
 }
 #navBar a {
 	display: flex;
