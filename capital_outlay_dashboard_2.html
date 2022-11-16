@@ -13,9 +13,9 @@
 				<div id="leftContainer">
 					<button id="resetDashboard" title="Reset Dashboard"><p id="resetArrow">↺</p><p>RESET</p></button>
 					<span id="downloads">
-						<i class="fa-regular fa-file-pdf" onclick="downloadPDF()" title="Download PDF"></i>
-						<i class="fa-regular fa-file-excel" onclick="downloadExcel()" title="Download Excel"></i>
-						<i class="fa-regular fa-file-powerpoint" onclick="downloadPowerPoint()" title="Download PowerPoint"></i>
+						<i class="fa-solid fa-file-pdf" onclick="downloadPDF()" title="Download PDF"></i>
+						<i class="fa-solid fa-file-excel" onclick="downloadExcel()" title="Download Excel"></i>
+						<i class="fa-solid fa-file-powerpoint" onclick="downloadPowerPoint()" title="Download PowerPoint"></i>
 					</span>
 					<div id="navPanel">
 						<div class="navRadioButton" onclick="onSwitchDashboard(1800, 'https://public.tableau.com/views/CPMSDashDevVersion/CPMSCO01?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
@@ -125,14 +125,23 @@
 				background-color: #f2f2f2;
 			}
 			#downloads i {
-				color: #666;
+				/* color: #666; */
 				cursor: pointer;
 			}
 			#downloads i:hover {
 				color: #007097;
 			}
+			.fa-file-pdf {
+				color: #973126;
+			}
+			.fa-file-excel {
+				color: #0a9544;
+			}
+			.fa-file-powerpoint {
+				color: #e74c3c;
+			}
 			#resetDashboard {
-				/* visibility: hidden; */
+				visibility: hidden;
 				z-index: 1;
 				margin: 6px 0 0 0;
 				background-color: #f2f2f2;
@@ -158,12 +167,16 @@
 			}
 			#resetDashboard:active {
 				top: 110px;
-				box-shadow: inset -2px -2px 2px 2px rgba(0, 0, 0, .1);
+				box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, .1);
 			}
 			#resetArrow {
-				margin: -2px 0 0 0;
+				position: relative;
+				top: -3px;
 				padding: 0 12px 0 0;
 				font-size: 24px;
+			}
+			#resetArrow {
+				top: -2px;
 			}
 			.likebtn-wrapper {
 				position: absolute;
@@ -440,7 +453,7 @@
 			}
 
 			function downloadExcel() {
-				viz.showExportCrossTabToExcelDialog();
+				viz.exportCrossTabToExcel("Project Detail");
 			}
 
 			function downloadPowerPoint() {
