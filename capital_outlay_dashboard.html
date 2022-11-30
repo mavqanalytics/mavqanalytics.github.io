@@ -1,49 +1,45 @@
 <html>
 	<script src="https://public.tableau.com/javascripts/api/tableau-2.9.1.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+
 	<div id="mavQContainer">
 		<div id="mainContent">
 			<button id="resetDashboard"><p id="resetArrow">↺</p>RESET</button>
-			<span id="downloads">
-						<i class="fa-solid fa-file-pdf" onclick="downloadPDF()" title="Download PDF"></i>
-						<i class="fa-solid fa-file-excel" onclick="downloadExcel()" title="Download Excel"></i>
-						<i class="fa-solid fa-file-powerpoint" onclick="downloadPowerPoint()" title="Download PowerPoint"></i>
-					</span>
+			<p id="viewAsPDF" onclick="downloadPDF()">View or Print PDF</p>
 			<div id="navPanel">
-				<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/CapitalOutlayDashboardVersion2/CO_01-CapitalAppropriations?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
+				<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/CPMSDashDevVersion/CPMSCO01?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
 					<span class="radioTextContainer">
 						<p class="code">CO_01</p>
-						<p class="radioText">Capital Appropriations</p>
+						<p class="radioText">CPMS CO 01<br>General Fund Budget</p>
 					</span>
 					<input type="radio">
 					<span class="arrowBackground">
 						<span class="arrow"></span>
 					</span>
 				</div>
-				<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/CapitalOutlayDashboardVersion2/CO_02-ExecutiveOrder?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
+				<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/CPMSDashDevVersion/CPMSCO02?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
 					<span class="radioTextContainer">
 						<p class="code">CO_02</p>
-						<p class="radioText">Executive Order</p>
+						<p class="radioText">CPMS CO 02</p>
 					</span>
 					<input type="radio">
 					<span class="arrowBackground">
 						<span class="arrow"></span>
 					</span>
 				</div>
-				<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/CapitalOutlayDashboardVersion2/CO_03-GrantAgreements?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
+				<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/CPMSDashDevVersion/Glossary?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
 					<span class="radioTextContainer">
 						<p class="code">CO_03</p>
-						<p class="radioText">Grant Agreements</p>
+						<p class="radioText">Glossary</p>
 					</span>
 					<input type="radio">
 					<span class="arrowBackground">
 						<span class="arrow"></span>
 					</span>
 				</div>
-        		<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/CapitalOutlayDashboardVersion2/CO_99-Glossary?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
+				<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/CPMSDashDevVersion/GA?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link')">
 					<span class="radioTextContainer">
-						<p class="code">CO_99</p>
-						<p class="radioText">Glossary</p>
+						<p class="code">CO_04</p>
+						<p class="radioText">Grant Agreements</p>
 					</span>
 					<input type="radio">
 					<span class="arrowBackground">
@@ -54,7 +50,7 @@
 			<div id="tableauViz"></div>
 		</div>
 		<div id="footer">
-			<a id="poweredContainer" href="https://mavq.com" target="_blank" rel="noopener">
+			<a id="poweredContainer" href="https://mavq.com" target="_blank">
 				<p id="poweredText">Powered by</p>
 				<img src="https://mavq.com/assets/images/logo.png">
 			</a>
@@ -71,8 +67,8 @@
 			flex-direction: column;
       		position: relative;
 			top: -200px;
-			left: -382px;
-     		width: 1710px;
+			left: -172px;
+     		width: 1548px;
 			margin-top: 60px;
 			margin-bottom: -200px;
 			font-size: 15px;
@@ -82,22 +78,21 @@
 			box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, .2);
 			border-radius: 6px;
 			border: 1px solid #ddd;
-      		overflow: hidden;
 		}
 		@media only screen and (max-width: 980px) {
 			#mavQContainer {
 				scale: 50%;
-				left: -453px;
+				left: -386px;
 				top: -500px;
 				margin-bottom: -900px;
 			}
 		}
 		@media only screen and (max-width: 400px) {
 			#mavQContainer {
-				scale: 22%;
-				top: -740px;
-				left: -686px;
-				margin-bottom: -1400px;
+				scale: 25%;
+				top: -730px;
+				left: -586px;
+				margin-bottom: -1200px;
 			}
 		}
 		#mainContent {
@@ -108,84 +103,62 @@
 			top: 0;
 			display: flex;
 			flex-direction: row;
-      		flex: 1 0 auto;
 		}
-		#downloads {
+		#viewAsPDF {
+			all: unset;
 			margin: 0;
+			padding: 6px 9px 4px 9px;
 			position: absolute;
 			top: 20px;
-			width: 210px;
-			display: flex;
-			flex-direction: row;
-			justify-content: space-between;
-			align-items: center;
-			font-size: 30pt;
-			padding: 15px;
-			border-radius: 15px;
-			box-sizing: border-box;
-			box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, .1);
-			background-color: #f2f2f2;
+			width: 126px;
+			height: 30px;
+      		color: black;
+      		background-color: #ccc;
+			border-radius: 12px;
+      		box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, .2);
+			font-weight: bold;
 		}
-		#downloads i {
-			/* color: #666; */
+		#viewAsPDF:hover {
 			cursor: pointer;
-		}
-		#downloads i:hover {
 			color: #007097;
 		}
-		.fa-file-pdf {
-			color: #973126;
-		}
-		.fa-file-excel {
-			color: #0a9544;
-		}
-		.fa-file-powerpoint {
-			color: #e74c3c;
-		}
 		#resetDashboard {
+			all: unset;
 			visibility: hidden;
 			z-index: 1;
 			margin: 6px 0 0 0;
-			background-color: #f2f2f2;
+      		padding: 0 0 0 21px;
+			background-color: #ccc;
 			color: black;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+      		justify-content: center;
 			cursor: pointer;
 			border-radius: 12px;
 			border: none;
-			height: 60px;
-			width: 210px;
+			height: 36px;
+			width: 123px;
 			position: absolute;
-			top: 110px;
-			box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, .1);
+			top: 80px;
+      		box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, .2);
 			font-weight: bold;
-			font-size: 15pt;
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			align-items: center;
 		}
 		#resetDashboard:hover {
-			top: 108px;
-			box-shadow: 2px 4px 2px 0 rgba(0, 0, 0, .1);
-		}
-		#resetDashboard:active {
-			top: 110px;
-			box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, .1);
+			color: #777;
 		}
 		#resetArrow {
-			position: relative;
-			top: -3px;
-			padding: 0 12px 0 0;
-			font-size: 24px;
-		}
-		#resetArrow {
-			top: -2px;
+			position: absolute;
+			top: 2px;
+      		left: 30px;
+			font-size: 21px;
 		}
 		#navPanel {
       		all: unset;
 			display: flex;
 			flex-direction: column;
 			position: relative;
-			top: 200px;
+			top: 150px;
 			margin: 0 0 auto 0;
 			width: 210px;
 			min-width: 210px;
@@ -271,10 +244,10 @@
 			background-color: rgb(12, 12, 35);
 			color: rgb(121, 128, 171);
 			text-align: center;
-			width: 1722px;
+			width: 1561px;
 			position: relative;
 			left: -12px;
-      		flex-shrink: 0;
+			bottom: -15px;
 		}
 		#poweredContainer {
 			display: flex;
@@ -302,11 +275,11 @@
 	</style>
 	<script>
 		var placeholderDiv = document.getElementById("tableauViz");
-		var url = "https://public.tableau.com/views/CapitalOutlayDashboardVersion2/CO_01-CapitalAppropriations?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link";
+		var url = "https://public.tableau.com/views/CPMSDashDevVersion/CPMSCO01?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link";
 		var options = {
 			hideTabs: true,
 			width: "1500px",
-			height: "1825px",
+			height: "1880px",
 			onFirstInteractive: function() {
 				var resetButton = document.getElementById("resetDashboard");
 				resetButton.style.visibility = "visible";
@@ -349,7 +322,7 @@
 			viz.addEventListener('parametervaluechange', onFilterChange);
 
 			var resetButton = document.getElementById("resetDashboard");
-			resetButton.style.backgroundColor = "#f2f2f2";
+			resetButton.style.backgroundColor = "#ccc";
 			resetButton.style.color = "black";
 			resetButton.style.visibility = "hidden";
 		}
@@ -402,14 +375,6 @@
 			//var url = "https://public.tableau.com/views/" + workbookName + "/" + sheetName + ".pdf?%3Adisplay_static_image=y&%3AbootstrapWhenNotified=true&%3Aembed=true&%3Alanguage=en-US&:embed=y&:showVizHome=n&:apiID=host0#navType=0&navSrc=Parse";
 			//window.open(url, '_blank');
       		viz.showExportPDFDialog();
-		}
-    
-    	function downloadExcel() {
-			viz.exportCrossTabToExcel("Project Detail");
-		}
-
-		function downloadPowerPoint() {
-			viz.showExportPowerPointDialog();
 		}
 	</script>
 </html>
