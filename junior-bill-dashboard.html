@@ -1,0 +1,411 @@
+<html>
+	<script src="https://public.tableau.com/javascripts/api/tableau-2.9.1.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+	<div id="mavQContainer">
+		<div id="mainContent">
+			<button id="resetDashboard"><p id="resetArrow">↺</p>RESET</button>
+			<span id="downloads">
+						<i class="fa-solid fa-file-pdf" onclick="downloadPDF()" title="Download PDF"></i>
+						<i class="fa-solid fa-file-excel" onclick="downloadExcel()" title="Download Excel"></i>
+						<i class="fa-solid fa-file-powerpoint" onclick="downloadPowerPoint()" title="Download PowerPoint"></i>
+					</span>
+			<div id="navPanel">
+				<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/JuniorBillAppropriations?:language=en-US&:display_count=n&:origin=viz_share_link')">
+					<span class="radioTextContainer">
+						<!-- <p class="code">JR_01</p> -->
+						<p class="radioText">Junior Bill Appropriations</p>
+					</span>
+					<input type="radio">
+					<span class="arrowBackground">
+						<span class="arrow"></span>
+					</span>
+				</div>
+				<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/Glossary?:language=en-US&:display_count=n&:origin=viz_share_link')">
+					<span class="radioTextContainer">
+						<!-- <p class="code">JR_99</p> -->
+						<p class="radioText">Glossary</p>
+					</span>
+					<input type="radio">
+					<span class="arrowBackground">
+						<span class="arrow"></span>
+					</span>
+				</div>
+			</div>
+			<div id="tableauViz"></div>
+		</div>
+		<div id="footer">
+			<a id="poweredContainer" href="https://mavq.com" target="_blank" rel="noopener">
+				<p id="poweredText">Powered by</p>
+				<img src="https://mavq.com/assets/images/logo.png">
+			</a>
+			<p id="copyright">© 2022 Maverick Quantum Inc. All rights reserved</p>
+		</div>
+	</div>
+	<style>
+        html {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+        }
+		#mavQContainer {
+			all: unset;
+			scale: 80%;
+			margin: 0;
+			padding: 0px 0px 0px 12px;
+			display: flex;
+			flex-direction: column;
+            position: relative;
+			/* top: -200px; */
+			/* left: -382px; */
+     	    width: 1710px;
+			margin-top: 60px;
+			margin-bottom: -200px;
+			font-size: 15px;
+			font-family: Arial, Helvetica, sans-serif;
+			color: black;
+			background-color: white;
+			box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, .2);
+			border-radius: 6px;
+			border: 1px solid #ddd;
+            overflow: hidden;
+		}
+		@media only screen and (max-width: 980px) {
+			#mavQContainer {
+				scale: 50%;
+				left: -453px;
+				top: -500px;
+				margin-bottom: -900px;
+			}
+		}
+		@media only screen and (max-width: 400px) {
+			#mavQContainer {
+				scale: 22%;
+				top: -740px;
+				left: -686px;
+				margin-bottom: -1400px;
+			}
+		}
+		#mainContent {
+             all: unset;
+			margin: 0;
+			padding: 0;
+			position: relative;
+			top: 0;
+			display: flex;
+			flex-direction: row;
+            flex: 1 0 auto;
+		}
+		#downloads {
+            margin: 0;
+            position: absolute;
+            top: 20px;
+            width: 210px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 30pt;
+            padding: 15px;
+            border-radius: 15px;
+            box-sizing: border-box;
+            box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, .1);
+            background-color: #f2f2f2;
+        }
+		#downloads i {
+			/* color: #666; */
+			cursor: pointer;
+		}
+		#downloads i:hover {
+			color: #007097;
+		}
+		.fa-file-pdf {
+			color: #973126;
+		}
+		.fa-file-excel {
+			color: #0a9544;
+		}
+		.fa-file-powerpoint {
+			color: #e74c3c;
+		}
+		#resetDashboard {
+			visibility: hidden;
+			z-index: 1;
+			margin: 6px 0 0 0;
+			background-color: #f2f2f2;
+			color: black;
+			cursor: pointer;
+			border-radius: 12px;
+			border: none;
+			height: 60px;
+			width: 210px;
+			position: absolute;
+			top: 110px;
+			box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, .1);
+			font-weight: bold;
+			font-size: 15pt;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+		}
+		#resetDashboard:hover {
+			top: 108px;
+			box-shadow: 2px 4px 2px 0 rgba(0, 0, 0, .1);
+		}
+		#resetDashboard:active {
+			top: 110px;
+			box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, .1);
+		}
+		#resetArrow {
+			position: relative;
+			top: -3px;
+			padding: 0 12px 0 0;
+			font-size: 24px;
+		}
+		#resetArrow {
+			top: -2px;
+		}
+		#navPanel {
+            all: unset;
+			display: flex;
+			flex-direction: column;
+			position: relative;
+			top: 200px;
+			margin: 0 0 auto 0;
+			width: 210px;
+			min-width: 210px;
+			border-radius: 9px;
+			border: 1px solid #ccc;
+			box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.2);
+			overflow: hidden;
+		}
+		.navRadioButton {
+            all: unset;
+			margin: 0;
+			padding: 0;
+			height: 100px;
+			display: flex;
+			flex-direction: row;
+			border: none;
+			border-bottom: 1px solid #ddd;
+			cursor: pointer;
+			background-color: white;
+		}
+		.navRadioButton input {
+			position: absolute;
+			opacity: 0;
+			cursor: pointer;
+            pointer-events: none;
+		}
+		.radioTextContainer {
+            all: unset;
+			margin: 0;
+			padding: 0;
+			width: 180px;
+			position: relative;
+			pointer-events: none;
+		}
+		.radioText {
+			margin: 0;
+			pointer-events: none;
+			position: absolute;
+            top: 40px;
+			left: 9px;
+            line-height: 1.25;
+			width: 170px;
+            height: 100px;
+		}
+		.code {
+            all: unset;
+			position: absolute;
+			top: 9px;
+			left: 9px;
+			color: #999;
+		}
+		.arrowBackground {
+			margin: 0;
+			pointer-events: none;
+			background-color: #f7f7f7;
+			width: 30px;
+			min-width: 30px;
+			height: 100px;
+			position: relative;
+			top: 0;
+			right: 0;
+		}
+		.arrow {
+			border: solid #007097;
+			border-width: 0 2px 2px 0;
+			display: inline-block;
+			padding: 6px;
+			transform: rotate(-45deg);
+ 			-webkit-transform: rotate(-45deg);
+			position: relative;
+			top: 35px;
+			left: 3px;
+		}
+		.star {
+			position: relative;
+			top: 8px;
+			left: -100px;
+			color: #E8B915;
+            pointer-events: none;
+		}
+		#footer {
+			box-sizing: border-box;
+			background-color: rgb(12, 12, 35);
+			color: rgb(121, 128, 171);
+			text-align: center;
+			width: 1722px;
+			position: relative;
+			left: -12px;
+            flex-shrink: 0;
+		}
+		#poweredContainer {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			margin: 6px 0;
+			text-decoration: none;
+			color: rgb(121, 128, 171);
+		}
+		#poweredText {
+			padding: 0 12px 0 0;
+			position: relative;
+			top: 12px;
+		}
+		#footerLogo {
+			margin: 0;
+			pointer-events: none;
+			width: 100px;
+		}
+		#copyright {
+			margin: 0 0 6px 0;
+			color: rgb(121, 128, 171)
+		}
+	</style>
+	<script>
+		var placeholderDiv = document.getElementById("tableauViz");
+		var url = "https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/JuniorBillAppropriations?:language=en-US&:display_count=n&:origin=viz_share_link";
+		var options = {
+			hideTabs: true,
+			width: "1500px",
+			height: "1825px",
+			onFirstInteractive: function() {
+				var resetButton = document.getElementById("resetDashboard");
+				resetButton.style.visibility = "visible";
+				resetButton.addEventListener("click", function() {
+					var url = viz.getWorkbook().getActiveSheet().getUrl();
+					switchDashboard(url);
+				});
+			}
+		};
+		var viz = new tableau.Viz(placeholderDiv, url, options);
+		viz.addEventListener('filterchange', onFilterChange);
+		viz.addEventListener('marksselection', onFilterChange);
+		viz.addEventListener('parametervaluechange', onFilterChange);
+
+		var radioButtons = document.getElementsByClassName("navRadioButton");
+		for (var i = 0; i < radioButtons.length; i++) {
+			radioButtons[i].addEventListener("mouseenter", onRadioButtonMouseEnter);
+			radioButtons[i].addEventListener("mouseleave", onRadioButtonMouseLeave);
+		}
+		radioButtons[1].style.border = "none";
+
+		checkRadioButton(radioButtons[0]);
+
+		function onSwitchDashboard(url) {
+			switchDashboard(url);
+			uncheckRadioButtons();
+			checkRadioButton(event.target);
+		}
+
+		function switchDashboard(url) {
+			if (url == "") return;
+			viz.removeEventListener('filterchange', onFilterChange);
+			viz.removeEventListener('marksselection', onFilterChange);
+			viz.removeEventListener('parametervaluechange', onFilterChange);
+			viz.dispose();
+
+			viz = new tableau.Viz(placeholderDiv, url, options);
+			viz.addEventListener('filterchange', onFilterChange);
+			viz.addEventListener('marksselection', onFilterChange);
+			viz.addEventListener('parametervaluechange', onFilterChange);
+
+			var resetButton = document.getElementById("resetDashboard");
+			resetButton.style.backgroundColor = "#f2f2f2";
+			resetButton.style.color = "black";
+			resetButton.style.visibility = "hidden";
+		}
+
+		function onFilterChange() {
+			var resetButton = document.getElementById("resetDashboard");
+			resetButton.style.backgroundColor = "#800000";
+      		resetButton.style.color = "white";
+		}
+
+		function checkRadioButton(button) {
+			button.querySelector('input').checked = true;
+			button.style.backgroundColor = "#007097";
+			button.style.color = "white";
+			// button.getElementsByClassName("code")[0].style.color = "white";
+			button.getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#035876";
+			button.getElementsByClassName("arrow")[0].style.borderColor = "white";
+		}
+
+		function uncheckRadioButtons() {
+			var radioButtons = document.getElementsByClassName("navRadioButton");
+			for (var i = 0; i < radioButtons.length; i++) {
+				radioButtons[i].querySelector('input').checked = false;
+				radioButtons[i].style.backgroundColor = "#fff";
+				radioButtons[i].style.color = "black";
+				// radioButtons[i].getElementsByClassName("code")[0].style.color = "#bbb";
+				radioButtons[i].getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#F7F7F7";
+				radioButtons[i].getElementsByClassName("arrow")[0].style.borderColor = "rgb(74, 109, 147)";
+			}
+		}
+
+		function onRadioButtonMouseEnter() {
+			if (!event.target.querySelector('input').checked) {
+				event.target.style.backgroundColor = "#f2f2f2";
+				event.target.getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#f2f2f2";
+			}
+		}
+
+		function onRadioButtonMouseLeave() {
+			if (!event.target.querySelector('input').checked) {
+				event.target.style.backgroundColor = "#fff";
+				event.target.getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#f7f7f7";
+			}
+		}
+
+		function downloadPDF() {
+			//var vizUrl = viz.getWorkbook().getActiveSheet().getUrl();
+			//var workbookName = vizUrl.split("/")[4];
+			//var sheetName = vizUrl.split("/")[5];
+			//var url = "https://public.tableau.com/views/" + workbookName + "/" + sheetName + ".pdf?%3Adisplay_static_image=y&%3AbootstrapWhenNotified=true&%3Aembed=true&%3Alanguage=en-US&:embed=y&:showVizHome=n&:apiID=host0#navType=0&navSrc=Parse";
+			//window.open(url, '_blank');
+      		viz.showExportPDFDialog();
+		}
+    
+        function downloadExcel() {
+            var checkedButton = document.querySelector('input[type="radio"]:checked');
+            var code = checkedButton.parentNode.querySelector('.code').innerHTML;
+            if (code === "CO_99") {
+                viz.exportCrossTabToExcel("Fund Code - Funding Source");
+                return;
+            }
+            viz.exportCrossTabToExcel("Project Details " + code);
+        }
+
+        function downloadPowerPoint() {
+            viz.showExportPowerPointDialog();
+        }
+	</script>
+</html>
