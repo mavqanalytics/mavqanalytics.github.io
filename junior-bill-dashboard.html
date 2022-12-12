@@ -3,32 +3,39 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
 	<div id="mavQContainer">
 		<div id="mainContent">
-			<button id="resetDashboard"><p id="resetArrow">↺</p>RESET</button>
-			<span id="downloads">
-						<i class="fa-solid fa-file-pdf" onclick="downloadPDF()" title="Download PDF"></i>
-						<i class="fa-solid fa-file-excel" onclick="downloadExcel()" title="Download Excel"></i>
-						<i class="fa-solid fa-file-powerpoint" onclick="downloadPowerPoint()" title="Download PowerPoint"></i>
-					</span>
-			<div id="navPanel">
-				<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/JuniorBillAppropriations?:language=en-US&:display_count=n&:origin=viz_share_link')">
-					<span class="radioTextContainer">
-						<!-- <p class="code">JR_01</p> -->
-						<p class="radioText">Junior Bill Appropriations</p>
-					</span>
-					<input type="radio">
-					<span class="arrowBackground">
-						<span class="arrow"></span>
-					</span>
+			<div id="leftPanel">
+				<span id="downloads">
+					<i class="fa-solid fa-file-pdf" onclick="downloadPDF()" data-title="Download PDF"></i>
+					<i class="fa-solid fa-file-excel" onclick="downloadExcel()" data-title="Download Excel"></i>
+					<i class="fa-solid fa-file-powerpoint" onclick="downloadPowerPoint()" data-title="Download PowerPoint"></i>
+				</span>
+				<button id="resetDashboard"><p id="resetArrow">↺</p>RESET</button>
+				<div id="tableauToolbar">
+					<i class="fa-solid fa-backward" data-title="Undo" onclick="onUndoClick()"></i>
+					<i class="fa-solid fa-share-from-square" data-title="Share" onclick="onShareClick()"></i>
+					<i class="fa-solid fa-download" data-title="Download" onclick="onDownloadClick()"></i>
 				</div>
-				<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/Glossary?:language=en-US&:display_count=n&:origin=viz_share_link')">
-					<span class="radioTextContainer">
-						<!-- <p class="code">JR_99</p> -->
-						<p class="radioText">Glossary</p>
-					</span>
-					<input type="radio">
-					<span class="arrowBackground">
-						<span class="arrow"></span>
-					</span>
+				<div id="navPanel">
+					<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/JuniorBillAppropriations?:language=en-US&:display_count=n&:origin=viz_share_link')">
+						<span class="radioTextContainer">
+							<!-- <p class="code">JR_01</p> -->
+							<p class="radioText">Junior Bill Appropriations</p>
+						</span>
+						<input type="radio">
+						<span class="arrowBackground">
+							<span class="arrow"></span>
+						</span>
+					</div>
+					<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/Glossary?:language=en-US&:display_count=n&:origin=viz_share_link')">
+						<span class="radioTextContainer">
+							<!-- <p class="code">JR_99</p> -->
+							<p class="radioText">Glossary</p>
+						</span>
+						<input type="radio">
+						<span class="arrowBackground">
+							<span class="arrow"></span>
+						</span>
+					</div>
 				</div>
 			</div>
 			<div id="tableauViz"></div>
@@ -74,6 +81,11 @@
 			border-radius: 6px;
 			border: 1px solid #ddd;
             overflow: hidden;
+			scroll-behavior: none;
+		}
+		#leftPanel {
+			height: fit-content;
+			/* position: sticky; */
 		}
 		/* @media only screen and (max-width: 980px) {
 			#mavQContainer {
@@ -92,7 +104,7 @@
 			}
 		} */
 		#mainContent {
-             all: unset;
+            all: unset;
 			margin: 0;
 			padding: 0;
 			position: relative;
@@ -102,9 +114,7 @@
             flex: 1 0 auto;
 		}
 		#downloads {
-            margin: 0;
-            position: absolute;
-            top: 20px;
+            margin: 12px 0 0 0;
             width: 210px;
             display: flex;
             flex-direction: row;
@@ -114,8 +124,8 @@
             padding: 15px;
             border-radius: 15px;
             box-sizing: border-box;
-            box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, .1);
-            background-color: #f2f2f2;
+            box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
+            /* background-color: #f2f2f2; */
         }
 		#downloads i {
 			/* color: #666; */
@@ -134,19 +144,16 @@
 			color: #e74c3c;
 		}
 		#resetDashboard {
-			visibility: hidden;
 			z-index: 1;
-			margin: 6px 0 0 0;
-			background-color: #f2f2f2;
+			margin: 15px 0 0 0;
 			color: black;
+			background-color: white;
 			cursor: pointer;
 			border-radius: 12px;
 			border: none;
 			height: 60px;
 			width: 210px;
-			position: absolute;
-			top: 110px;
-			box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, .1);
+            box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
 			font-weight: bold;
 			font-size: 15pt;
 			display: flex;
@@ -155,12 +162,12 @@
 			align-items: center;
 		}
 		#resetDashboard:hover {
-			top: 108px;
-			box-shadow: 2px 4px 2px 0 rgba(0, 0, 0, .1);
+			top: 110px;
+            box-shadow: 0 3px 4px 1px rgba(0, 0, 0, .18);
 		}
 		#resetDashboard:active {
 			top: 110px;
-			box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, .1);
+			box-shadow: inset 0 2px 2px 1px rgba(0, 0, 0, .18);
 		}
 		#resetArrow {
 			position: relative;
@@ -176,13 +183,12 @@
 			display: flex;
 			flex-direction: column;
 			position: relative;
-			top: 200px;
-			margin: 0 0 auto 0;
+			margin: 15px 0 auto 0;
 			width: 210px;
 			min-width: 210px;
-			border-radius: 9px;
+			border-radius: 15px;
 			border: 1px solid #ccc;
-			box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.2);
+            box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
 			overflow: hidden;
 		}
 		.navRadioButton {
@@ -257,6 +263,50 @@
 			color: #E8B915;
             pointer-events: none;
 		}
+		#tableauToolbar {
+			color: #ccc;
+			margin: 15px 0 0 0;
+			padding: 12px;
+			position: relative;
+            width: 210px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15pt;
+            /* border-radius: 15px; */
+            box-sizing: border-box;
+            /* box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18); */
+            /* background-color: #f2f2f2; */
+		}
+		#tableauToolbar i:hover {
+			color: #007097;
+			cursor: pointer;
+		}
+		[data-title]:hover:after {
+			opacity: 1;
+			transition: all 0.1s ease 0.25s;
+			visibility: visible;
+		}
+		[data-title]:after {
+			content: attr(data-title);
+			background-color: white;
+			font-size: 9pt;
+			position: absolute;
+			padding: 6px;
+			bottom: -1.6em;
+			left: 100%;
+			white-space: nowrap;
+			opacity: 0;
+            box-shadow: 0 1px 3px 1px rgba(0, 0, 0, .18);
+			border-radius: 6px;
+			z-index: 99999;
+			visibility: hidden;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		[data-title] {
+			position: relative;
+		}
 		#footer {
 			box-sizing: border-box;
 			background-color: rgb(12, 12, 35);
@@ -296,11 +346,11 @@
 		var url = "https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/JuniorBillAppropriations?:language=en-US&:display_count=n&:origin=viz_share_link";
 		var options = {
 			hideTabs: true,
+			hideToolbar: true,
 			width: "1500px",
-			height: "1825px",
+			height: "1800px",
 			onFirstInteractive: function() {
 				var resetButton = document.getElementById("resetDashboard");
-				resetButton.style.visibility = "visible";
 				resetButton.addEventListener("click", function() {
 					var url = viz.getWorkbook().getActiveSheet().getUrl();
 					switchDashboard(url);
@@ -340,9 +390,8 @@
 			viz.addEventListener('parametervaluechange', onFilterChange);
 
 			var resetButton = document.getElementById("resetDashboard");
-			resetButton.style.backgroundColor = "#f2f2f2";
+			resetButton.style.backgroundColor = "white";
 			resetButton.style.color = "black";
-			resetButton.style.visibility = "hidden";
 		}
 
 		function onFilterChange() {
@@ -408,5 +457,17 @@
         function downloadPowerPoint() {
             viz.showExportPowerPointDialog();
         }
+
+		function onUndoClick() {
+			viz.undoAsync();
+		}
+
+		function onShareClick() {
+			viz.showShareDialog();
+		}
+
+		function onDownloadClick() {
+			viz.showDownloadDialog();
+		}
 	</script>
 </html>
