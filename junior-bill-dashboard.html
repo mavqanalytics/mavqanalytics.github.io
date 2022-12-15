@@ -15,6 +15,7 @@
 					<i class="fa-solid fa-forward" data-title="Redo" onclick="onRedoClick()"></i>
 					<i class="fa-solid fa-share-from-square" data-title="Share" onclick="onShareClick()"></i>
 					<i class="fa-solid fa-download" data-title="Download" onclick="onDownloadClick()"></i>
+					<i class="fa-solid fa-expand" data-title="Fullscreen" onclick="onFullscreenClick()"></i>
 				</div>
 				<div id="navPanel">
 					<div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()" onmouseleave="onRadioButtonMouseLeave()">
@@ -51,18 +52,15 @@
 	</div>
 	<style>
         html {
-            display: flex;
-            flex-direction: column;
             height: 100%;
             width: 100%;
             margin: 0;
             padding: 0;
-            justify-content: center;
-            align-items: center;
         }
 		#mavQContainer {
 			all: unset;
 			scale: 80%;
+			transform-origin: top center;
 			margin: 0;
 			padding: 0px 0px 0px 12px;
 			display: flex;
@@ -345,8 +343,8 @@
 	<script>
 		var placeholderDiv = document.getElementById("tableauViz");
 		var urls = [
-			"https://public.tableau.com/views/JuniorBillAppropriations-TabSwitchButton/JuniorBillAppropriations",
-			"https://public.tableau.com/views/JuniorBillAppropriations-TabSwitchButton/Glossary"
+			"https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/JuniorBillAppropriations",
+			"https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/Glossary"
 		];
 		var options = {
 			hideTabs: true,
@@ -495,6 +493,20 @@
 
 		function onDownloadClick() {
 			viz.showDownloadDialog();
+		}
+
+		function onFullscreenClick() {
+			var mavQContainer = document.getElementById("mavQContainer");
+			mavQContainer.style.position = "absolute";
+			mavQContainer.style.top = "0";
+			mavQContainer.style.left = "0";
+			mavQContainer.style.width = "100%";
+			mavQContainer.style.height = "100%";
+			mavQContainer.style.zIndex = "1000";
+			mavQContainer.style.backgroundColor = "white";
+			mavQContainer.style.marginTop = "0";
+			mavQContainer.style.justifyContent = "center";
+			mavQContainer.style.alignItems = "center";
 		}
 	</script>
 </html>
