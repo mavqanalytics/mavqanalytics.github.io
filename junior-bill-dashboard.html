@@ -16,7 +16,7 @@
 					<i class="fa-solid fa-download" data-title="Download" onclick="onDownloadClick()"></i>
 				</div>
 				<div id="navPanel">
-					<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/JuniorBillAppropriations?:language=en-US&:display_count=n&:origin=viz_share_link')">
+					<div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()" onmouseleave="onRadioButtonMouseLeave()">
 						<span class="radioTextContainer">
 							<!-- <p class="code">JR_01</p> -->
 							<p class="radioText">Junior Bill Appropriations</p>
@@ -26,7 +26,7 @@
 							<span class="arrow"></span>
 						</span>
 					</div>
-					<div class="navRadioButton" onclick="onSwitchDashboard('https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/Glossary?:language=en-US&:display_count=n&:origin=viz_share_link')">
+					<div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()" onmouseleave="onRadioButtonMouseLeave()">
 						<span class="radioTextContainer">
 							<!-- <p class="code">JR_99</p> -->
 							<p class="radioText">Glossary</p>
@@ -343,12 +343,14 @@
 	</style>
 	<script>
 		var placeholderDiv = document.getElementById("tableauViz");
-		var url = "https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/JuniorBillAppropriations?:language=en-US&:display_count=n&:origin=viz_share_link";
+		var urls = [
+			"https://public.tableau.com/views/JuniorBillAppropriations-TabSwitchButton/JuniorBillAppropriations",
+			"https://public.tableau.com/views/JuniorBillAppropriations-TabSwitchButton/Glossary"
+		];
 		var options = {
 			hideTabs: true,
-			hideToolbar: true,
 			width: "1500px",
-			height: "1800px",
+			height: "1825px",
 			onFirstInteractive: function() {
 				var resetButton = document.getElementById("resetDashboard");
 				resetButton.addEventListener("click", function() {
@@ -357,22 +359,40 @@
 				});
 			}
 		};
-		var viz = new tableau.Viz(placeholderDiv, url, options);
+		var viz = new tableau.Viz(placeholderDiv, urls[0], options);
 		viz.addEventListener('filterchange', onFilterChange);
 		viz.addEventListener('marksselection', onFilterChange);
 		viz.addEventListener('parametervaluechange', onFilterChange);
+		viz.addEventListener('tabswitch', onTabSwitch);
 
 		var radioButtons = document.getElementsByClassName("navRadioButton");
-		for (var i = 0; i < radioButtons.length; i++) {
-			radioButtons[i].addEventListener("mouseenter", onRadioButtonMouseEnter);
-			radioButtons[i].addEventListener("mouseleave", onRadioButtonMouseLeave);
-		}
 		radioButtons[1].style.border = "none";
 
 		checkRadioButton(radioButtons[0]);
 
-		function onSwitchDashboard(url) {
-			switchDashboard(url);
+		function onTabSwitch() {
+			var url = viz.getWorkbook().getActiveSheet().getUrl();
+			switch (url) {
+				case urls[0]:
+					uncheckRadioButtons();
+					checkRadioButton(radioButtons[0]);
+					break;
+				case urls[1]:
+					uncheckRadioButtons();
+					checkRadioButton(radioButtons[1]);
+					break;
+			}
+		}
+
+		function onSwitchDashboard() {
+			switch (event.target) {
+				case radioButtons[0]:
+					switchDashboard(urls[0]);
+					break;
+				case radioButtons[1]:
+					switchDashboard(urls[1]);
+					break;
+			}
 			uncheckRadioButtons();
 			checkRadioButton(event.target);
 		}
@@ -382,12 +402,14 @@
 			viz.removeEventListener('filterchange', onFilterChange);
 			viz.removeEventListener('marksselection', onFilterChange);
 			viz.removeEventListener('parametervaluechange', onFilterChange);
+			viz.removeEventListener('tabswitch', onTabSwitch);
 			viz.dispose();
 
 			viz = new tableau.Viz(placeholderDiv, url, options);
 			viz.addEventListener('filterchange', onFilterChange);
 			viz.addEventListener('marksselection', onFilterChange);
 			viz.addEventListener('parametervaluechange', onFilterChange);
+			viz.addEventListener('tabswitch', onTabSwitch);
 
 			var resetButton = document.getElementById("resetDashboard");
 			resetButton.style.backgroundColor = "white";
