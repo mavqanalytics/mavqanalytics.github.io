@@ -12,6 +12,7 @@
 				<button id="resetDashboard"><p id="resetArrow">↺</p>RESET</button>
 				<div id="tableauToolbar">
 					<i class="fa-solid fa-backward" data-title="Undo" onclick="onUndoClick()"></i>
+					<i class="fa-solid fa-forward" data-title="Undo" onclick="onRedoClick()"></i>
 					<i class="fa-solid fa-share-from-square" data-title="Share" onclick="onShareClick()"></i>
 					<i class="fa-solid fa-download" data-title="Download" onclick="onDownloadClick()"></i>
 				</div>
@@ -482,6 +483,10 @@
 
 		function onUndoClick() {
 			viz.undoAsync();
+		}
+		
+		function onRedoClick() {
+			viz.redoAsync();
 		}
 
 		function onShareClick() {
