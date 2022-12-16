@@ -20,17 +20,7 @@
         <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()" onmouseleave="onRadioButtonMouseLeave()">
           <span class="radioTextContainer">
             <!-- <p class="code">JR_01</p> -->
-            <p class="radioText">Junior Bill Appropriations</p>
-          </span>
-          <input type="radio">
-          <span class="arrowBackground">
-            <span class="arrow"></span>
-          </span>
-        </div>
-        <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()" onmouseleave="onRadioButtonMouseLeave()">
-          <span class="radioTextContainer">
-            <!-- <p class="code">JR_99</p> -->
-            <p class="radioText">Glossary</p>
+            <p class="radioText">BIL MAP</p>
           </span>
           <input type="radio">
           <span class="arrowBackground">
@@ -355,8 +345,7 @@
 <script>
   var placeholderDiv = document.getElementById("tableauViz");
   var urls = [
-    "https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/JuniorBillAppropriations",
-		"https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/Glossary"
+    "https://public.tableau.com/views/BILMapProjectDashboard/BILMapProject"
 	];
   var options = {
     hideTabs: true,
@@ -377,7 +366,7 @@
 	viz.addEventListener('tabswitch', onTabSwitch);
 
 	var radioButtons = document.getElementsByClassName("navRadioButton");
-	radioButtons[1].style.border = "none";
+	radioButtons[0].style.border = "none";
 
 	checkRadioButton(radioButtons[0]);
   
