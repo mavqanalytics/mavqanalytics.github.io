@@ -40,6 +40,7 @@
       </div>
     </div>
     <div id="tableauViz"></div>
+    <div id="toolbarBlocker"></div>
   </div>
   <div id="footer">
     <a id="poweredContainer" href="https://mavq.com" target="_blank" rel="noopener">
@@ -54,32 +55,24 @@
     box-sizing: border-box;
   }
   #mavQContainer {
-    all: unset;
-    /* scale: 80%; */
-    margin: 0;
-    padding: 0px 0px 0px 12px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-	align-items: center;
-    /* position: relative; */
-    /* top: -200px; */
-    /* left: -382px; */
-    /* width: 1705px; */
-    /* margin-top: 60px; */
-    /* margin-bottom: -200px; */
+    position: relative;
+		width: 1426px;
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
     color: black;
     background-color: white;
     box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, .2);
-    border-radius: 6px;
+    border-radius: 12px;
     border: 1px solid #ddd;
     overflow: hidden;
     scroll-behavior: none;
   }
   #leftPanel {
     height: fit-content;
-    /* position: sticky; */
+    margin-left: 12px;
   }
   @media only screen and (max-width: 980px) {
     #mavQContainer {
@@ -96,6 +89,14 @@
       left: -686px;
       margin-bottom: -1400px;
     }
+  }
+  #tableauViz {
+    scale: 80%;
+    transform-origin: top left;
+    width: 1500px;
+    height: 1825px;
+    margin-right: -300px;
+    margin-bottom: -365px;
   }
   #mainContent {
     all: unset;
@@ -119,22 +120,17 @@
     border-radius: 15px;
     box-sizing: border-box;
     box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
-      /* background-color: #f2f2f2; */
   }
   #downloads i {
-    /* color: #666; */
     cursor: pointer;
   }
   #downloads i:hover {
     color: #007097;
     transition: all 0.1s ease-in-out;
-    position: relative;
-    top: -2px;
   }
   #downloads i:active {
+    color: #005077;
     transition: all 0.1s ease-in-out;
-    position: relative;
-    top: 0;
   }
   .fa-file-pdf {
     color: #973126;
@@ -164,14 +160,10 @@
     align-items: center;
   }
   #resetDashboard:hover {
-    position: relative;
-    top: -2px;
     box-shadow: 0 3px 4px 1px rgba(0, 0, 0, .18);
     transition: all 0.1s ease-in-out;
   }
   #resetDashboard:active {
-    position: relative;
-    top: 0;
     box-shadow: inset 0 2px 2px 1px rgba(0, 0, 0, .18);
     transition: all 0.1s ease-in-out;
   }
@@ -286,13 +278,10 @@
     color: #007097;
     cursor: pointer;
     transition: all 0.1s ease-in-out;
-    position: relative;
-    top: -2px;
   }
   #tableauToolbar i:active {
+    color: #005077;
     transition: all 0.1s ease-in-out;
-    position: relative;
-    top: 0;
   }
   [data-title]:hover:after {
     opacity: 1;
@@ -318,6 +307,15 @@
   [data-title] {
     position: relative;
   }
+  #toolbarBlocker {
+    z-index: 1;
+    background-color: white;
+    height: 25px;
+    width: 1500px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+	}
   #footer {
     box-sizing: border-box;
     background-color: rgb(12, 12, 35);
@@ -361,7 +359,7 @@
   var options = {
     hideTabs: true,
     width: "1500px",
-    height: "1800px",
+    height: "1825px",
     onFirstInteractive: function() {
       var resetButton = document.getElementById("resetDashboard");
       resetButton.addEventListener("click", function() {
@@ -430,14 +428,13 @@
   function onFilterChange() {
     var resetButton = document.getElementById("resetDashboard");
     resetButton.style.backgroundColor = "#800000";
-        resetButton.style.color = "white";
+    resetButton.style.color = "white";
   }
 
   function checkRadioButton(button) {
     button.querySelector('input').checked = true;
     button.style.backgroundColor = "#007097";
     button.style.color = "white";
-    // button.getElementsByClassName("code")[0].style.color = "white";
     button.getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#035876";
     button.getElementsByClassName("arrow")[0].style.borderColor = "white";
   }
@@ -448,7 +445,6 @@
       radioButtons[i].querySelector('input').checked = false;
       radioButtons[i].style.backgroundColor = "#fff";
       radioButtons[i].style.color = "black";
-      // radioButtons[i].getElementsByClassName("code")[0].style.color = "#bbb";
       radioButtons[i].getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#F7F7F7";
       radioButtons[i].getElementsByClassName("arrow")[0].style.borderColor = "rgb(74, 109, 147)";
     }
@@ -469,11 +465,6 @@
   }
 
   function downloadPDF() {
-    //var vizUrl = viz.getWorkbook().getActiveSheet().getUrl();
-    //var workbookName = vizUrl.split("/")[4];
-    //var sheetName = vizUrl.split("/")[5];
-    //var url = "https://public.tableau.com/views/" + workbookName + "/" + sheetName + ".pdf?%3Adisplay_static_image=y&%3AbootstrapWhenNotified=true&%3Aembed=true&%3Alanguage=en-US&:embed=y&:showVizHome=n&:apiID=host0#navType=0&navSrc=Parse";
-    //window.open(url, '_blank');
     viz.showExportPDFDialog();
   }
 
@@ -518,31 +509,16 @@
   mavQContainer.addEventListener('fullscreenchange', (event) => {
     if (document.fullscreenElement) {
       mavQContainer.style.position = "absolute";
-    //   mavQContainer.style.marginTop = "unset";
-    //   mavQContainer.style.marginBottom = "unset";
-    //   mavQContainer.style.top = "0";
-    //   mavQContainer.style.left = "0";
       mavQContainer.style.overflow = "scroll";
       mavQContainer.style.scrollBehavior = "unset";
-    //   mavQContainer.style.width = "100vw";
-    //   mavQContainer.style.height = "100vh";
       mavQContainer.style.alignItems = "center";
       mavQContainer.style.zIndex = "999999";
-      mavQContainer.style.scale = "unset";
       return;
     }
     mavQContainer.style.position = "relative";
-    // mavQContainer.style.marginTop = "60px";
-    // mavQContainer.style.marginBottom = "-200px";
-    // mavQContainer.style.top = "-200px";
-    // mavQContainer.style.left = "-382px";
     mavQContainer.style.overflow = "hidden";
     mavQContainer.style.scrollBehavior = "none";
-    // mavQContainer.style.width = "1710px";
-    // mavQContainer.style.height = "unset";
     mavQContainer.style.alignItems = "unset";
     mavQContainer.style.zIndex = "unset";
-    // mavQContainer.style.scale = "80%";
-    mavQContainer.style.alignItems = "center";
   });
 </script>
