@@ -37,6 +37,16 @@
             <span class="arrow"></span>
           </span>
         </div>
+        <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()" onmouseleave="onRadioButtonMouseLeave()">
+          <span class="radioTextContainer">
+            <!-- <p class="code">JR_01</p> -->
+            <p class="radioText">Glossary</p>
+          </span>
+          <input type="radio">
+          <span class="arrowBackground">
+            <span class="arrow"></span>
+          </span>
+        </div>
       </div>
     </div>
     <div id="tableauViz"></div>
@@ -354,7 +364,8 @@
   var placeholderDiv = document.getElementById("tableauViz");
   var urls = [
     "https://public.tableau.com/views/ListofFilersDashboard/Dashboard1",
-    "https://public.tableau.com/views/Independent_ExpenditureDashboard/Dashboard1"
+    "https://public.tableau.com/views/Independent_ExpenditureDashboard/Dashboard1",
+    "https://public.tableau.com/views/NYSGlossary/Dashboard1"
 	];
   var options = {
     hideTabs: true,
