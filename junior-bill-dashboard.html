@@ -553,15 +553,21 @@
   function onDownloadClick() {
     viz.showDownloadDialog();
   }
+
+
   var mavQContainer = document.getElementById("mavQContainer");
   var isFullscreen = false;
+
   function onFullscreenClick() {
     if (document.fullscreenElement) {
       document.exitFullscreen();
+      window.addEventListener("resize", fixMargin);
       return;
     }
+    window.removeEventListener("resize", fixMargin);
     mavQContainer.requestFullscreen();
   }
+
   mavQContainer.addEventListener('fullscreenchange', (event) => {
     if (document.fullscreenElement) {
       mavQContainer.style.position = "absolute";
@@ -569,6 +575,7 @@
       mavQContainer.style.scrollBehavior = "unset";
       mavQContainer.style.alignItems = "center";
       mavQContainer.style.zIndex = "999999";
+      mavQContainer.style.scale = "unset";
       return;
     }
     mavQContainer.style.position = "relative";
@@ -576,5 +583,6 @@
     mavQContainer.style.scrollBehavior = "none";
     mavQContainer.style.alignItems = "unset";
     mavQContainer.style.zIndex = "unset";
+    fixMargin();
   });
 </script>
