@@ -391,27 +391,20 @@
   
   function onTabSwitch() {
 		var url = viz.getWorkbook().getActiveSheet().getUrl();
-		switch (url) {
-			case urls[0]:
-				uncheckRadioButtons();
-				checkRadioButton(radioButtons[0]);
-				break;
-			case urls[1]:
-				uncheckRadioButtons();
-				checkRadioButton(radioButtons[1]);
-				break;
-		}
+    for (var i = 0; i < radioButtons.length; i++) {
+      if (urls[i] != url) continue;
+      uncheckRadioButtons();
+      checkRadioButton(radioButtons[i]);
+      return;
+    }
 	}
 
   function onSwitchDashboard() {
-    switch (event.target) {
-			case radioButtons[0]:
-				switchDashboard(urls[0]);
-				break;
-			case radioButtons[1]:
-				switchDashboard(urls[1]);
-				break;
-		}
+    for (var i = 0; i < radioButtons.length; i++) {
+      if (radioButtons[i] != event.target) continue;
+			switchDashboard(urls[i]);
+      break;
+    }
     uncheckRadioButtons();
     checkRadioButton(event.target);
   }

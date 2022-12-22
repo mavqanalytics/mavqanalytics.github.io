@@ -1,5 +1,6 @@
 <script src="https://public.tableau.com/javascripts/api/tableau-2.9.1.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+<div id="wrapper">
 <div id="mavQContainer">
   <div id="mainContent">
     <div id="leftPanel">
@@ -60,56 +61,37 @@
     <p id="copyright">© 2022 Maverick Quantum Inc. All rights reserved</p>
   </div>
 </div>
+</div>
 <style>
   * {
     box-sizing: border-box;
   }
-  #mavQContainer {
+  #wrapper {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #mavQContainer {
+    display: flex;
+    flex-direction: column;
+    scale: .80;
+    transform-origin: top left;
+    margin: 0 -342px -382px 0;
     position: relative;
-		width: 1426px;
+    width: 1708px;
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
     color: black;
     background-color: white;
-    box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, .2);
     border-radius: 12px;
     border: 1px solid #ddd;
     overflow: hidden;
     scroll-behavior: none;
   }
-  #leftPanel {
-    height: fit-content;
-    margin-left: 12px;
-  }
-  @media only screen and (max-width: 980px) {
-    #mavQContainer {
-      scale: 50%;
-      left: -453px;
-      top: -500px;
-      margin-bottom: -900px;
-    }
-  }
-  @media only screen and (max-width: 400px) {
-    #mavQContainer {
-      scale: 22%;
-      top: -740px;
-      left: -686px;
-      margin-bottom: -1400px;
-    }
-  }
-  #tableauViz {
-    scale: 80%;
-    transform-origin: top left;
-    width: 1500px;
-    height: 1825px;
-    margin-right: -300px;
-    margin-bottom: -365px;
-  }
   #mainContent {
-    all: unset;
     margin: 0;
     padding: 0;
     position: relative;
@@ -117,6 +99,20 @@
     display: flex;
     flex-direction: row;
     flex: 1 0 auto;
+  }
+  @media only screen and (max-width: 980px) {
+    #mavQContainer {
+      scale: .40;
+    }
+  }
+  @media only screen and (max-width: 400px) {
+    #mavQContainer {
+      scale: .22;
+    }
+  }
+  #leftPanel {
+    height: fit-content;
+    margin-left: 12px;
   }
   #downloads {
     margin: 12px 0 0 0;
@@ -385,41 +381,40 @@
 	viz.addEventListener('parametervaluechange', onFilterChange);
 	viz.addEventListener('tabswitch', onTabSwitch);
 
+  var mavQContainer = document.getElementById("mavQContainer");
+  window.addEventListener("resize", fixMargin);
+  function fixMargin() {
+    var style = getComputedStyle(mavQContainer);
+    var scale = parseFloat(style.scale);
+    var width = parseFloat(style.width);
+    var height = parseFloat(style.height);
+    mavQContainer.style.marginRight = "-" + (width - width * scale) + "px";
+    mavQContainer.style.marginBottom = "-" + (height - height * scale) + "px";
+    console.log(width - width * scale);
+    console.log(height - height * scale);
+  }
+
 	var radioButtons = document.getElementsByClassName("navRadioButton");
-	radioButtons[2].style.border = "none";
+	radioButtons[radioButtons.length - 1].style.border = "none";
 
 	checkRadioButton(radioButtons[0]);
   
   function onTabSwitch() {
 		var url = viz.getWorkbook().getActiveSheet().getUrl();
-		switch (url) {
-			case urls[0]:
-				uncheckRadioButtons();
-				checkRadioButton(radioButtons[0]);
-				break;
-			case urls[1]:
-				uncheckRadioButtons();
-				checkRadioButton(radioButtons[1]);
-				break;
-      case urls[2]:
-				uncheckRadioButtons();
-				checkRadioButton(radioButtons[2]);
-				break;
-		}
+    for (var i = 0; i < radioButtons.length; i++) {
+      if (urls[i] !== url) continue;
+      uncheckRadioButtons();
+      checkRadioButton(radioButtons[i]);
+      return;
+    }
 	}
 
   function onSwitchDashboard() {
-    switch (event.target) {
-			case radioButtons[0]:
-				switchDashboard(urls[0]);
-				break;
-			case radioButtons[1]:
-				switchDashboard(urls[1]);
-				break;
-      case radioButtons[2]:
-				switchDashboard(urls[2]);
-				break;
-		}
+    for (var i = 0; i < radioButtons.length; i++) {
+      if (radioButtons[i] !== event.target) continue;
+			switchDashboard(urls[i]);
+      break;
+    }
     uncheckRadioButtons();
     checkRadioButton(event.target);
   }
