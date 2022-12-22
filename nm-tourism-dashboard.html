@@ -397,20 +397,18 @@
         fixMargin();
     };
     window.addEventListener("resize", fixMargin);
-    var minScale = .30;
-    var maxScale = .80;
+    var defaultScale = .80;
     function fixMargin() {
         var style = getComputedStyle(mavQContainer);
         var clientWidth = parseFloat(document.getElementById("wrapper").clientWidth);
         var width = parseFloat(style.width);
         var height = parseFloat(style.height);
 
-        var scale = clientWidth / screen.width;
-        if (scale < minScale) scale = minScale;
-        else if (scale > maxScale) scale = maxScale;
-        else scale = scale + "";
+        var scale = clientWidth / 1400;
+        if (scale != defaultScale) scale = defaultScale;
+        else scale = scale;
 
-        mavQContainer.style.scale = scale;
+        mavQContainer.style.scale = scale + "";
         mavQContainer.style.marginRight = "-" + (width - width * scale) + "px";
         mavQContainer.style.marginBottom = "-" + (height - height * scale) + "px";
     }
