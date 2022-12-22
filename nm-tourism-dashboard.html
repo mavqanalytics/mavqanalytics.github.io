@@ -76,6 +76,7 @@
         border: 1px solid #ddd;
         overflow: hidden;
         scroll-behavior: none;
+        visibility: hidden;
     }
 
     #mainContent {
@@ -391,7 +392,10 @@
     viz.addEventListener('tabswitch', onTabSwitch);
 
     var mavQContainer = document.getElementById("mavQContainer");
-    window.onload = fixMargin();
+    window.onload = () => {
+        mavQContainer.style.visibility = "visible";
+        fixMargin();
+    };
     window.addEventListener("resize", fixMargin);
     var minScale = .30;
     var maxScale = .80;

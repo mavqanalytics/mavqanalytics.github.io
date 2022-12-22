@@ -71,6 +71,7 @@
     border: 1px solid #ddd;
     overflow: hidden;
     scroll-behavior: none;
+    visibility: hidden;
   }
 
   #mainContent {
@@ -386,7 +387,10 @@
   viz.addEventListener('tabswitch', onTabSwitch);
 
   var mavQContainer = document.getElementById("mavQContainer");
-  window.onload = fixMargin();
+  window.onload = () => {
+    mavQContainer.style.visibility = "visible";
+    fixMargin();
+  };
   window.addEventListener("resize", fixMargin);
   var minScale = .30;
   var maxScale = .80;
@@ -396,7 +400,7 @@
     var width = parseFloat(style.width);
     var height = parseFloat(style.height);
 
-    var scale = clientWidth / screen.width;
+    var scale = clientWidth / 1500;
     if (scale < minScale) scale = minScale;
     else if (scale > maxScale) scale = maxScale;
     else scale = scale + "";

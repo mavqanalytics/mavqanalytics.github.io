@@ -74,7 +74,6 @@
     flex-direction: column;
     scale: .80;
     transform-origin: top left;
-    margin: 0 -342px -382px 0;
     position: relative;
     width: 1708px;
     font-size: 15px;
@@ -86,6 +85,7 @@
     border: 1px solid #ddd;
     overflow: hidden;
     scroll-behavior: none;
+    visibility: hidden;
   }
 
   #mainContent {
@@ -414,16 +414,27 @@
   viz.addEventListener('tabswitch', onTabSwitch);
 
   var mavQContainer = document.getElementById("mavQContainer");
+  window.onload = () => {
+    mavQContainer.style.visibility = "visible";
+    fixMargin();
+  };
   window.addEventListener("resize", fixMargin);
+  var minScale = .30;
+  var maxScale = .80;
   function fixMargin() {
     var style = getComputedStyle(mavQContainer);
-    var scale = parseFloat(style.scale);
+    var clientWidth = parseFloat(document.getElementById("wrapper").clientWidth);
     var width = parseFloat(style.width);
     var height = parseFloat(style.height);
+
+    var scale = clientWidth / screen.width;
+    if (scale < minScale) scale = minScale;
+    else if (scale > maxScale) scale = maxScale;
+    else scale = scale + "";
+
+    mavQContainer.style.scale = scale;
     mavQContainer.style.marginRight = "-" + (width - width * scale) + "px";
     mavQContainer.style.marginBottom = "-" + (height - height * scale) + "px";
-    console.log(width - width * scale);
-    console.log(height - height * scale);
   }
 
   var radioButtons = document.getElementsByClassName("navRadioButton");
