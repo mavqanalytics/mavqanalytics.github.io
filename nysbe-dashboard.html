@@ -516,15 +516,19 @@
   function onDownloadClick() {
     viz.showDownloadDialog();
   }
+
   var mavQContainer = document.getElementById("mavQContainer");
   var isFullscreen = false;
+  
   function onFullscreenClick() {
     if (document.fullscreenElement) {
       document.exitFullscreen();
       return;
     }
+    window.removeEventListener("resize", fixMargin);
     mavQContainer.requestFullscreen();
   }
+
   mavQContainer.addEventListener('fullscreenchange', (event) => {
     if (document.fullscreenElement) {
       mavQContainer.style.position = "absolute";
@@ -541,6 +545,7 @@
     mavQContainer.style.alignItems = "unset";
     mavQContainer.style.zIndex = "unset";
     mavQContainer.style.scale = ".80";
+    window.addEventListener("resize", fixMargin);
     fixMargin();
   });
 </script>

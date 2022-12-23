@@ -537,7 +537,6 @@
     function onFullscreenClick() {
         if (document.fullscreenElement) {
             document.exitFullscreen();
-            window.addEventListener("resize", fixMargin);
             return;
         }
         window.removeEventListener("resize", fixMargin);
@@ -560,6 +559,7 @@
         mavQContainer.style.alignItems = "unset";
         mavQContainer.style.zIndex = "unset";
         mavQContainer.style.scale = ".80";
+        window.addEventListener("resize", fixMargin);
         fixMargin();
     });
 </script>
