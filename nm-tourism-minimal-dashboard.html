@@ -392,7 +392,7 @@
     fixMargin();
   };
   window.addEventListener("resize", fixMargin);
-  var minScale = .40;
+  var minScale = .20;
   var maxScale = .80;
   function fixMargin() {
     var style = getComputedStyle(mavQContainer);
@@ -400,7 +400,7 @@
     var width = parseFloat(style.width);
     var height = parseFloat(style.height);
 
-    var scale = clientWidth / 1400;
+    var scale = clientWidth / 1390;
     if (scale < minScale) scale = minScale;
     else if (scale > maxScale) scale = maxScale;
     else scale = scale;

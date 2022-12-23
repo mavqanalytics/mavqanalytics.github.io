@@ -66,6 +66,7 @@
   * {
     box-sizing: border-box;
   }
+
   #wrapper {
     margin: 0 auto;
     display: flex;
@@ -73,12 +74,12 @@
     justify-content: center;
     align-items: center;
   }
+
   #mavQContainer {
     display: flex;
     flex-direction: column;
     scale: .80;
     transform-origin: top left;
-    margin: 0 -342px -382px 0;
     position: relative;
     width: 1708px;
     font-size: 15px;
@@ -90,7 +91,9 @@
     border: 1px solid #ddd;
     overflow: hidden;
     scroll-behavior: none;
+    visibility: hidden;
   }
+
   #mainContent {
     margin: 0;
     padding: 0;
@@ -100,20 +103,24 @@
     flex-direction: row;
     flex: 1 0 auto;
   }
+
   @media only screen and (max-width: 980px) {
     #mavQContainer {
       scale: .40;
     }
   }
+
   @media only screen and (max-width: 400px) {
     #mavQContainer {
       scale: .22;
     }
   }
+
   #leftPanel {
     height: fit-content;
     margin-left: 12px;
   }
+
   #downloads {
     margin: 12px 0 0 0;
     width: 210px;
@@ -382,16 +389,27 @@
 	viz.addEventListener('tabswitch', onTabSwitch);
 
   var mavQContainer = document.getElementById("mavQContainer");
+  window.onload = () => {
+    mavQContainer.style.visibility = "visible";
+    fixMargin();
+  };
   window.addEventListener("resize", fixMargin);
+  var minScale = .20;
+  var maxScale = .80;
   function fixMargin() {
     var style = getComputedStyle(mavQContainer);
-    var scale = parseFloat(style.scale);
+    var clientWidth = parseFloat(document.getElementById("wrapper").clientWidth);
     var width = parseFloat(style.width);
     var height = parseFloat(style.height);
+
+    var scale = clientWidth / 1712;
+    if (scale < minScale) scale = minScale;
+    else if (scale > maxScale) scale = maxScale;
+    else scale = scale;
+
+    mavQContainer.style.scale = scale + "";
     mavQContainer.style.marginRight = "-" + (width - width * scale) + "px";
     mavQContainer.style.marginBottom = "-" + (height - height * scale) + "px";
-    console.log(width - width * scale);
-    console.log(height - height * scale);
   }
 
 	var radioButtons = document.getElementsByClassName("navRadioButton");
@@ -526,6 +544,7 @@
       mavQContainer.style.scrollBehavior = "unset";
       mavQContainer.style.alignItems = "center";
       mavQContainer.style.zIndex = "999999";
+      mavQContainer.style.scale = "unset";
       return;
     }
     mavQContainer.style.position = "relative";
@@ -533,5 +552,6 @@
     mavQContainer.style.scrollBehavior = "none";
     mavQContainer.style.alignItems = "unset";
     mavQContainer.style.zIndex = "unset";
+    fixMargin();
   });
 </script>
