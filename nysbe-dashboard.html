@@ -400,7 +400,8 @@
   }
 
 	var radioButtons = document.getElementsByClassName("navRadioButton");
-	radioButtons[radioButtons.length - 1].style.border = "none";
+  if (radioButtons.length === 1) radioButtons[0].style.border = "none";
+  else radioButtons[radioButtons.length - 1].style.border = "none";
 
 	checkRadioButton(radioButtons[0]);
   

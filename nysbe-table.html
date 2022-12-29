@@ -1,0 +1,88 @@
+<script src="https://public.tableau.com/javascripts/api/tableau-2.9.1.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+<div id="wrapper">
+    <div id="mavQContainer">
+        <div id="tableauViz"></div>
+        <div id="table"></div>
+    </div>
+</div>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    #wrapper {
+        margin: 0 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #mavQContainer {
+        display: flex;
+        flex-direction: column;
+        transform-origin: top left;
+        position: relative;
+        width: 1200px;
+        font-size: 15px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: black;
+        background-color: white;
+        box-shadow: 0 0 6px 0 rgba(0, 0, 0, .2);
+        border-radius: 12px;
+        border: 1px solid #ddd;
+        overflow: hidden;
+        scroll-behavior: none;
+        visibility: hidden;
+    }
+</style>
+<script>
+    var placeholderDiv = document.getElementById("tableauViz");
+    var urls = [
+        "https://public.tableau.com/views/ListofFilersDashboard/Dashboard1"
+    ];
+    var options = {
+        hideTabs: true,
+        width: "1500px",
+        height: "1825px",
+        onFirstInteractive: function () {
+            var resetButton = document.getElementById("resetDashboard");
+            resetButton.addEventListener("click", function () {
+                var url = viz.getWorkbook().getActiveSheet().getUrl();
+                switchDashboard(url);
+            });
+        }
+    };
+    var viz = new tableau.Viz(placeholderDiv, urls[0], options);
+    viz.addEventListener('filterchange', onFilterChange);
+    viz.addEventListener('marksselection', onFilterChange);
+    viz.addEventListener('parametervaluechange', onFilterChange);
+    viz.addEventListener('tabswitch', onTabSwitch);
+
+    var tableDiv = document.getElementById("table");
+    var dataSource = viz.getDataSource()
+
+    var mavQContainer = document.getElementById("mavQContainer");
+    window.onload = () => {
+        mavQContainer.style.visibility = "visible";
+        fixMargin();
+    };
+    window.addEventListener("resize", fixMargin);
+    var minScale = .08;
+    var maxScale = 1;
+    function fixMargin() {
+        var style = getComputedStyle(mavQContainer);
+        var width = parseFloat(style.width);
+        var height = parseFloat(style.height);
+
+        var scale = clientWidth / 1738;
+        if (scale < minScale) scale = minScale;
+        else if (scale > maxScale) scale = maxScale;
+        else scale = scale;
+
+        mavQContainer.style.scale = scale + "";
+        mavQContainer.style.marginRight = "-" + (width - width * scale) + "px";
+        mavQContainer.style.marginBottom = "-" + (height - height * scale) + "px";
+    }
+</script>
