@@ -1,9 +1,20 @@
 <script src="https://public.tableau.com/javascripts/api/tableau-2.9.1.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudatalare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 <div id="wrapper">
     <div id="mavQContainer">
         <div id="tableauViz"></div>
-        <div id="table"></div>
+        <div id="table">
+            <table>
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div id="tableControls">
+            <p id="tableViewCount">Loading table rows...</p>
+            <button class="tableButton" onclick="displayPrevious50Rows()">Back</button>
+            <button class="tableButton" onclick="displayNext50Rows()">Next</button>
+            <input type="text" id="viewRowSearch" placeholder="Row Number" onchange="displayViewAtRow(this.value)"/>
+        </div>
     </div>
 </div>
 <style>
@@ -24,7 +35,7 @@
         flex-direction: column;
         transform-origin: top left;
         position: relative;
-        width: 1200px;
+        width: 1500px;
         font-size: 15px;
         font-family: Arial, Helvetica, sans-serif;
         color: black;
@@ -36,9 +47,72 @@
         scroll-behavior: none;
         visibility: hidden;
     }
+
+    #tableControls {
+        display: flex;
+        flex-direction: row;
+        align-items: right;
+        margin: 15px 12px 15px auto;
+        padding: 15px;
+        height: 60px;
+        box-shadow: 0 0 6px 0 rgba(0, 0, 0, .2);
+        border-radius: 12px;
+    }
+
+    .tableButton {
+        background-color: white;
+        border: none;
+        padding: 0 12px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 0 12px 0 0;
+        cursor: pointer;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .2);
+    }
+
+    #viewRowSearch {
+        width: 120px;
+        padding: 0 12px;
+        margin: 0;
+        border: none;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .2);
+        font-size: 12px;
+    }
+    #viewRowSearch:placeholder-shown {
+        font-style: italic;
+    }
+    #viewRowSearch:focus {
+        outline: #007097 auto 1px;
+    }
+
+    #tableViewCount {
+        display: flex;
+        align-items: center;
+        margin: 0 12px;
+        font-size: 12px;
+    }
+
+    #table {
+        overflow: scroll;
+        height: 600px;
+        padding: 15px;
+    }
 </style>
 <script>
     var placeholderDiv = document.getElementById("tableauViz");
+    var mavQContainer = document.getElementById("mavQContainer");
+    var tableDiv = document.getElementById("table");
+    var viz;
+    var sheet;
+    var dataTable;
+    var data;
+    var columns;
+    var tableView = 0;
+
     var urls = [
         "https://public.tableau.com/views/ListofFilersDashboard/Dashboard1"
     ];
@@ -47,23 +121,11 @@
         width: "1500px",
         height: "1825px",
         onFirstInteractive: function () {
-            var resetButton = document.getElementById("resetDashboard");
-            resetButton.addEventListener("click", function () {
-                var url = viz.getWorkbook().getActiveSheet().getUrl();
-                switchDashboard(url);
-            });
+            getUnderlyingData();
         }
     };
-    var viz = new tableau.Viz(placeholderDiv, urls[0], options);
-    viz.addEventListener('filterchange', onFilterChange);
-    viz.addEventListener('marksselection', onFilterChange);
-    viz.addEventListener('parametervaluechange', onFilterChange);
-    viz.addEventListener('tabswitch', onTabSwitch);
+    viz = new tableau.Viz(placeholderDiv, urls[0], options);
 
-    var tableDiv = document.getElementById("table");
-    var dataSource = viz.getDataSource()
-
-    var mavQContainer = document.getElementById("mavQContainer");
     window.onload = () => {
         mavQContainer.style.visibility = "visible";
         fixMargin();
@@ -76,7 +138,7 @@
         var width = parseFloat(style.width);
         var height = parseFloat(style.height);
 
-        var scale = clientWidth / 1738;
+        var scale = window.innerWidth / 1530;
         if (scale < minScale) scale = minScale;
         else if (scale > maxScale) scale = maxScale;
         else scale = scale;
@@ -84,5 +146,82 @@
         mavQContainer.style.scale = scale + "";
         mavQContainer.style.marginRight = "-" + (width - width * scale) + "px";
         mavQContainer.style.marginBottom = "-" + (height - height * scale) + "px";
+    }
+
+    function getUnderlyingData() {
+        sheet = viz.getWorkbook().getActiveSheet().getWorksheets().get("Detailed Table");
+        options = {
+            maxRows: 0,
+            ignoreAliases: false,
+            ignoreSelection: true,
+            includeAllColumns: false
+        };
+
+        sheet.getUnderlyingTablesAsync().then(tables => {
+            return sheet.getUnderlyingTableDataAsync(tables[0].getTableId(), options).then(dataTable => {
+                data = dataTable.getData();
+                columns = dataTable.getColumns();
+                writeColumnHeaders();
+                displayRangeInHTMLTable(0, 50);
+            });
+        });
+    }
+
+    function writeColumnHeaders() {
+        var thead = tableDiv.querySelector("thead");
+        columns.forEach(column => {
+            var th = document.createElement("th");
+            th.innerHTML = column.getFieldName();
+            thead.appendChild(th);
+        });
+    }
+
+    function displayRangeInHTMLTable(startIndex, endIndex) {
+        tableView = startIndex;
+        document.getElementById("tableViewCount").innerHTML = "Showing " + (startIndex + 1) + " to " + endIndex + " of " + data.length + " rows";
+        var tbody = tableDiv.querySelector("tbody");
+        for (var i = startIndex; i < endIndex; i++) {
+            var tr = document.createElement("tr");
+            columns.forEach(column => {
+                var td = document.createElement("td");
+                td.innerHTML = data[i][column.getIndex()].formattedValue;
+                tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+        }
+    }
+
+    function displayNext50Rows() {
+        if (tableView + 100 > data.length) return;
+        document.getElementById("tableViewCount").innerHTML = "Showing " + (tableView + 51) + " to " + (tableView + 100) + " of " + data.length + " rows";
+        var tbody = tableDiv.querySelector("tbody");
+        tbody.innerHTML = "";
+        displayRangeInHTMLTable(tableView + 50, tableView + 100);
+    }
+
+    function displayPrevious50Rows() {
+        if (tableView <= 0) return;
+        var tbody = tableDiv.querySelector("tbody");
+        tbody.innerHTML = "";
+        if (tableView - 50 < 0) {
+            var diff = tableView - 50;
+            displayRangeInHTMLTable(tableView - 50 - diff, tableView);
+            return;
+        }
+        displayRangeInHTMLTable(tableView - 50, tableView);
+    }
+
+    function displayViewAtRow(row) {
+        var rowNumber = parseInt(row);
+        if (rowNumber < 1) return;
+        if (rowNumber > data.length) return;
+        if (!rowNumber) return;
+        var tbody = tableDiv.querySelector("tbody");
+        tbody.innerHTML = "";
+        displayRangeInHTMLTable(rowNumber - 1, rowNumber + 49);
+    }
+
+    function filterOutState() {
+        
     }
 </script>
