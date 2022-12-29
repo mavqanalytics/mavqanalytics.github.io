@@ -62,7 +62,7 @@
   }
 
   #wrapper {
-    margin: 0 auto;
+    margin: 0 15px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -407,15 +407,14 @@
     fixMargin();
   };
   window.addEventListener("resize", fixMargin);
-  var minScale = .20;
+  var minScale = .08;
   var maxScale = .80;
   function fixMargin() {
     var style = getComputedStyle(mavQContainer);
-    var clientWidth = parseFloat(document.getElementById("wrapper").clientWidth);
     var width = parseFloat(style.width);
     var height = parseFloat(style.height);
 
-    var scale = clientWidth / 1712;
+    var scale = window.innerWidth / 1738;
     if (scale < minScale) scale = minScale;
     else if (scale > maxScale) scale = maxScale;
     else scale = scale;
@@ -515,11 +514,11 @@
   function downloadExcel() {
     var checkedButton = document.querySelector('input[type="radio"]:checked');
     var code = checkedButton.parentNode.querySelector('.code').innerHTML;
-    if (code === "CO_99") {
-      viz.exportCrossTabToExcel("Fund Code - Funding Source");
+    if (code === "JB_99") {
+      viz.exportCrossTabToExcel("Glossary T&D");
       return;
     }
-    viz.exportCrossTabToExcel("Project Details " + code);
+    viz.exportCrossTabToExcel("Junior Bill Appropriations by Agency and Z Code Off");
   }
 
   function downloadPowerPoint() {
