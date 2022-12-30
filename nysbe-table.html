@@ -191,6 +191,7 @@
 
     function displayRangeInHTMLTable(startIndex, endIndex) {
         tableView = startIndex;
+        if (endIndex > data.length) endIndex = data.length;
         document.getElementById("tableViewCount").innerHTML = "Showing " + (startIndex + 1) + " to " + endIndex + " of " + data.length + " rows";
         var tbody = tableDiv.querySelector("tbody");
         for (var i = startIndex; i < endIndex; i++) {
