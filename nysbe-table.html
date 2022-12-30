@@ -3,17 +3,34 @@
 <div id="wrapper">
     <div id="mavQContainer">
         <div id="tableauViz"></div>
-        <div id="table">
+        <!-- <div id="filters">
+            <span>
+                <label for="filter1">Filter 1:</label>
+                <select id="filter1" class="filter" onchange="onFilter1Changed(this.value)">
+                    <option value="All">All</option>
+                </select>
+            </span>
+        </div> -->
+        <div id="tableDiv">
             <table>
                 <thead></thead>
                 <tbody></tbody>
             </table>
         </div>
         <div id="tableControls">
+            <p id="amountOfRowsToDisplay">Number of Rows:</p>
+            <select id="rowCountSelect" onchange="onRowCountChange(this.value)">
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="250">250</option>
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+            </select>
             <p id="tableViewCount">Loading table rows...</p>
-            <button class="tableButton" onclick="displayPrevious50Rows()">Back</button>
-            <button class="tableButton" onclick="displayNext50Rows()">Next</button>
-            <input type="text" id="viewRowSearch" placeholder="Row Number" onchange="displayViewAtRow(this.value)"/>
+            <button class="tableButton" onclick="onTableBackClick()">Back</button>
+            <button class="tableButton" onclick="onTableNextClick()">Next</button>
+            <input type="text" id="viewRowSearch" placeholder="Row Number" onchange="onRowSearchChange(this.value)" />
         </div>
     </div>
 </div>
@@ -21,7 +38,6 @@
     * {
         box-sizing: border-box;
     }
-
     #wrapper {
         margin: 0 15px;
         display: flex;
@@ -29,7 +45,6 @@
         justify-content: center;
         align-items: center;
     }
-
     #mavQContainer {
         display: flex;
         flex-direction: column;
@@ -51,14 +66,26 @@
     #tableControls {
         display: flex;
         flex-direction: row;
-        align-items: right;
-        margin: 15px 12px 15px auto;
-        padding: 15px;
-        height: 60px;
-        box-shadow: 0 0 6px 0 rgba(0, 0, 0, .2);
-        border-radius: 12px;
+        margin: 15px 0 15px auto;
+        padding: 0 12px;
+        height: 40px;
+        width: 100%;
     }
-
+    #amountOfRowsToDisplay {
+        display: flex;
+        align-items: center;
+        margin: 0 12px 0 0;
+        font-size: 12px;
+    }
+    #rowCountSelect {
+        width: 75px;
+        padding: 0 12px;
+        margin: 0 auto 0 0;
+        border: none;
+        border-radius: 6px;
+        box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
+        font-size: 12px;
+    }
     .tableButton {
         background-color: white;
         border: none;
@@ -70,7 +97,7 @@
         margin: 0 12px 0 0;
         cursor: pointer;
         border-radius: 6px;
-        box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .2);
+        box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
     }
     .tableButton:hover {
         box-shadow: 0 3px 4px 1px rgba(0, 0, 0, .18);
@@ -80,14 +107,13 @@
         box-shadow: inset 0 1px 2px 1px rgba(0, 0, 0, .18);
         transition: all 0.2s ease-in-out;
     }
-
     #viewRowSearch {
         width: 120px;
         padding: 0 12px;
         margin: 0;
         border: none;
         border-radius: 6px;
-        box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .2);
+        box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
         font-size: 12px;
     }
     #viewRowSearch:placeholder-shown {
@@ -95,13 +121,7 @@
     }
     #viewRowSearch:focus {
         outline: #007097 auto 1px;
-        box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .2);
     }
-    #viewRowSearch:hover {
-        box-shadow: 0 3px 4px 1px rgba(0, 0, 0, .18);
-        transition: all 0.2s ease-in-out;
-    }
-
     #tableViewCount {
         display: flex;
         align-items: center;
@@ -109,22 +129,61 @@
         font-size: 12px;
     }
 
-    #table {
+    #tableDiv {
+        font: Arial, Helvetica, sans-serif;
+        box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
+    }
+    table {
+        margin: 0;
+        border-spacing: 0;
+    }
+    thead {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px black solid;
+        height: 60px;
+    }
+    tbody {
+        margin: 0;
+        display: block;
         overflow: scroll;
         height: 600px;
-        padding: 15px;
     }
+    tr {
+        display: flex;
+        flex-direction: row;
+    }
+    th, td {
+        margin: 0;
+        padding: 6px;
+        border-right: 1px solid black;
+    }
+    th {
+        height: 100%;
+        padding: 0 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+
 </style>
 <script>
     var placeholderDiv = document.getElementById("tableauViz");
     var mavQContainer = document.getElementById("mavQContainer");
-    var tableDiv = document.getElementById("table");
+    var tableViewCount = document.getElementById("tableViewCount");
+    var tableDiv = document.getElementById("tableDiv");
+    var tbody = tableDiv.querySelector("tbody");
     var viz;
     var sheet;
     var dataTable;
     var data;
     var columns;
     var tableView = 0;
+    var amountOfRowsToDisplay = 25;
+    var cellWidthPercent;
 
     var urls = [
         "https://public.tableau.com/views/ListofFilersDashboard/Dashboard1"
@@ -174,8 +233,10 @@
             return sheet.getUnderlyingTableDataAsync(tables[0].getTableId(), options).then(dataTable => {
                 data = dataTable.getData();
                 columns = dataTable.getColumns();
+                cellWidthPercent = Math.round(((1 / columns.length * 100) + Number.EPSILON) * 10000) / 10000;
+                console.log(cellWidthPercent);
                 writeColumnHeaders();
-                displayRangeInHTMLTable(0, 50);
+                displayRangeInHTMLTable(0, amountOfRowsToDisplay);
             });
         });
     }
@@ -185,57 +246,61 @@
         columns.forEach(column => {
             var th = document.createElement("th");
             th.innerHTML = column.getFieldName();
+            th.style.width = cellWidthPercent + "%";
+            if (column.getIndex() == columns.length - 1) th.style.borderRight = "none";
             thead.appendChild(th);
         });
     }
 
     function displayRangeInHTMLTable(startIndex, endIndex) {
-        tableView = startIndex;
         if (endIndex > data.length) endIndex = data.length;
-        document.getElementById("tableViewCount").innerHTML = "Showing " + (startIndex + 1) + " to " + endIndex + " of " + data.length + " rows";
-        var tbody = tableDiv.querySelector("tbody");
+        tableView = startIndex;
+        tableViewCount.innerHTML = "Showing " + (startIndex + 1) + " to " + endIndex + " of " + data.length + " rows";
+        tbody.innerHTML = "";
         for (var i = startIndex; i < endIndex; i++) {
             var tr = document.createElement("tr");
+            if (i % 2 == 0) tr.style.backgroundColor = "#fbfbfb";
             columns.forEach(column => {
                 var td = document.createElement("td");
                 td.innerHTML = data[i][column.getIndex()].formattedValue;
+                td.style.width = cellWidthPercent + "%";
+                if (column.getIndex() == columns.length - 1) td.style.borderRight = "none";
                 tr.appendChild(td);
             });
             tbody.appendChild(tr);
         }
     }
 
-    function displayNext50Rows() {
+    function onTableNextClick() {
         if (tableView + 100 > data.length) return;
-        document.getElementById("tableViewCount").innerHTML = "Showing " + (tableView + 51) + " to " + (tableView + 100) + " of " + data.length + " rows";
-        var tbody = tableDiv.querySelector("tbody");
-        tbody.innerHTML = "";
-        displayRangeInHTMLTable(tableView + 50, tableView + 100);
+        tableViewCount.innerHTML = "Showing " + (tableView + amountOfRowsToDisplay + 1) + " to " + (tableView + amountOfRowsToDisplay * 2) + " of " + data.length + " rows";
+        displayRangeInHTMLTable(tableView + amountOfRowsToDisplay, tableView + amountOfRowsToDisplay * 2);
     }
 
-    function displayPrevious50Rows() {
+    function onTableBackClick() {
         if (tableView <= 0) return;
-        var tbody = tableDiv.querySelector("tbody");
-        tbody.innerHTML = "";
-        if (tableView - 50 < 0) {
-            var diff = tableView - 50;
-            displayRangeInHTMLTable(tableView - 50 - diff, tableView);
+        if (tableView - amountOfRowsToDisplay < 0) {
+            var diff = tableView - amountOfRowsToDisplay;
+            displayRangeInHTMLTable(tableView - amountOfRowsToDisplay - diff, amountOfRowsToDisplay + 1);
             return;
         }
-        displayRangeInHTMLTable(tableView - 50, tableView);
+        displayRangeInHTMLTable(tableView - amountOfRowsToDisplay, tableView);
     }
 
-    function displayViewAtRow(row) {
+    function onRowSearchChange(row) {
         var rowNumber = parseInt(row);
         if (rowNumber < 1) return;
-        if (rowNumber > data.length) return;
         if (!rowNumber) return;
-        var tbody = tableDiv.querySelector("tbody");
-        tbody.innerHTML = "";
-        displayRangeInHTMLTable(rowNumber - 1, rowNumber + 49);
+        if (rowNumber > data.length)
+        {
+            displayRangeInHTMLTable(data.length - amountOfRowsToDisplay, data.length);
+            return;
+        }
+        displayRangeInHTMLTable(rowNumber - 1, rowNumber + amountOfRowsToDisplay - 1);
     }
 
-    function filterOutState() {
-        
+    function onRowCountChange(count) {
+        var countNumber = parseInt(count);
+        displayRangeInHTMLTable(tableView, tableView + countNumber);
     }
 </script>
