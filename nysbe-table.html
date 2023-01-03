@@ -6,31 +6,34 @@
         <div id="filters">
             <span class="filter">
                 <label class="filterLabel" for="yearOfRegistration">Year of Registration:</label>
-                <input type="text" id="yearOfRegistration" class="filterInput" onchange="onFilterChanged()" column-index="9"/>
+                <input type="text" id="yearOfRegistration" class="filterInput" onkeyup="onFilterChanged()"
+                    column-index="9" />
             </span>
             <span class="filter">
                 <label class="filterLabel" for="filerType">Filer Type:</label>
-                <input type="text" id="filerType" class="filterInput" onchange="onFilterChanged()" column-index="0"/>
+                <input type="text" id="filerType" class="filterInput" onkeyup="onFilterChanged()" column-index="0" />
             </span>
             <span class="filter">
                 <label class="filterLabel" for="complianceType">Compliance Type:</label>
-                <input type="text" id="complianceType" class="filterInput" onchange="onFilterChanged()" column-index="1"/>
+                <input type="text" id="complianceType" class="filterInput" onkeyup="onFilterChanged()"
+                    column-index="1" />
             </span>
             <span class="filter">
                 <label class="filterLabel" for="committeeType">Committee Type:</label>
-                <input type="text" id="committeeType" class="filterInput" onchange="onFilterChanged()" column-index="2"/>
+                <input type="text" id="committeeType" class="filterInput" onkeyup="onFilterChanged()"
+                    column-index="2" />
             </span>
             <span class="filter">
                 <label class="filterLabel" for="county">County:</label>
-                <input type="text" id="county" class="filterInput" onchange="onFilterChanged()" column-index="6"/>
+                <input type="text" id="county" class="filterInput" onkeyup="onFilterChanged()" column-index="6" />
             </span>
             <span class="filter">
                 <label class="filterLabel" for="office">Office:</label>
-                <input type="text" id="office" class="filterInput" onchange="onFilterChanged()" column-index="5"/>
+                <input type="text" id="office" class="filterInput" onkeyup="onFilterChanged()" column-index="5" />
             </span>
         </div>
         <div id="tableDiv">
-            <table>
+            <table id="table">
                 <thead></thead>
                 <tbody></tbody>
             </table>
@@ -52,318 +55,386 @@
         </div>
     </div>
 </div>
+
 <style>
-    * {
-        box-sizing: border-box;
-    }
-    #wrapper {
-        margin: 0 15px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    #mavQContainer {
-        display: flex;
-        flex-direction: column;
-        transform-origin: top left;
-        position: relative;
-        width: 1500px;
-        font-size: 10pt;
-        font-family: Arial, Helvetica, sans-serif;
-        color: black;
-        background-color: white;
-        box-shadow: 0 0 6px 0 rgba(0, 0, 0, .2);
-        border-radius: 12px;
-        border: 1px solid #ddd;
-        overflow: hidden;
-        scroll-behavior: none;
-        visibility: hidden;
-    }
+* {
+    box-sizing: border-box;
+}
 
-    #filters {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-evenly;
-        padding: 30px 12px;
-        height: 40px;
-        width: 100%;
-        box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
-    }
+#wrapper {
+    margin: 0 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
-    .filterInput {
-        width: 75px;
-        height: 24px;
-        margin: 0 auto 0 0;
-        border: none;
-        border-bottom: 2px solid black;
-    }
-    .filterInput:focus {
-        outline: rgba(0,0,0,0) auto 1px;
-        border-bottom: 2px solid #007097;
-    }
+#mavQContainer {
+    display: flex;
+    flex-direction: column;
+    transform-origin: top left;
+    position: relative;
+    width: 1500px;
+    font-size: 10pt;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    background-color: white;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, .2);
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    scroll-behavior: none;
+    visibility: hidden;
+}
 
-    #tableControls {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin: 15px 0 15px 0;
-        padding: 0 12px;
-        height: 40px;
-        width: 100%;
-    }
+#filters {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 30px 12px;
+    height: 40px;
+    width: 100%;
+    box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
+}
 
-    #amountOfRowsToDisplay {
-        display: flex;
-        align-items: center;
-        margin: 0 12px 0 0;
-    }
-    #rowAmountSelect {
-        width: 75px;
-        height: 24px;
-        margin: 0 12px 0 0;
-        border: none;
-        border-bottom: 2px solid black;
-    }
+.filterInput {
+    width: 75px;
+    height: 24px;
+    margin: 0 auto 0 0;
+    border: none;
+    border-bottom: 2px solid black;
+}
 
-    .tableButton {
-        background-color: white;
-        border: none;
-        padding: 0 12px;
-        height: 40px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        margin: 0 12px 0 0;
-        cursor: pointer;
-        border-radius: 6px;
-        box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
-    }
-    .tableButton:hover {
-        box-shadow: 0 3px 4px 1px rgba(0, 0, 0, .18);
-        transition: all 0.2s ease-in-out;
-    }
-    .tableButton:active {
-        box-shadow: inset 0 1px 2px 1px rgba(0, 0, 0, .18);
-        transition: all 0.2s ease-in-out;
-    }
+.filterInput:focus {
+    outline: rgba(0, 0, 0, 0) auto 1px;
+    border-bottom: 2px solid #007097;
+}
 
-    #viewRowSearch {
-        width: 120px;
-        height: 40px;
-        padding: 0 12px;
-        margin: 0;
-        border: none;
-        border-radius: 6px;
-        box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
-    }
-    #viewRowSearch:placeholder-shown {
-        font-style: italic;
-    }
-    #viewRowSearch:focus {
-        outline: #007097 auto 1px;
-    }
+#tableControls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 15px 0 15px 0;
+    padding: 0 12px;
+    height: 40px;
+    width: 100%;
+}
 
-    #currentRowIndexCount {
-        display: flex;
-        align-items: center;
-        margin: 0 12px 0 auto;
-    }
+#amountOfRowsToDisplay {
+    display: flex;
+    align-items: center;
+    margin: 0 12px 0 0;
+}
 
-    #tableDiv {
-        font-family: Arial, Helvetica, sans-serif;
-        box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .18);
-    }
-    table {
-        margin: 0;
-        border-spacing: 0;
-        width: 100%;
-    }
-    thead {
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-bottom: 1px black solid;
-        height: 60px;
-    }
-    tbody {
-        margin: 0;
-        display: block;
-        overflow: scroll;
-        height: 600px;
-    }
-    tr {
-        display: flex;
-        flex-direction: row;
-    }
-    th, td {
-        font-size: 10pt;
-        margin: 0;
-        padding: 6px;
-        border-right: 1px solid #ddd;
-        width: fit-content;
-    }
-    th {
-        height: 100%;
-        padding: 0 6px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
+#rowAmountSelect {
+    width: 75px;
+    height: 24px;
+    margin: 0 12px 0 0;
+    border: none;
+    border-bottom: 2px solid black;
+}
 
+.tableButton {
+    background-color: white;
+    border: none;
+    padding: 0 12px;
+    height: 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0 12px 0 0;
+    cursor: pointer;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
+}
+
+.tableButton:hover {
+    box-shadow: 0 3px 4px 1px rgba(0, 0, 0, .18);
+    transition: all 0.2s ease-in-out;
+}
+
+.tableButton:active {
+    box-shadow: inset 0 1px 2px 1px rgba(0, 0, 0, .18);
+    transition: all 0.2s ease-in-out;
+}
+
+#viewRowSearch {
+    width: 120px;
+    height: 40px;
+    padding: 0 12px;
+    margin: 0;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
+}
+
+#viewRowSearch:placeholder-shown {
+    font-style: italic;
+}
+
+#viewRowSearch:focus {
+    outline: #007097 auto 1px;
+}
+
+#currentRowIndexCount {
+    display: flex;
+    align-items: center;
+    margin: 0 12px 0 auto;
+}
+
+#tableDiv {
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .18);
+}
+
+table {
+    margin: 0;
+    border-spacing: 0;
+    width: 100%;
+}
+
+thead {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px black solid;
+    height: 60px;
+}
+
+tbody {
+    margin: 0;
+    display: block;
+    overflow: scroll;
+    height: 600px;
+}
+
+tr {
+    display: flex;
+    flex-direction: row;
+}
+
+th,
+td {
+    font-size: 10pt;
+    margin: 0;
+    padding: 6px;
+    border-right: 1px solid #ddd;
+}
+
+th {
+    height: 100%;
+    padding: 0 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* .resizeHandle {
+    width: 10px;
+    height: 100%;
+    background-color: red;
+    cursor: col-resize;
+    margin: 0 0 0 auto;
+} */
 </style>
+
 <script>
-    var placeholderDiv = document.getElementById("tableauViz");
-    var mavQContainer = document.getElementById("mavQContainer");
-    var currentRowIndexCount = document.getElementById("currentRowIndexCount");
-    var tableDiv = document.getElementById("tableDiv");
-    var tbody = tableDiv.querySelector("tbody");
-    var viz;
-    var sheet;
-    var dataTable;
-    var data;
-    var columns;
-    var currentRowIndex = 0;
-    var amountOfRowsToDisplay = 25;
-    var cellWidthPercent;
-    var filteredData;
+var placeholderDiv = document.getElementById("tableauViz");
+var mavQContainer = document.getElementById("mavQContainer");
+var currentRowIndexCount = document.getElementById("currentRowIndexCount");
+var tableDiv = document.getElementById("tableDiv");
+var table = document.getElementById("table");
+var tbody = tableDiv.querySelector("tbody");
+var viz;
+var sheet;
+var dataTable;
+var data;
+var columns;
+var currentRowIndex = 0;
+var amountOfRowsToDisplay = 25;
+var cellWidthPercent;
+var minCellWidth = 100;
+var filteredData;
 
-    var urls = [
-        "https://public.tableau.com/views/ListofFilersDashboard/Dashboard1"
-    ];
-    var options = {
-        hideTabs: true,
-        width: "1500px",
-        height: "1825px",
-        onFirstInteractive: function () {
-            getUnderlyingData();
-        }
+var urls = [
+    "https://public.tableau.com/views/ListofFilersDashboard/Dashboard1"
+];
+var options = {
+    hideTabs: true,
+    width: "1500px",
+    height: "1825px",
+    onFirstInteractive: function () {
+        getUnderlyingData();
+    }
+};
+viz = new tableau.Viz(placeholderDiv, urls[0], options);
+
+window.onload = () => {
+    mavQContainer.style.visibility = "visible";
+    fixMargin();
+};
+window.addEventListener("resize", fixMargin);
+var minScale = .08;
+var maxScale = 1;
+function fixMargin() {
+    var style = getComputedStyle(mavQContainer);
+    var width = parseFloat(style.width);
+    var height = parseFloat(style.height);
+
+    var scale = window.innerWidth / 1530;
+    if (scale < minScale) scale = minScale;
+    else if (scale > maxScale) scale = maxScale;
+    else scale = scale;
+
+    mavQContainer.style.scale = scale + "";
+    mavQContainer.style.marginRight = "-" + (width - width * scale) + "px";
+    mavQContainer.style.marginBottom = "-" + (height - height * scale) + "px";
+}
+
+function getUnderlyingData() {
+    sheet = viz.getWorkbook().getActiveSheet().getWorksheets().get("Detailed Table");
+    options = {
+        maxRows: 0,
+        ignoreAliases: false,
+        ignoreSelection: true,
+        includeAllColumns: false
     };
-    viz = new tableau.Viz(placeholderDiv, urls[0], options);
 
-    window.onload = () => {
-        mavQContainer.style.visibility = "visible";
-        fixMargin();
-    };
-    window.addEventListener("resize", fixMargin);
-    var minScale = .08;
-    var maxScale = 1;
-    function fixMargin() {
-        var style = getComputedStyle(mavQContainer);
-        var width = parseFloat(style.width);
-        var height = parseFloat(style.height);
-
-        var scale = window.innerWidth / 1530;
-        if (scale < minScale) scale = minScale;
-        else if (scale > maxScale) scale = maxScale;
-        else scale = scale;
-
-        mavQContainer.style.scale = scale + "";
-        mavQContainer.style.marginRight = "-" + (width - width * scale) + "px";
-        mavQContainer.style.marginBottom = "-" + (height - height * scale) + "px";
-    }
-
-    function getUnderlyingData() {
-        sheet = viz.getWorkbook().getActiveSheet().getWorksheets().get("Detailed Table");
-        options = {
-            maxRows: 0,
-            ignoreAliases: false,
-            ignoreSelection: true,
-            includeAllColumns: false
-        };
-
-        sheet.getUnderlyingTablesAsync().then(tables => {
-            return sheet.getUnderlyingTableDataAsync(tables[0].getTableId(), options).then(dataTable => {
-                data = dataTable.getData();
-                filteredData = dataTable.getData();
-                columns = dataTable.getColumns();
-                cellWidthPercent = Math.round(((1 / columns.length * 100) + Number.EPSILON) * 10000) / 10000;
-                writeColumnHeaders();
-                displayRangeInHTMLTable(0, amountOfRowsToDisplay - 1);
-            });
-        });
-    }
-
-    function writeColumnHeaders() {
-        var thead = tableDiv.querySelector("thead");
-        columns.forEach(column => {
-            var th = document.createElement("th");
-            th.innerHTML = column.getFieldName();
-            th.style.width = cellWidthPercent + "%";
-            if (column.getIndex() == columns.length - 1) th.style.borderRight = "none";
-            thead.appendChild(th);
-        });
-    }
-
-    function displayRangeInHTMLTable(startIndex, endIndex) {
-        if (endIndex > filteredData.length) endIndex = filteredData.length;
-        currentRowIndex = startIndex;
-        currentRowIndexCount.innerHTML = "Showing " + (startIndex + 1) + " to " + (endIndex + 1) + " of " + filteredData.length + " rows";
-        tbody.innerHTML = "";
-        for (var i = startIndex; i < endIndex; i++) {
-            var tr = document.createElement("tr");
-            if (i % 2 == 0) tr.style.backgroundColor = "#f1f1f1";
-            columns.forEach(column => {
-                var td = document.createElement("td");
-                if (column.getIndex() == columns.length - 1) td.style.borderRight = "none";
-                td.innerHTML = filteredData[i][column.getIndex()].formattedValue;
-                td.style.width = cellWidthPercent + "%";
-                tr.appendChild(td);
-            });
-            tbody.appendChild(tr);
-        }
-    }
-
-    function onTableNextClick() {
-        var startIndex = currentRowIndex + amountOfRowsToDisplay;
-        var endIndex = currentRowIndex + amountOfRowsToDisplay * 2;
-        if (endIndex >= filteredData.length) displayRangeInHTMLTable(filteredData.length - amountOfRowsToDisplay - 1, filteredData.length - 1);
-        else displayRangeInHTMLTable(startIndex, endIndex);
-    }
-
-    function onTableBackClick() {
-        if (currentRowIndex <= 0) return;
-        var newTableView = currentRowIndex - amountOfRowsToDisplay;
-        if (newTableView < 0) {
+    sheet.getUnderlyingTablesAsync().then(tables => {
+        return sheet.getUnderlyingTableDataAsync(tables[0].getTableId(), options).then(dataTable => {
+            data = dataTable.getData();
+            filteredData = dataTable.getData();
+            columns = dataTable.getColumns();
+            cellWidthPercent = Math.round(((1 / columns.length * 100) + Number.EPSILON) * 10000) / 10000;
+            writeColumnHeaders();
             displayRangeInHTMLTable(0, amountOfRowsToDisplay - 1);
-            return;
-        }
-        displayRangeInHTMLTable(newTableView, newTableView + amountOfRowsToDisplay);
-    }
-
-    function onRowSearchKeyUp(row) {
-        var rowNumber = parseInt(row);
-        if (rowNumber < 1) return;
-        if (!rowNumber) return;
-        if (rowNumber >= filteredData.length) displayRangeInHTMLTable(filteredData.length - amountOfRowsToDisplay, filteredData.length);
-        else displayRangeInHTMLTable(rowNumber - 1, rowNumber + amountOfRowsToDisplay - 1);
-    }
-
-    function onRowAmountChange(amount) {
-        amountOfRowsToDisplay = parseInt(amount);
-        displayRangeInHTMLTable(currentRowIndex, currentRowIndex + amountOfRowsToDisplay);
-    }
-
-    function onFilterChanged() {
-        var filterInput = document.getElementsByClassName("filterInput");
-        var filterValues = Array.from(filterInput).map(input => {
-            return {
-                column: parseFloat(input.getAttribute("column-index")),
-                value: input.value
-            }
         });
+    });
+}
 
-        filteredData = data.filter(row => {
-            var rowMatches = true;
-            filterValues.forEach(filter => {
-                if (filter.value == "") return;
-                if (row[filter.column].formattedValue.toLowerCase().includes(filter.value.toLowerCase()) == false) rowMatches = false;
-            });
-            return rowMatches;
+function writeColumnHeaders() {
+    var thead = tableDiv.querySelector("thead");
+    columns.forEach(column => {
+        var col = document.createElement("col");
+        table.appendChild(col);
+
+        var th = document.createElement("th");
+        th.innerHTML = column.getFieldName() + '<span class="resizeHandle"></span>';
+        th.style.width = cellWidthPercent + "%";
+        thead.appendChild(th);
+
+        var resizeHandle = th.querySelector(".resizeHandle");
+        resizeHandle.addEventListener("mousedown", resizeColumnWidth);
+
+        if (column.getIndex() == columns.length - 1) th.style.borderRight = "none";
+    });
+}
+
+function displayRangeInHTMLTable(startIndex, endIndex) {
+    if (endIndex > filteredData.length) endIndex = filteredData.length;
+    currentRowIndex = startIndex;
+    currentRowIndexCount.innerHTML = "Showing " + (startIndex + 1) + " to " + (endIndex + 1) + " of " + filteredData.length + " rows";
+    tbody.innerHTML = "";
+    for (var i = startIndex; i < endIndex; i++) {
+        var tr = document.createElement("tr");
+        if (i % 2 == 0) tr.style.backgroundColor = "#f1f1f1";
+        columns.forEach(column => {
+            var td = document.createElement("td");
+            if (column.getIndex() == columns.length - 1) td.style.borderRight = "none";
+            td.innerHTML = filteredData[i][column.getIndex()].formattedValue;
+            td.style.width = cellWidthPercent + "%";
+            tr.appendChild(td);
         });
+        tbody.appendChild(tr);
+    }
+}
+
+function onTableNextClick() {
+    var startIndex = currentRowIndex + amountOfRowsToDisplay;
+    var endIndex = currentRowIndex + amountOfRowsToDisplay * 2;
+    if (endIndex >= filteredData.length) displayRangeInHTMLTable(filteredData.length - amountOfRowsToDisplay - 1, filteredData.length - 1);
+    else displayRangeInHTMLTable(startIndex, endIndex);
+}
+
+function onTableBackClick() {
+    if (currentRowIndex <= 0) return;
+    var newTableView = currentRowIndex - amountOfRowsToDisplay;
+    if (newTableView < 0) {
         displayRangeInHTMLTable(0, amountOfRowsToDisplay - 1);
+        return;
     }
+    displayRangeInHTMLTable(newTableView, newTableView + amountOfRowsToDisplay);
+}
+
+function onRowSearchKeyUp(row) {
+    var rowNumber = parseInt(row);
+    if (rowNumber < 1) return;
+    if (!rowNumber) return;
+    if (rowNumber >= filteredData.length) displayRangeInHTMLTable(filteredData.length - amountOfRowsToDisplay, filteredData.length);
+    else displayRangeInHTMLTable(rowNumber - 1, rowNumber + amountOfRowsToDisplay - 1);
+}
+
+function onRowAmountChange(amount) {
+    amountOfRowsToDisplay = parseInt(amount);
+    displayRangeInHTMLTable(currentRowIndex, currentRowIndex + amountOfRowsToDisplay);
+}
+
+function onFilterChanged() {
+    var filterInput = document.getElementsByClassName("filterInput");
+    var filterValues = Array.from(filterInput).map(input => {
+        return {
+            column: parseFloat(input.getAttribute("column-index")),
+            value: input.value
+        }
+    });
+
+    filteredData = data.filter(row => {
+        var rowMatches = true;
+        filterValues.forEach(filter => {
+            if (filter.value == "") return;
+            if (row[filter.column].formattedValue.toLowerCase().includes(filter.value.toLowerCase()) == false) rowMatches = false;
+        });
+        return rowMatches;
+    });
+    displayRangeInHTMLTable(0, amountOfRowsToDisplay - 1);
+}
+
+var mouseX;
+function resizeColumnWidth() {
+    var th = this.parentElement;
+    var colIndex = Array.from(th.parentElement.children).indexOf(th);
+    var col = tableDiv.querySelector("col:nth-child(" + (colIndex + 1) + ")");
+    var colWidth = parseFloat(col.style.width);
+    var thWidth = parseFloat(th.style.width);
+    var thLeft = th.getBoundingClientRect().left;
+    var thRight = th.getBoundingClientRect().right;
+    var thCenter = th.getBoundingClientRect().left + (thWidth / 2);
+    var thLeftWidth = thCenter - thLeft;
+    var thRightWidth = thRight - thCenter;
+    var mouseDown = true;
+    var mouseMove = (e) => {
+        if (mouseDown == false) return;
+        var mouseDelta = e.clientX - mouseX;
+        mouseX = e.clientX;
+        if (mouseDelta < 0) {
+            if (thLeftWidth + mouseDelta < 0) mouseDelta = -thLeftWidth;
+            th.style.width = (thWidth + mouseDelta) + "px";
+            col.style.width = (colWidth + mouseDelta) + "px";
+            thLeftWidth += mouseDelta;
+        } else {
+            if (thRightWidth - mouseDelta < 0) mouseDelta = thRightWidth;
+            th.style.width = (thWidth - mouseDelta) + "px";
+            col.style.width = (colWidth - mouseDelta) + "px";
+            thRightWidth -= mouseDelta;
+        }
+    };
+    var mouseUp = (e) => {
+        mouseDown = false;
+        document.removeEventListener("mousemove", mouseMove);
+        document.removeEventListener("mouseup", mouseUp);
+    };
+    document.addEventListener("mousemove", mouseMove);
+    document.addEventListener("mouseup", mouseUp);
+}
 </script>
