@@ -56,9 +56,10 @@
             </span>
           </div>
         </div>
+      </div>
+      <div id="tableauViz"></div>
+      <div id="toolbarBlocker"></div>
     </div>
-    <div id="tableauViz"></div>
-    <div id="toolbarBlocker"></div>
     <div id="footer">
       <a id="poweredContainer" href="https://mavq.com" target="_blank" rel="noopener">
         <p id="poweredText">Powered by</p>
@@ -117,6 +118,7 @@
   }
 
   #buttons {
+    background-color: #f7f7f7;
     margin: 12px 0 0 0;
     display: flex;
     flex-direction: column;
@@ -127,6 +129,7 @@
   }
 
   #downloads {
+    background-color: white;
     margin: 0;
     display: flex;
     flex-direction: row;
@@ -298,6 +301,7 @@
 
   #tableauToolbar {
     color: #ccc;
+    background-color: white;
     margin: 12px 0 0 0;
     height: 60px;
     display: flex;
@@ -399,6 +403,7 @@
 </style>
 <script>
   var placeholderDiv = document.getElementById("tableauViz");
+  var heights = [1375, 1775, 1075];
   var urls = [
     "https://public.tableau.com/views/ListofFilersDashboard_Version_2/Dashboard1",
     "https://public.tableau.com/views/Independent_ExpenditureDashboard/Dashboard1",
@@ -407,12 +412,12 @@
   var options = {
     hideTabs: true,
     width: "1500px",
-    height: "1825px",
+    height: "1375px",
     onFirstInteractive: function () {
       var resetButton = document.getElementById("resetDashboard");
       resetButton.addEventListener("click", function () {
         var url = viz.getWorkbook().getActiveSheet().getUrl();
-        switchDashboard(url);
+        switchDashboard(urls.indexOf(url));
       });
     }
   };
@@ -464,22 +469,23 @@
   function onSwitchDashboard() {
     for (var i = 0; i < radioButtons.length; i++) {
       if (radioButtons[i] != event.target) continue;
-      switchDashboard(urls[i]);
+      switchDashboard(i);
       break;
     }
     uncheckRadioButtons();
     checkRadioButton(event.target);
   }
 
-  function switchDashboard(url) {
-    if (url == "") return;
+  function switchDashboard(i) {
+    if (urls[i] == "") return;
     viz.removeEventListener('filterchange', onFilterChange);
     viz.removeEventListener('marksselection', onFilterChange);
     viz.removeEventListener('parametervaluechange', onFilterChange);
     viz.removeEventListener('tabswitch', onTabSwitch);
     viz.dispose();
 
-    viz = new tableau.Viz(placeholderDiv, url, options);
+    options.height = heights[i] + "px";
+    viz = new tableau.Viz(placeholderDiv, urls[i], options);
     viz.addEventListener('filterchange', onFilterChange);
     viz.addEventListener('marksselection', onFilterChange);
     viz.addEventListener('parametervaluechange', onFilterChange);

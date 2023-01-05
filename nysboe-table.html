@@ -210,7 +210,7 @@ thead {
     background-color: white;
     margin: 0;
     position: sticky;
-    top: -2px;
+    top: 0px;
     height: 60px;
 }
 tbody {
@@ -229,6 +229,7 @@ th {
     height: 60px;
     padding: 6px;
     border-bottom: 2px solid black;
+    /* line-break: anywhere; */
 }
 .handle {
     position: absolute;
@@ -270,7 +271,7 @@ var urls = [
 var options = {
     hideTabs: true,
     width: "1500px",
-    height: "1825px",
+    height: "1425px",
     onFirstInteractive: function () {
         getUnderlyingData();
     }
