@@ -4,20 +4,22 @@
   <div id="mavQContainer">
     <div id="mainContent">
       <div id="leftPanel">
-        <span id="downloads">
-          <i class="fa-solid fa-file-pdf" onclick="downloadPDF()" data-title="Download PDF"></i>
-          <i class="fa-solid fa-file-excel" onclick="downloadExcel()" data-title="Download Excel"></i>
-          <i class="fa-solid fa-file-powerpoint" onclick="downloadPowerPoint()" data-title="Download PowerPoint"></i>
-        </span>
-        <button id="resetDashboard">
-          <p id="resetArrow">↺</p>RESET
-        </button>
-        <div id="tableauToolbar">
-          <i class="fa-solid fa-backward" data-title="Undo" onclick="onUndoClick()"></i>
-          <i class="fa-solid fa-forward" data-title="Redo" onclick="onRedoClick()"></i>
-          <i class="fa-solid fa-share-from-square" data-title="Share" onclick="onShareClick()"></i>
-          <i class="fa-solid fa-download" data-title="Download" onclick="onDownloadClick()"></i>
-          <i class="fa-solid fa-expand" data-title="Fullscreen Toggle" onclick="onFullscreenClick()"></i>
+        <div id="buttons">
+          <span id="downloads">
+            <i class="fa-solid fa-file-pdf" onclick="downloadPDF()" data-title="Download PDF"></i>
+            <i class="fa-solid fa-file-excel" onclick="downloadExcel()" data-title="Download Excel"></i>
+            <i class="fa-solid fa-file-powerpoint" onclick="downloadPowerPoint()" data-title="Download PowerPoint"></i>
+          </span>
+          <button id="resetDashboard">
+            <p id="resetArrow">↺</p>RESET
+          </button>
+          <div id="tableauToolbar">
+            <i class="fa-solid fa-backward" data-title="Undo" onclick="onUndoClick()"></i>
+            <i class="fa-solid fa-forward" data-title="Redo" onclick="onRedoClick()"></i>
+            <i class="fa-solid fa-share-from-square" data-title="Share" onclick="onShareClick()"></i>
+            <i class="fa-solid fa-download" data-title="Download" onclick="onDownloadClick()"></i>
+            <i class="fa-solid fa-expand" data-title="Fullscreen Toggle" onclick="onFullscreenClick()"></i>
+          </div>
         </div>
         <div id="navPanel">
           <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
@@ -54,9 +56,9 @@
             </span>
           </div>
         </div>
-        <div id="tableauViz"></div>
-        <div id="toolbarBlocker"></div>
     </div>
+    <div id="tableauViz"></div>
+    <div id="toolbarBlocker"></div>
     <div id="footer">
       <a id="poweredContainer" href="https://mavq.com" target="_blank" rel="noopener">
         <p id="poweredText">Powered by</p>
@@ -85,7 +87,7 @@
     scale: .80;
     transform-origin: top left;
     position: relative;
-    width: 1708px;
+    width: 1711px;
     font-size: 12pt;
     font-family: Arial, Helvetica, sans-serif;
     color: black;
@@ -110,18 +112,28 @@
 
   #leftPanel {
     height: fit-content;
-    margin-left: 12px;
+    width: 210px;
+    margin: 0 3px 0 12px;
+  }
+
+  #buttons {
+    margin: 12px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    border-radius: 15px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
   }
 
   #downloads {
-    margin: 12px 0 0 0;
-    width: 210px;
+    margin: 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     font-size: 30pt;
-    padding: 15px;
+    padding: 12px;
     border-radius: 15px;
     box-sizing: border-box;
     box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
@@ -155,14 +167,13 @@
 
   #resetDashboard {
     z-index: 1;
-    margin: 15px 0 0 0;
+    margin: 12px 0 0 0;
     color: black;
     background-color: white;
     cursor: pointer;
     border-radius: 12px;
     border: none;
     height: 60px;
-    width: 210px;
     box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
     font-weight: bold;
     font-size: 15pt;
@@ -199,8 +210,6 @@
     flex-direction: column;
     position: relative;
     margin: 15px 0 auto 0;
-    width: 210px;
-    min-width: 210px;
     border-radius: 15px;
     border: 1px solid #ccc;
     box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
@@ -289,16 +298,17 @@
 
   #tableauToolbar {
     color: #ccc;
-    margin: 15px 0 0 0;
-    padding: 12px;
-    position: relative;
-    width: 210px;
+    margin: 12px 0 0 0;
+    height: 60px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    font-size: 15pt;
+    font-size: 18pt;
+    padding: 12px;
+    border-radius: 15px;
     box-sizing: border-box;
+    box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
   }
 
   #tableauToolbar i:hover {
