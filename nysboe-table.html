@@ -21,12 +21,12 @@
                 <input type="text" id="county" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()" column-index="5" />
             </span>
             <span class="filter">
-                <label class="filterLabel" for="office">Office:</label>
-                <input type="text" id="office" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()" column-index="7" />
+                <label class="filterLabel" for="yearOfRegistration">Registration Date:</label>
+                <input type="text" id="yearOfRegistration" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()" column-index="6" />
             </span>
             <span class="filter">
-                <label class="filterLabel" for="yearOfRegistration">Registration Date:</label>
-                <input type="text" id="yearOfRegistration" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()" column-index="11" />
+                <label class="filterLabel" for="office">Office:</label>
+                <input type="text" id="office" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()" column-index="7" />
             </span>
         </div>
         <div id="tableDiv">
@@ -192,8 +192,14 @@
 }
 
 #tableDiv {
+    margin: 0;
+    padding: 0;
     font-family: Arial, Helvetica, sans-serif;
-    box-shadow: 0 0 4px 1px rgba(0, 0, 0, .18);
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, .18);
+    position: relative;
+    display: block;
+    overflow-y: scroll;
+    height: 600px;
 }
 table {
     margin: 0;
@@ -201,15 +207,14 @@ table {
     width: 100%;
 }
 thead {
+    background-color: white;
     margin: 0;
-    border-bottom: 1px black solid;
+    position: sticky;
+    top: -2px;
     height: 60px;
 }
 tbody {
     margin: 0;
-    overflow-y: scroll;
-    height: 600px;
-    max-height: 600px;
 }
 th,
 td {
@@ -222,7 +227,8 @@ th {
     position: relative;
     font-size: 12pt;
     height: 60px;
-    padding: 0 0 0 2px;
+    padding: 6px;
+    border-bottom: 2px solid black;
 }
 .handle {
     position: absolute;
@@ -259,7 +265,7 @@ var minCellWidth = 100;
 var filteredData;
 
 var urls = [
-    "https://public.tableau.com/views/ListofFilersDashboard/Dashboard1"
+    "https://public.tableau.com/views/ListofFilersDashboard_Version_2/Dashboard1"
 ];
 var options = {
     hideTabs: true,
@@ -294,7 +300,7 @@ function fixMargin() {
 }
 
 function getUnderlyingData() {
-    sheet = viz.getWorkbook().getActiveSheet().getWorksheets().get("Detailed Table");
+    sheet = viz.getWorkbook().getActiveSheet().getWorksheets().get("IE Expenditures and Payments");
     options = {
         maxRows: 0,
         ignoreAliases: false,
@@ -319,7 +325,6 @@ function writeColumnHeaders() {
         var handle;
         var th = document.createElement("th");
         var col = document.createElement("col");
-        // col.style.width = initialColWidth + "px";
         col.style.width = "min-content";
         colgroup.appendChild(col);
 
