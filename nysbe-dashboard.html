@@ -55,8 +55,11 @@
           </div>
         </div>
       </div>
-      <div id="tableauViz"></div>
-      <div id="toolbarBlocker"></div>
+      <div id="rightPanal">
+        <a id="profile" href="https://public.tableau.com/app/profile/nm.dfa">mavQ Viz powered by DataX</a>
+        <div id="tableauViz"></div>
+        <div id="toolbarBlocker"></div>
+      </div>
     </div>
     <div id="footer">
       <a id="poweredContainer" href="https://mavq.com" target="_blank" rel="noopener">
@@ -87,7 +90,7 @@
     transform-origin: top left;
     position: relative;
     width: 1708px;
-    font-size: 15px;
+    font-size: 12pt;
     font-family: Arial, Helvetica, sans-serif;
     color: black;
     background-color: white;
@@ -112,6 +115,26 @@
   #leftPanel {
     height: fit-content;
     margin-left: 12px;
+  }
+
+  #rightPanal {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+  }
+  #profile {
+    color: #007097;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 12px 0 0 33px;
+    font-size: 15pt;
+  }
+  #profile:hover {
+    color: #4fa9c7;
   }
 
   #downloads {
