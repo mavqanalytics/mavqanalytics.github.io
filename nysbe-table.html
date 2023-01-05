@@ -207,8 +207,9 @@ thead {
 }
 tbody {
     margin: 0;
-    overflow: scroll;
+    overflow-y: scroll;
     height: 600px;
+    max-height: 600px;
 }
 th,
 td {
@@ -318,7 +319,8 @@ function writeColumnHeaders() {
         var handle;
         var th = document.createElement("th");
         var col = document.createElement("col");
-        col.style.width = initialColWidth + "px";
+        // col.style.width = initialColWidth + "px";
+        col.style.width = "min-content";
         colgroup.appendChild(col);
 
         var isLastColumn = column.getIndex() == columns.length - 1;

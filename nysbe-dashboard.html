@@ -1,66 +1,71 @@
 <script src="https://public.tableau.com/javascripts/api/tableau-2.9.1.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 <div id="wrapper">
-<div id="mavQContainer">
-  <div id="mainContent">
-    <div id="leftPanel">
-      <span id="downloads">
-        <i class="fa-solid fa-file-pdf" onclick="downloadPDF()" data-title="Download PDF"></i>
-        <i class="fa-solid fa-file-excel" onclick="downloadExcel()" data-title="Download Excel"></i>
-        <i class="fa-solid fa-file-powerpoint" onclick="downloadPowerPoint()" data-title="Download PowerPoint"></i>
-      </span>
-      <button id="resetDashboard"><p id="resetArrow">↺</p>RESET</button>
-      <div id="tableauToolbar">
-        <i class="fa-solid fa-backward" data-title="Undo" onclick="onUndoClick()"></i>
-        <i class="fa-solid fa-forward" data-title="Redo" onclick="onRedoClick()"></i>
-        <i class="fa-solid fa-share-from-square" data-title="Share" onclick="onShareClick()"></i>
-        <i class="fa-solid fa-download" data-title="Download" onclick="onDownloadClick()"></i>
-        <i class="fa-solid fa-expand" data-title="Fullscreen Toggle" onclick="onFullscreenClick()"></i>
+  <div id="mavQContainer">
+    <div id="mainContent">
+      <div id="leftPanel">
+        <span id="downloads">
+          <i class="fa-solid fa-file-pdf" onclick="downloadPDF()" data-title="Download PDF"></i>
+          <i class="fa-solid fa-file-excel" onclick="downloadExcel()" data-title="Download Excel"></i>
+          <i class="fa-solid fa-file-powerpoint" onclick="downloadPowerPoint()" data-title="Download PowerPoint"></i>
+        </span>
+        <button id="resetDashboard">
+          <p id="resetArrow">↺</p>RESET
+        </button>
+        <div id="tableauToolbar">
+          <i class="fa-solid fa-backward" data-title="Undo" onclick="onUndoClick()"></i>
+          <i class="fa-solid fa-forward" data-title="Redo" onclick="onRedoClick()"></i>
+          <i class="fa-solid fa-share-from-square" data-title="Share" onclick="onShareClick()"></i>
+          <i class="fa-solid fa-download" data-title="Download" onclick="onDownloadClick()"></i>
+          <i class="fa-solid fa-expand" data-title="Fullscreen Toggle" onclick="onFullscreenClick()"></i>
+        </div>
+        <div id="navPanel">
+          <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+            onmouseleave="onRadioButtonMouseLeave()">
+            <span class="radioTextContainer">
+              <p class="code">NY_01</p>
+              <p class="radioText">List of Filers</p>
+            </span>
+            <input type="radio">
+            <span class="arrowBackground">
+              <span class="arrow"></span>
+            </span>
+          </div>
+          <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+            onmouseleave="onRadioButtonMouseLeave()">
+            <span class="radioTextContainer">
+              <p class="code">NY_02</p>
+              <p class="radioText">Independent Expenditures</p>
+            </span>
+            <input type="radio">
+            <span class="arrowBackground">
+              <span class="arrow"></span>
+            </span>
+          </div>
+          <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+            onmouseleave="onRadioButtonMouseLeave()">
+            <span class="radioTextContainer">
+              <p class="code">NY_99</p>
+              <p class="radioText">Glossary</p>
+            </span>
+            <input type="radio">
+            <span class="arrowBackground">
+              <span class="arrow"></span>
+            </span>
+          </div>
+        </div>
       </div>
-      <div id="navPanel">
-        <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()" onmouseleave="onRadioButtonMouseLeave()">
-          <span class="radioTextContainer">
-            <p class="code">NY_01</p>
-            <p class="radioText">List of Filers</p>
-          </span>
-          <input type="radio">
-          <span class="arrowBackground">
-            <span class="arrow"></span>
-          </span>
-        </div>
-        <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()" onmouseleave="onRadioButtonMouseLeave()">
-          <span class="radioTextContainer">
-            <p class="code">NY_02</p>
-            <p class="radioText">Independent Expenditures</p>
-          </span>
-          <input type="radio">
-          <span class="arrowBackground">
-            <span class="arrow"></span>
-          </span>
-        </div>
-        <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()" onmouseleave="onRadioButtonMouseLeave()">
-          <span class="radioTextContainer">
-            <p class="code">NY_99</p>
-            <p class="radioText">Glossary</p>
-          </span>
-          <input type="radio">
-          <span class="arrowBackground">
-            <span class="arrow"></span>
-          </span>
-        </div>
-      </div>
+      <div id="tableauViz"></div>
+      <div id="toolbarBlocker"></div>
     </div>
-    <div id="tableauViz"></div>
-    <div id="toolbarBlocker"></div>
+    <div id="footer">
+      <a id="poweredContainer" href="https://mavq.com" target="_blank" rel="noopener">
+        <p id="poweredText">Powered by</p>
+        <img src="https://mavq.com/assets/images/logo.png">
+      </a>
+      <p id="copyright">© 2022 Maverick Quantum Inc. All rights reserved</p>
+    </div>
   </div>
-  <div id="footer">
-    <a id="poweredContainer" href="https://mavq.com" target="_blank" rel="noopener">
-      <p id="poweredText">Powered by</p>
-      <img src="https://mavq.com/assets/images/logo.png">
-    </a>
-    <p id="copyright">© 2022 Maverick Quantum Inc. All rights reserved</p>
-  </div>
-</div>
 </div>
 <style>
   * {
@@ -122,26 +127,33 @@
     box-sizing: border-box;
     box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
   }
+
   #downloads i {
     cursor: pointer;
   }
+
   #downloads i:hover {
     color: #007097;
     transition: all 0.1s ease-in-out;
   }
+
   #downloads i:active {
     color: #005077;
     transition: all 0.1s ease-in-out;
   }
+
   .fa-file-pdf {
     color: #973126;
   }
+
   .fa-file-excel {
     color: #0a9544;
   }
+
   .fa-file-powerpoint {
     color: #e74c3c;
   }
+
   #resetDashboard {
     z-index: 1;
     margin: 15px 0 0 0;
@@ -160,23 +172,28 @@
     justify-content: center;
     align-items: center;
   }
+
   #resetDashboard:hover {
     box-shadow: 0 3px 4px 1px rgba(0, 0, 0, .18);
     transition: all 0.1s ease-in-out;
   }
+
   #resetDashboard:active {
     box-shadow: inset 0 2px 2px 1px rgba(0, 0, 0, .18);
     transition: all 0.1s ease-in-out;
   }
+
   #resetArrow {
     position: relative;
     top: -3px;
     padding: 0 12px 0 0;
     font-size: 24px;
   }
+
   #resetArrow {
     top: -2px;
   }
+
   #navPanel {
     all: unset;
     display: flex;
@@ -190,6 +207,7 @@
     box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
     overflow: hidden;
   }
+
   .navRadioButton {
     all: unset;
     margin: 0;
@@ -202,12 +220,14 @@
     cursor: pointer;
     background-color: white;
   }
+
   .navRadioButton input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
     pointer-events: none;
   }
+
   .radioTextContainer {
     all: unset;
     margin: 0;
@@ -216,6 +236,7 @@
     position: relative;
     pointer-events: none;
   }
+
   .radioText {
     margin: 0;
     pointer-events: none;
@@ -226,6 +247,7 @@
     width: 170px;
     height: 100px;
   }
+
   .code {
     all: unset;
     position: absolute;
@@ -233,6 +255,7 @@
     left: 9px;
     color: #999;
   }
+
   .arrowBackground {
     margin: 0;
     pointer-events: none;
@@ -244,6 +267,7 @@
     top: 0;
     right: 0;
   }
+
   .arrow {
     border: solid #007097;
     border-width: 0 2px 2px 0;
@@ -255,6 +279,7 @@
     top: 35px;
     left: 3px;
   }
+
   .star {
     position: relative;
     top: 8px;
@@ -262,6 +287,7 @@
     color: #E8B915;
     pointer-events: none;
   }
+
   #tableauToolbar {
     color: #ccc;
     margin: 15px 0 0 0;
@@ -275,20 +301,24 @@
     font-size: 15pt;
     box-sizing: border-box;
   }
+
   #tableauToolbar i:hover {
     color: #007097;
     cursor: pointer;
     transition: all 0.1s ease-in-out;
   }
+
   #tableauToolbar i:active {
     color: #005077;
     transition: all 0.1s ease-in-out;
   }
+
   [data-title]:hover:after {
     opacity: 1;
     transition: all 0.1s ease 0.25s;
     visibility: visible;
   }
+
   [data-title]:after {
     content: attr(data-title);
     background-color: white;
@@ -305,9 +335,11 @@
     visibility: hidden;
     font-family: Arial, Helvetica, sans-serif;
   }
+
   [data-title] {
     position: relative;
   }
+
   #toolbarBlocker {
     z-index: 1;
     background-color: white;
@@ -316,7 +348,8 @@
     position: absolute;
     bottom: 0;
     right: 0;
-	}
+  }
+
   #footer {
     box-sizing: border-box;
     background-color: rgb(12, 12, 35);
@@ -327,6 +360,7 @@
     left: -12px;
     flex-shrink: 0;
   }
+
   #poweredContainer {
     display: flex;
     flex-direction: row;
@@ -336,16 +370,19 @@
     text-decoration: none;
     color: rgb(121, 128, 171);
   }
+
   #poweredText {
     padding: 0 12px 0 0;
     position: relative;
     top: 12px;
   }
+
   #footerLogo {
     margin: 0;
     pointer-events: none;
     width: 100px;
   }
+
   #copyright {
     margin: 0 0 6px 0;
     color: rgb(121, 128, 171)
@@ -357,24 +394,24 @@
     "https://public.tableau.com/views/ListofFilersDashboard/Dashboard1",
     "https://public.tableau.com/views/Independent_ExpenditureDashboard/Dashboard1",
     "https://public.tableau.com/views/NYSGlossary/Dashboard1"
-	];
+  ];
   var options = {
     hideTabs: true,
     width: "1500px",
     height: "1825px",
-    onFirstInteractive: function() {
+    onFirstInteractive: function () {
       var resetButton = document.getElementById("resetDashboard");
-      resetButton.addEventListener("click", function() {
+      resetButton.addEventListener("click", function () {
         var url = viz.getWorkbook().getActiveSheet().getUrl();
         switchDashboard(url);
       });
     }
   };
   var viz = new tableau.Viz(placeholderDiv, urls[0], options);
-	viz.addEventListener('filterchange', onFilterChange);
-	viz.addEventListener('marksselection', onFilterChange);
-	viz.addEventListener('parametervaluechange', onFilterChange);
-	viz.addEventListener('tabswitch', onTabSwitch);
+  viz.addEventListener('filterchange', onFilterChange);
+  viz.addEventListener('marksselection', onFilterChange);
+  viz.addEventListener('parametervaluechange', onFilterChange);
+  viz.addEventListener('tabswitch', onTabSwitch);
 
   var mavQContainer = document.getElementById("mavQContainer");
   window.onload = () => {
@@ -389,7 +426,7 @@
     var width = parseFloat(style.width);
     var height = parseFloat(style.height);
 
-    var scale = clientWidth / 1738;
+    var scale = window.innerWidth / 1738;
     if (scale < minScale) scale = minScale;
     else if (scale > maxScale) scale = maxScale;
     else scale = scale;
@@ -399,26 +436,26 @@
     mavQContainer.style.marginBottom = "-" + (height - height * scale) + "px";
   }
 
-	var radioButtons = document.getElementsByClassName("navRadioButton");
+  var radioButtons = document.getElementsByClassName("navRadioButton");
   if (radioButtons.length === 1) radioButtons[0].style.border = "none";
   else radioButtons[radioButtons.length - 1].style.border = "none";
 
-	checkRadioButton(radioButtons[0]);
-  
+  checkRadioButton(radioButtons[0]);
+
   function onTabSwitch() {
-		var url = viz.getWorkbook().getActiveSheet().getUrl();
+    var url = viz.getWorkbook().getActiveSheet().getUrl();
     for (var i = 0; i < radioButtons.length; i++) {
-      if (urls[i] !== url) continue;
+      if (urls[i] != url) continue;
       uncheckRadioButtons();
       checkRadioButton(radioButtons[i]);
       return;
     }
-	}
+  }
 
   function onSwitchDashboard() {
     for (var i = 0; i < radioButtons.length; i++) {
-      if (radioButtons[i] !== event.target) continue;
-			switchDashboard(urls[i]);
+      if (radioButtons[i] != event.target) continue;
+      switchDashboard(urls[i]);
       break;
     }
     uncheckRadioButtons();
@@ -490,11 +527,11 @@
   function downloadExcel() {
     var checkedButton = document.querySelector('input[type="radio"]:checked');
     var code = checkedButton.parentNode.querySelector('.code').innerHTML;
-    if (code === "CO_99") {
-        viz.exportCrossTabToExcel("Fund Code - Funding Source");
-        return;
+    if (code === "JB_99") {
+      viz.exportCrossTabToExcel("Glossary T&D");
+      return;
     }
-    viz.exportCrossTabToExcel("Project Details " + code);
+    viz.exportCrossTabToExcel("Junior Bill Appropriations by Agency and Z Code Off");
   }
 
   function downloadPowerPoint() {
@@ -504,7 +541,7 @@
   function onUndoClick() {
     viz.undoAsync();
   }
-  
+
   function onRedoClick() {
     viz.redoAsync();
   }
@@ -517,9 +554,10 @@
     viz.showDownloadDialog();
   }
 
+
   var mavQContainer = document.getElementById("mavQContainer");
   var isFullscreen = false;
-  
+
   function onFullscreenClick() {
     if (document.fullscreenElement) {
       document.exitFullscreen();
