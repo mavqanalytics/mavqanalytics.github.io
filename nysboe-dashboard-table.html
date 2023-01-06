@@ -59,35 +59,37 @@
       </div>
       <div id="visualizations">
         <div id="tableauViz"></div>
+        <div id="toolbarBlocker"></div>
         <div id="detailedTable">
+          <p id="detailedTableBanner">List of Filers - Detailed Table</p>
           <div id="filters">
             <span class="filter">
-              <label class="filterLabel" for="filerType">Filer Type:</label>
+              <label class="filterLabel" for="filerType">Filer Type</label>
               <input type="text" id="filerType" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()"
                 column-index="1" />
             </span>
             <span class="filter">
-              <label class="filterLabel" for="complianceType">Compliance Type:</label>
+              <label class="filterLabel" for="complianceType">Compliance Type</label>
               <input type="text" id="complianceType" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()"
                 column-index="3" />
             </span>
             <span class="filter">
-              <label class="filterLabel" for="committeeType">Committee Type:</label>
+              <label class="filterLabel" for="committeeType">Committee Type</label>
               <input type="text" id="committeeType" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()"
                 column-index="4" />
             </span>
             <span class="filter">
-              <label class="filterLabel" for="county">County:</label>
+              <label class="filterLabel" for="county">County</label>
               <input type="text" id="county" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()"
                 column-index="5" />
             </span>
             <span class="filter">
-              <label class="filterLabel" for="yearOfRegistration">Registration Date:</label>
+              <label class="filterLabel" for="yearOfRegistration">Registration Date</label>
               <input type="text" id="yearOfRegistration" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()"
                 column-index="6" />
             </span>
             <span class="filter">
-              <label class="filterLabel" for="office">Office:</label>
+              <label class="filterLabel" for="office">Office</label>
               <input type="text" id="office" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()"
                 column-index="7" />
             </span>
@@ -180,15 +182,39 @@
   flex-direction: column;
 }
 
+#toolbarBlocker {
+  background-color: white;
+  height: 90px;
+  width: 100%;
+  margin: 0;
+  position: relative;
+  top: -75px;
+  z-index: 1;
+}
+
 #detailedTable {
   background-color: white;
-  margin: 0;
-  margin-bottom: -105px;
+  margin: -90px 15px 15px 15px;
   position: relative;
-  top: -90px;
+  margin-top: -190px;
   left: -237px;
-  width: 1718px;
-  z-index: 1;
+  width: 1688px;
+  border-radius: 15px;
+  box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
+  z-index: 2;
+}
+
+#detailedTableBanner {
+  margin: 0;
+  background-color: #71aec6;
+  width: 100%;
+  height: 60px;
+  font-size: 15pt;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px 15px 0 0;
 }
 
 #buttons {
@@ -465,43 +491,49 @@
 
   /************ TABLE STYLES ************/
 #filters {
-  margin: 2px 0 0 0;
+  margin: 0;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  padding: 30px 12px;
-  height: 40px;
   width: 100%;
   box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, .18);
 }
 .filterLabel {
   margin: 0 6px 0 0;
+  text-align: center;
 }
 .filterInput {
-  width: 120px;
-  height: 24px;
-  margin: 0 auto 0 0;
+  width: 150px;
+  height: 30px;
+  margin: 6px auto 0 auto;
+  padding: 0 0 0 9px;
   border: none;
-  border-bottom: 2px solid black;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
 }
 .filterInput::placeholder {
   color: #aaa;
   font-style: italic;
 }
 .filterInput:focus {
-  outline: rgba(0, 0, 0, 0) auto 1px;
-  border-bottom: 2px solid #007097;
+  outline: #007097 auto 1px;
+}
+.filter {
+  display: flex;
+  width: 180px;
+  margin: 12px;
+  flex-direction: column;
 }
 
 #tableControls {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 15px 0 15px 0;
   padding: 0 12px;
-  height: 40px;
+  height: 69px;
   width: 100%;
+  border-top: 1px solid #ddd;
 }
 
 #amountOfRowsToDisplay {
@@ -573,7 +605,6 @@
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, .18);
   position: relative;
   display: block;
   overflow-y: scroll;
@@ -606,6 +637,7 @@ th {
   font-size: 12pt;
   height: 60px;
   padding: 6px;
+  border-top: 2px solid black;
   border-bottom: 2px solid black;
   /* line-break: anywhere; */
 }
@@ -660,10 +692,12 @@ var options = {
   width: "1500px",
   height: "1475px",
   onFirstInteractive: function () {
+    sheet = viz.getWorkbook().getActiveSheet();
     var resetButton = document.getElementById("resetDashboard");
-    var url = viz.getWorkbook().getActiveSheet().getUrl();
+    var url = sheet.getUrl();
     var index = urls.indexOf(url);
-    getUnderlyingData();
+    
+    if(index === 0) getUnderlyingData();
     
     resetButton.addEventListener("click", (index) => { switchDashboard(index) });
   }
@@ -857,8 +891,8 @@ mavQContainer.addEventListener('fullscreenchange', (event) => {
   fixMargin();
 });
 
-function getUnderlyingData() {
-  sheet = viz.getWorkbook().getActiveSheet().getWorksheets().get("IE Expenditures and Payments");
+async function getUnderlyingData() {
+  sheet = sheet.getWorksheets().get("IE Expenditures and Payments");
   sheet.getUnderlyingTablesAsync().then(tables => {
     return sheet.getUnderlyingTableDataAsync(tables[0].getTableId(), tableOptions).then(dataTable => {
       data = dataTable.getData();
