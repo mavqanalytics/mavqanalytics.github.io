@@ -62,37 +62,37 @@
             <label class="filterLabel" for="filerType">Filer Type</label>
             <input type="text" id="filerType" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()"
               column-index="1" />
-            <span class="material-icons">filter_list</span>
+            <div class="filterIcon"><span class="material-icons">filter_list</span></div>
           </span>
           <span class="filter">
             <label class="filterLabel" for="complianceType">Compliance Type</label>
             <input type="text" id="complianceType" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()"
               column-index="3" />
-            <span class="material-icons">filter_list</span>
+            <div class="filterIcon"><span class="material-icons">filter_list</span></div>
           </span>
           <span class="filter">
             <label class="filterLabel" for="committeeType">Committee Type</label>
             <input type="text" id="committeeType" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()"
               column-index="4" />
-            <span class="material-icons">filter_list</span>
+            <div class="filterIcon"><span class="material-icons">filter_list</span></div>
           </span>
           <span class="filter">
             <label class="filterLabel" for="county">County</label>
             <input type="text" id="county" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()"
               column-index="5" />
-            <span class="material-icons">filter_list</span>
+            <div class="filterIcon"><span class="material-icons">filter_list</span></div>
           </span>
           <span class="filter">
             <label class="filterLabel" for="yearOfRegistration">Registration Date</label>
             <input type="text" id="yearOfRegistration" class="filterInput" placeholder="empty"
               onkeyup="onFilterChanged()" column-index="6" />
-            <span class="material-icons">filter_list</span>
+            <div class="filterIcon"><span class="material-icons">filter_list</span></div>
           </span>
           <span class="filter">
             <label class="filterLabel" for="office">Office</label>
             <input type="text" id="office" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()"
               column-index="7" />
-            <span class="material-icons">filter_list</span>
+            <div class="filterIcon"><span class="material-icons">filter_list</span></div>
           </span>
         </div>
       </div>
@@ -310,7 +310,7 @@
       display: flex;
       flex-direction: column;
       position: relative;
-      margin: 15px 0 auto 0;
+      margin: 42px 0 auto 0;
       border-radius: 15px;
       border: 1px solid #ccc;
       box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
@@ -489,24 +489,35 @@
 
     /************ TABLE STYLES ************/
     #filters {
-      margin: 0;
+      margin: 45px 0 0 0;
+    }
+
+    .filter {
+      background-color: #f7f7f7;
+      position: relative;
       display: flex;
+      margin: 24px 0;
+      padding: 6px;
       flex-direction: column;
-      align-items: center;
-      justify-content: space-evenly;
-      width: 100%;
-      box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, .18);
+      border-radius: 12px;
+      box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
+    }
+
+    .filterIcon {
+      color: #aaa;
+      position: absolute;
+      right: 9px;
+      bottom: 9px;
+      pointer-events: none;
     }
 
     .filterLabel {
-      margin: 0 6px 0 0;
-
+      margin: 0 0 0 3px;
     }
 
     .filterInput {
-      width: 150px;
       height: 30px;
-      margin: 6px auto 0 auto;
+      margin: 6px 0 0 0;
       padding: 0 0 0 9px;
       border: none;
       border-radius: 6px;
@@ -520,13 +531,6 @@
 
     .filterInput:focus {
       outline: #007097 auto 1px;
-    }
-
-    .filter {
-      display: flex;
-      width: 180px;
-      margin: 12px;
-      flex-direction: column;
     }
 
     #tableControls {
@@ -845,11 +849,6 @@
     function downloadExcel() {
       var checkedButton = document.querySelector('input[type="radio"]:checked');
       var code = checkedButton.parentNode.querySelector('.code').innerHTML;
-      if (code === "JB_99") {
-        viz.exportCrossTabToExcel("Glossary T&D");
-        return;
-      }
-      viz.exportCrossTabToExcel("Junior Bill Appropriations by Agency and Z Code Off");
     }
 
     function downloadPowerPoint() {
