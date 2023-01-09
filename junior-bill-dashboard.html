@@ -23,7 +23,7 @@
           <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
             onmouseleave="onRadioButtonMouseLeave()">
             <span class="radioTextContainer">
-              <!-- <p class="code">JR_01</p> -->
+              <p class="code">JR_01</p>
               <p class="radioText">Junior Bill Appropriations</p>
             </span>
             <input type="radio">
@@ -34,7 +34,7 @@
           <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
             onmouseleave="onRadioButtonMouseLeave()">
             <span class="radioTextContainer">
-              <!-- <p class="code">JR_99</p> -->
+              <p class="code">JR_99</p>
               <p class="radioText">Glossary</p>
             </span>
             <input type="radio">
@@ -515,11 +515,11 @@
   function downloadExcel() {
     var checkedButton = document.querySelector('input[type="radio"]:checked');
     var code = checkedButton.parentNode.querySelector('.code').innerHTML;
-    if (code === "JB_99") {
-      viz.exportCrossTabToExcel("Glossary T&D");
+    if (code === "JR_99") {
+      viz.exportCrossTabToExcel("JR_99 Glossary T&D");
       return;
     }
-    viz.exportCrossTabToExcel("Junior Bill Appropriations by Agency and Z Code Off");
+    viz.exportCrossTabToExcel("JR_01 Junior Bill Appropriations by Agency");
   }
 
   function downloadPowerPoint() {

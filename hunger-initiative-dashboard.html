@@ -552,11 +552,23 @@
     function downloadExcel() {
         var checkedButton = document.querySelector('input[type="radio"]:checked');
         var code = checkedButton.parentNode.querySelector('.code').innerHTML;
-        if (code === "HI_01") viz.exportCrossTabToExcel("CrossTab Matrix Subtotal OFF");
-        else if (code === "HI_02") viz.exportCrossTabToExcel("Demand and Supply by County");
-        else if (code === "HI_03") viz.exportCrossTabToExcel("Farms by county");
-        else if (code === "HI_04") viz.exportCrossTabToExcel("Detailed table");
-        else if (code === "HI_99") viz.exportCrossTabToExcel("Food Insecure Glossary");
+        switch (code) {
+            case "HI_01":
+                viz.exportCrossTabToExcel("HI_01 Detailed Budget by Agency, Program and Fiscal Year");
+                break;
+            case "HI_02":
+                viz.exportCrossTabToExcel("HI_02 Demand and Supply by County");
+                break;
+            case "HI_03":
+                viz.exportCrossTabToExcel("HI_03 Farms by County");
+                break;
+            case "HI_04":
+                viz.exportCrossTabToExcel("HI_04 Detailed Budget Information by FY, State Agency, Awarding Entity and Appropriation");
+                break;
+            case "HI_99":
+                viz.exportCrossTabToExcel("HI_99 Food Insecure Glossary");
+                break;
+        }
     }
 
     function downloadPowerPoint() {

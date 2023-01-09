@@ -541,7 +541,7 @@
 		var checkedButton = document.querySelector('input[type="radio"]:checked');
 		var code = checkedButton.parentNode.querySelector('.code').innerHTML;
 		if (code === "CO_99") {
-			viz.exportCrossTabToExcel("Fund Code - Funding Source");
+			viz.exportCrossTabToExcel("Key Terms & Definitions CO_99");
 			return;
 		}
 		viz.exportCrossTabToExcel("Project Details " + code);

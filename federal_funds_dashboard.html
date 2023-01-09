@@ -618,7 +618,40 @@
 	}
 
 	function downloadExcel() {
-		viz.showDownloadDialog();
+		var checkedButton = document.querySelector('input[type="radio"]:checked');
+		var code = checkedButton.parentNode.querySelector('.code').innerHTML;
+		switch (code) {
+			case "FF_01":
+				viz.exportCrossTabToExcel("FF_01 Total Budget Table");
+				break;
+			case "FF_02":
+				viz.exportCrossTabToExcel("FF_02 NM Federal Funds by Category, Agency");
+				break
+			case "FF_03":
+				viz.exportCrossTabToExcel("FF_3 Detailed Budget Information by State Agency, FY, Appropriation, Account");
+				break;
+			case "FF_04":
+				viz.exportCrossTabToExcel("FF_04 Appropriated Amount by Agency and Legislative Appropriation");
+				break;
+			case "FF_05":
+				viz.exportCrossTabToExcel("FF_05 Appropriated Amount by Agency and Legislative Appropriation");
+				break;
+			case "FF_06":
+				viz.exportCrossTabToExcel("FF_06 ERAP Award Amounts by NM Counties");
+				break;
+			case "FF_07":
+				viz.exportCrossTabToExcel("FF_07 NEU Detailed Table");
+				break;
+			case "FF_08":
+				viz.exportCrossTabToExcel("FF_08 Federal Grant Resource Table");
+				break;
+			case "FF_09":
+				viz.exportCrossTabToExcel("FF_09 Large City Allocations");
+				break;
+			case "FF_99":
+				viz.exportCrossTabToExcel("FF_99 Key Terms & Definitions");
+				break;
+		}
 	}
 
 	function downloadPowerPoint() {
