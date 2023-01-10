@@ -2,6 +2,57 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <div id="wrapper">
+  <!-- <div class="loading">
+    <span></span><span></span><span></span>
+  </div>
+  <style>
+    .loading {
+      background-color: #005077;
+      width: 60px;
+      height: 100px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .loading span {
+      display: inline-block;
+      width: 25%;
+      height: var(--height);
+      background-color: white;
+    }
+
+    .loading span:nth-of-type(1) {
+      animation: anime1 1s ease-in-out infinite;
+    }
+
+    .loading span:nth-of-type(2) {
+      animation: anime1 1s ease-in-out .15s infinite;
+    }
+
+    .loading span:nth-of-type(3) {
+      animation: anime1 1s ease-in-out .3s infinite;
+    }
+
+    @keyframes anime1 {
+      from {
+        height: var(--height);
+      }
+
+      40% {
+        height: 100%;
+      }
+
+      80% {
+        height: var(--height);
+      }
+
+      to {
+        height: var(--height);
+      }
+    }
+  </style> -->
   <div id="mavQContainer">
     <div id="mainContent">
       <div id="sidebar">
@@ -60,39 +111,45 @@
         <div id="filters">
           <span class="filter">
             <label class="filterLabel" for="filerType">Filer Type</label>
-            <input type="text" id="filerType" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()"
+            <input type="text" id="filerType" class="filterInput" placeholder="empty" onkeyup="onTableFilterChanged()"
               column-index="1" />
-            <div class="filterIcon"><span class="material-icons">filter_list</span></div>
+            <select class="filterSelect" onchange="updateFilterInput()" column-index="1"><option value="">None</option></select>
+            <div class="filterIcon" onclick="showOptions()"><span class="material-icons">filter_list</span></div>
           </span>
           <span class="filter">
             <label class="filterLabel" for="complianceType">Compliance Type</label>
-            <input type="text" id="complianceType" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()"
+            <input type="text" id="complianceType" class="filterInput" placeholder="empty" onkeyup="onTableFilterChanged()"
               column-index="3" />
-            <div class="filterIcon"><span class="material-icons">filter_list</span></div>
+            <select class="filterSelect" onchange="updateFilterInput()" column-index="3"><option value="">None</option></select>
+            <div class="filterIcon" onclick="showOptions()"><span class="material-icons">filter_list</span></div>
           </span>
           <span class="filter">
             <label class="filterLabel" for="committeeType">Committee Type</label>
-            <input type="text" id="committeeType" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()"
+            <input type="text" id="committeeType" class="filterInput" placeholder="empty" onkeyup="onTableFilterChanged()"
               column-index="4" />
-            <div class="filterIcon"><span class="material-icons">filter_list</span></div>
+            <select class="filterSelect" onchange="updateFilterInput()" column-index="4"><option value="">None</option></select>
+            <div class="filterIcon" onclick="showOptions()"><span class="material-icons">filter_list</span></div>
           </span>
           <span class="filter">
             <label class="filterLabel" for="county">County</label>
-            <input type="text" id="county" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()"
+            <input type="text" id="county" class="filterInput" placeholder="empty" onkeyup="onTableFilterChanged()"
               column-index="5" />
-            <div class="filterIcon"><span class="material-icons">filter_list</span></div>
+            <select class="filterSelect" onchange="updateFilterInput()" column-index="5"><option value="">None</option></select>
+            <div class="filterIcon" onclick="showOptions()"><span class="material-icons">filter_list</span></div>
           </span>
           <span class="filter">
             <label class="filterLabel" for="yearOfRegistration">Registration Date</label>
             <input type="text" id="yearOfRegistration" class="filterInput" placeholder="empty"
-              onkeyup="onFilterChanged()" column-index="6" />
-            <div class="filterIcon"><span class="material-icons">filter_list</span></div>
+              onkeyup="onTableFilterChanged()" column-index="6" />
+            <select class="filterSelect" onchange="updateFilterInput()" column-index="6"> </select>
+            <div class="filterIcon" onclick="showOptions()"><span class="material-icons">filter_list</span></div>
           </span>
           <span class="filter">
             <label class="filterLabel" for="office">Office</label>
-            <input type="text" id="office" class="filterInput" placeholder="empty" onkeyup="onFilterChanged()"
+            <input type="text" id="office" class="filterInput" placeholder="empty" onkeyup="onTableFilterChanged()"
               column-index="7" />
-            <div class="filterIcon"><span class="material-icons">filter_list</span></div>
+            <select class="filterSelect" onchange="updateFilterInput()" column-index="7"><option value="">None</option></select>
+            <div class="filterIcon" onclick="showOptions()"><span class="material-icons">filter_list</span></div>
           </span>
         </div>
       </div>
@@ -310,7 +367,6 @@
       all: unset;
       display: flex;
       flex-direction: column;
-      position: relative;
       margin: 42px 0 auto 0;
       border-radius: 15px;
       border: 1px solid #ccc;
@@ -507,9 +563,17 @@
     .filterIcon {
       color: #aaa;
       position: absolute;
-      right: 12px;
-      bottom: 12px;
+      right: 15px;
+      bottom: 15px;
+      height: 21px;
+      width: 21px;
+      border-radius: 50%;
       pointer-events: none;
+    }
+    .filterIcon:hover {
+      color: #999;
+      cursor: pointer;
+      transition: all 0.1s ease-in-out;
     }
 
     .filterLabel {
@@ -532,6 +596,17 @@
 
     .filterInput:focus {
       outline: #007097 auto 1px;
+    }
+
+    .filterSelect {
+      background-color: red;
+      position: absolute;
+      right: 13px;
+      bottom: 13px;
+      height: 21px;
+      width: 21px;
+      opacity: 0;
+      cursor: pointer;
     }
 
     #tableControls {
@@ -930,7 +1005,46 @@
 
         th.innerHTML = column.getFieldName() + handle;
         thead.appendChild(th);
+        populateFilterSelectWithOptions(column);
       });
+    }
+
+    function populateFilterSelectWithOptions(column) {
+      var selects = document.getElementsByClassName("filterSelect");
+      var select;
+      for (var i = 0; i < selects.length; i++) {
+        if (selects[i].getAttribute("column-index") == column.getIndex()) {
+          select = selects[i];
+          break;
+        }
+      }
+      if (!select) return;
+      select.selectedIndex = -1;
+      
+      var options = [];
+      for (var i = 0; i < data.length; i++) {
+        var value = data[i][column.getIndex()].formattedValue;
+        if (value == null) continue;
+        if (options.indexOf(value) == -1) options.push(value);
+      }
+      options.forEach((option, index) => {
+        var optionElement = document.createElement("option");
+        optionElement.innerHTML = option;
+        select.appendChild(optionElement);
+      });
+    }
+
+    function updateFilterInput() {
+      var select = event.target;
+      var input = select.parentNode.querySelector("input");
+      input.value = select.value;
+      onTableFilterChanged();
+    }
+
+    function showOptions() {
+      var select = event.target.parentNode.querySelector("select");
+      select.style.opacity = "1";
+      select.dispatchEvent(new Event("onclick"));
     }
 
     function displayRangeInHTMLTable(startIndex, endIndex) {
@@ -984,7 +1098,7 @@
       displayRangeInHTMLTable(currentRowIndex, currentRowIndex + amountOfRowsToDisplay);
     }
 
-    function onFilterChanged() {
+    function onTableFilterChanged() {
       var filterInput = document.getElementsByClassName("filterInput");
       var filterValues = Array.from(filterInput).map(input => {
         return {
