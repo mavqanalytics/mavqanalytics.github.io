@@ -203,13 +203,9 @@
 
     #resetArrow {
         position: relative;
-        top: -3px;
+        top: -2px;
         padding: 0 12px 0 0;
         font-size: 24px;
-    }
-
-    #resetArrow {
-        top: -2px;
     }
 
     #navPanel {
@@ -249,6 +245,7 @@
 
     .radioTextContainer {
         margin: 0;
+        line-height: 1.25;
         padding: 9px;
         width: 180px;
         display: flex;
@@ -257,7 +254,7 @@
     }
 
     .radioText {
-        margin: 12px 0 0 0;
+        margin: 6px 0 0 0;
     }
 
     .code {
@@ -479,8 +476,15 @@
         viz.removeEventListener('tabswitch', onTabSwitch);
         viz.dispose();
 
-        if (i === 2 || i === 3) mavQContainer.style.backgroundColor = "#FFFFE9";
-        else mavQContainer.style.backgroundColor = "unset";
+        var toolbarBlocker = document.getElementById("toolbarBlocker");
+        if (i === 2 || i === 3) {
+            mavQContainer.style.backgroundColor = "#FFFFE9";
+            toolbarBlocker.style.backgroundColor = "#FFFFE9";
+        }
+        else {
+            mavQContainer.style.backgroundColor = "white";
+            toolbarBlocker.style.backgroundColor = "white";
+        }
 
         options.height = heights[i] + "px";
         viz = new tableau.Viz(placeholderDiv, urls[i], options);
@@ -540,7 +544,7 @@
     function downloadExcel() {
         var checkedButton = document.querySelector('input[type="radio"]:checked');
         var code = checkedButton.parentNode.querySelector('.code').innerHTML;
-        
+
         switch (code) {
             case "ICIP_01":
                 viz.exportCrossTabToExcel("1 ICIP_01 NMDFA Infrastructure Capital Improvement Plan (ICIP)");
@@ -553,7 +557,7 @@
             case "ICIP_03":
                 viz.exportCrossTabToExcel("1 ICIP_03 NMDFA Infrastructure Capital Improvement Plan (ICIP) 2023-2027");
                 break;
-            
+
             case "ICIP_04":
                 viz.exportCrossTabToExcel("ICIP_04 Project Titles");
                 break;
