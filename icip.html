@@ -103,7 +103,7 @@
         scale: .80;
         transform-origin: top left;
         position: relative;
-        width: 1708px;
+        width: 1600px;
         font-size: 15px;
         font-family: Arial, Helvetica, sans-serif;
         color: black;
@@ -114,6 +114,11 @@
         overflow: hidden;
         scroll-behavior: none;
         visibility: hidden;
+    }
+
+    #tableauViz {
+        width: 1440px;
+        margin: 0 0 0 -60px;
     }
 
     #mainContent {
@@ -127,8 +132,9 @@
     }
 
     #leftPanel {
-        height: fit-content;
+        background-color: white;
         margin-left: 12px;
+        z-index: 1;
     }
 
     #downloads {
@@ -359,10 +365,9 @@
         background-color: rgb(12, 12, 35);
         color: rgb(121, 128, 171);
         text-align: center;
-        width: 1718px;
-        position: relative;
-        left: -12px;
+        width: 100%;
         flex-shrink: 0;
+        z-index: 0;
     }
 
     #poweredContainer {
@@ -402,7 +407,7 @@
         "https://public.tableau.com/views/ICIPDashboardVersion3/ProjectDetails",
         "https://public.tableau.com/views/ICIPDashboardVersion2/GlossaryDashboard"
     ];
-    var heights = [1825, 1245, 1825, 1245, 975]
+    var heights = [1825, 1255, 1825, 1255, 1830]
     var options = {
         hideTabs: true,
         width: "1500px",
@@ -410,6 +415,7 @@
         onFirstInteractive: function () {
             var resetButton = document.getElementById("resetDashboard");
             resetButton.addEventListener("click", function () {
+                console.log("reset");
                 var url = viz.getWorkbook().getActiveSheet().getUrl();
                 var index = urls.indexOf(url);
                 switchDashboard(index);
@@ -427,14 +433,15 @@
         fixMargin();
     };
     window.addEventListener("resize", fixMargin);
-    var minScale = .08;
-    var maxScale = .80;
-    function fixMargin() {
-        var style = getComputedStyle(mavQContainer);
-        var width = parseFloat(style.width);
-        var height = parseFloat(style.height);
 
-        var scale = window.innerWidth / 1738;
+    function fixMargin() {
+        var minScale = .08;
+        var maxScale = .80;
+        var width = mavQContainer.clientWidth;
+        var height = mavQContainer.clientHeight;
+        var windowWidth = window.innerWidth;
+
+        scale = windowWidth / width;
         if (scale < minScale) scale = minScale;
         else if (scale > maxScale) scale = maxScale;
         else scale = scale;
@@ -455,7 +462,11 @@
         var index = urls.indexOf(url);
         uncheckRadioButtons();
         checkRadioButton(radioButtons[index]);
-        switchDashboard(index);
+        if (index === 1 || index === 3) placeholderDiv.style.height = heights[index] + "px";
+        else {
+            placeholderDiv.style.height = "unset"
+            switchDashboard(index);
+        }
     }
 
     function onSwitchDashboard() {
@@ -480,12 +491,15 @@
         if (i === 2 || i === 3) {
             mavQContainer.style.backgroundColor = "#FFFFE9";
             toolbarBlocker.style.backgroundColor = "#FFFFE9";
+            document.getElementById("leftPanel").style.backgroundColor = "#FFFFE9";
         }
         else {
             mavQContainer.style.backgroundColor = "white";
             toolbarBlocker.style.backgroundColor = "white";
+            document.getElementById("leftPanel").style.backgroundColor = "white";
         }
 
+        placeholderDiv.style.height = "unset";
         options.height = heights[i] + "px";
         viz = new tableau.Viz(placeholderDiv, urls[i], options);
         viz.addEventListener('filterchange', onFilterChange);
