@@ -470,7 +470,7 @@
             placeholderDiv.style.height = "unset"
             switchDashboard(index);
         }
-        mavQContainer.scrollTop = 0;
+        mavQContainer.scrollIntoView({ behavior: "smooth" })
     }
 
     function onSwitchDashboard() {
