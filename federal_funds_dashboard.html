@@ -364,7 +364,7 @@
 
 	.star {
 		position: relative;
-		top: -8px;
+		top: 6px;
 		left: -100px;
 		color: #E8B915;
 		pointer-events: none;
@@ -506,12 +506,13 @@
 	viz.addEventListener('parametervaluechange', onFilterChange);
 	viz.addEventListener('tabswitch', onTabSwitch);
 
+	window.addEventListener("resize", fixMargin);
 	var mavQContainer = document.getElementById("mavQContainer");
 	window.onload = () => {
 		mavQContainer.style.visibility = "visible";
-		fixMargin();
+		window.dispatchEvent(new Event("resize"));
 	};
-	window.addEventListener("resize", fixMargin);
+
 	var minScale = .08;
 	var maxScale = .80;
 	function fixMargin() {
@@ -541,6 +542,7 @@
 			if (urls[i] != url) continue;
 			uncheckRadioButtons();
 			checkRadioButton(radioButtons[i]);
+			window.dispatchEvent(new Event("resize"));
 			return;
 		}
 	}
@@ -553,6 +555,7 @@
 		}
 		uncheckRadioButtons();
 		checkRadioButton(event.target);
+		window.dispatchEvent(new Event("resize"));
 	}
 
 	function switchDashboard(i) {
@@ -625,7 +628,7 @@
 				viz.exportCrossTabToExcel("FF_01 Total Budget Table");
 				break;
 			case "FF_02":
-				viz.exportCrossTabToExcel("FF_02 NM Federal Funds by Category, Agency");
+				viz.exportCrossTabToExcel("1 FF_02 NM Federal Funds by Category, Agency");
 				break
 			case "FF_03":
 				viz.exportCrossTabToExcel("1 FF_03 SHARE Combined Detailed Federal Data");

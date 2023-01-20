@@ -428,11 +428,11 @@
     viz.addEventListener('parametervaluechange', onFilterChange);
     viz.addEventListener('tabswitch', onTabSwitch);
 
+    window.addEventListener("resize", fixMargin);
     window.onload = () => {
         mavQContainer.style.visibility = "visible";
-        fixMargin();
+        window.dispatchEvent(new Event('resize'));
     };
-    window.addEventListener("resize", fixMargin);
 
     function fixMargin() {
         var minScale = .08;
@@ -471,6 +471,7 @@
             switchDashboard(index);
         }
         mavQContainer.scrollIntoView({ behavior: "smooth" })
+        window.dispatchEvent(new Event('resize'));
     }
 
     function onSwitchDashboard() {
@@ -481,6 +482,7 @@
         }
         uncheckRadioButtons();
         checkRadioButton(event.target);
+        window.dispatchEvent(new Event('resize'));
     }
 
     function switchDashboard(i) {
