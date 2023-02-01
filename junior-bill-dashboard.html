@@ -23,7 +23,7 @@
           <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
             onmouseleave="onRadioButtonMouseLeave()">
             <span class="radioTextContainer">
-              <p class="code">JR_01</p>
+              <p class="code">JB_01</p>
               <p class="radioText">Junior Bill Appropriations</p>
             </span>
             <input type="radio">
@@ -34,7 +34,7 @@
           <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
             onmouseleave="onRadioButtonMouseLeave()">
             <span class="radioTextContainer">
-              <p class="code">JR_99</p>
+              <p class="code">JB_99</p>
               <p class="radioText">Glossary</p>
             </span>
             <input type="radio">
@@ -62,6 +62,8 @@
   }
 
   #wrapper {
+    all: unset;
+    position: relative;
     margin: 0 15px;
     display: flex;
     flex-direction: column;
@@ -70,6 +72,7 @@
   }
 
   #mavQContainer {
+    all: unset;
     display: flex;
     flex-direction: column;
     scale: .80;
@@ -344,9 +347,7 @@
     background-color: rgb(12, 12, 35);
     color: rgb(121, 128, 171);
     text-align: center;
-    width: 1718px;
-    position: relative;
-    left: -12px;
+    width: 100%;
     flex-shrink: 0;
   }
 
@@ -380,8 +381,8 @@
 <script>
   var placeholderDiv = document.getElementById("tableauViz");
   var urls = [
-    "https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/JuniorBillAppropriations",
-    "https://public.tableau.com/views/JuniorBillAppropriations_16700024001310/Glossary"
+    "https://public.tableau.com/views/JuniorBillAppropriations_16717483522010/JB_01JuniorBillAppropriations",
+    "https://public.tableau.com/views/JuniorBillAppropriations_16717483522010/JB_99Glossary"
   ];
   var options = {
     hideTabs: true,
@@ -403,9 +404,9 @@
 
   var mavQContainer = document.getElementById("mavQContainer");
   window.onload = () => {
-    mavQContainer.style.visibility = "visible";
     fixMargin();
-  };
+    mavQContainer.style.visibility = "visible";
+  }
   window.addEventListener("resize", fixMargin);
   var minScale = .08;
   var maxScale = .80;
@@ -417,9 +418,9 @@
     var scale = window.innerWidth / 1738;
     if (scale < minScale) scale = minScale;
     else if (scale > maxScale) scale = maxScale;
-    else scale = scale;
+    else scale = scale + "";
 
-    mavQContainer.style.scale = scale + "";
+    mavQContainer.style.scale = scale;
     mavQContainer.style.marginRight = "-" + (width - width * scale) + "px";
     mavQContainer.style.marginBottom = "-" + (height - height * scale) + "px";
   }
@@ -479,6 +480,7 @@
     button.querySelector('input').checked = true;
     button.style.backgroundColor = "#007097";
     button.style.color = "white";
+    // button.getElementsByClassName("code")[0].style.color = "white";
     button.getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#035876";
     button.getElementsByClassName("arrow")[0].style.borderColor = "white";
   }
@@ -489,6 +491,7 @@
       radioButtons[i].querySelector('input').checked = false;
       radioButtons[i].style.backgroundColor = "#fff";
       radioButtons[i].style.color = "black";
+      // radioButtons[i].getElementsByClassName("code")[0].style.color = "#bbb";
       radioButtons[i].getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#F7F7F7";
       radioButtons[i].getElementsByClassName("arrow")[0].style.borderColor = "rgb(74, 109, 147)";
     }
@@ -509,17 +512,22 @@
   }
 
   function downloadPDF() {
+    //var vizUrl = viz.getWorkbook().getActiveSheet().getUrl();
+    //var workbookName = vizUrl.split("/")[4];
+    //var sheetName = vizUrl.split("/")[5];
+    //var url = "https://public.tableau.com/views/" + workbookName + "/" + sheetName + ".pdf?%3Adisplay_static_image=y&%3AbootstrapWhenNotified=true&%3Aembed=true&%3Alanguage=en-US&:embed=y&:showVizHome=n&:apiID=host0#navType=0&navSrc=Parse";
+    //window.open(url, '_blank');
     viz.showExportPDFDialog();
   }
 
   function downloadExcel() {
     var checkedButton = document.querySelector('input[type="radio"]:checked');
     var code = checkedButton.parentNode.querySelector('.code').innerHTML;
-    if (code === "JR_99") {
-      viz.exportCrossTabToExcel("JR_99 Glossary T&D");
+    if (code === "JB_99") {
+      viz.exportCrossTabToExcel("JB_99 Glossary T&D");
       return;
     }
-    viz.exportCrossTabToExcel("JR_01 Junior Bill Appropriations by Agency");
+    viz.exportCrossTabToExcel("JB_01 Junior Bill Appropriations by Agency");
   }
 
   function downloadPowerPoint() {
@@ -542,10 +550,8 @@
     viz.showDownloadDialog();
   }
 
-
-  var mavQContainer = document.getElementById("mavQContainer");
+  var tableauViz = document.getElementById("tableauViz");
   var isFullscreen = false;
-
   function onFullscreenClick() {
     if (document.fullscreenElement) {
       document.exitFullscreen();
@@ -554,7 +560,6 @@
     window.removeEventListener("resize", fixMargin);
     mavQContainer.requestFullscreen();
   }
-
   mavQContainer.addEventListener('fullscreenchange', (event) => {
     if (document.fullscreenElement) {
       mavQContainer.style.position = "absolute";
