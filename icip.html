@@ -95,6 +95,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        height: min-content;
     }
 
     #mavQContainer {
@@ -402,11 +403,11 @@
     var placeholderDiv = document.getElementById("tableauViz");
     var isFullscreen = false;
     var urls = [
-        "https://public.tableau.com/views/ICIPDashboard-CurrentFiscalBlock/ICIP_01-ICIPDashboard",
-        "https://public.tableau.com/views/ICIPDashboard-CurrentFiscalBlock/ICIP_02-ProjectDetails",
-        "https://public.tableau.com/views/ICIPDashboard-PreviousFiscalBlock/ICIP_03-ICIPDashboard",
-        "https://public.tableau.com/views/ICIPDashboard-PreviousFiscalBlock/ICIP_04-ProjectDetails",
-        "https://public.tableau.com/views/ICIPDashboard-CurrentFiscalBlock/ICIP_99-GlossaryDashboard"
+        "https://public.tableau.com/views/ICIPDashboard-CurrentFiscalBlock_16750883498800/ICIP_01-ICIPDashboard",
+        "https://public.tableau.com/views/ICIPDashboard-CurrentFiscalBlock_16750883498800/ICIP_02-ProjectDetails",
+        "https://public.tableau.com/views/ICIPDashboard-PreviousFiscalBlock_16751045085260/ICIP_03-ICIPDashboard",
+        "https://public.tableau.com/views/ICIPDashboard-PreviousFiscalBlock_16751045085260/ICIP_04-ProjectDetails",
+        "https://public.tableau.com/views/ICIPDashboard-CurrentFiscalBlock_16750883498800/ICIP_99-GlossaryDashboard"
     ];
     var heights = [1875, 1325, 1875, 1325, 1875]
     var options = {
@@ -471,7 +472,7 @@
             switchDashboard(index);
         }
         mavQContainer.scrollIntoView({ behavior: "smooth" })
-        window.dispatchEvent(new Event('resize'));
+        window.dispatchEvent(new Event("resize"));
     }
 
     function onSwitchDashboard() {
@@ -482,7 +483,7 @@
         }
         uncheckRadioButtons();
         checkRadioButton(event.target);
-        window.dispatchEvent(new Event('resize'));
+        window.dispatchEvent(new Event("resize"));
     }
 
     function switchDashboard(i) {
