@@ -150,16 +150,17 @@
 
     #downloads i {
         cursor: pointer;
+        transition: all 0.2s ease-in-out;
     }
 
     #downloads i:hover {
         color: #007097;
-        transition: all 0.1s ease-in-out;
+        transition: all 0.2s ease-in-out;
     }
 
     #downloads i:active {
         color: #005077;
-        transition: all 0.1s ease-in-out;
+        transition: all 0.2s ease-in-out;
     }
 
     .fa-file-pdf {
@@ -191,16 +192,19 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        transition: all 0.2s ease-in-out;
     }
 
     #resetDashboard:hover {
+        scale: 1.02;
         box-shadow: 0 3px 4px 1px rgba(0, 0, 0, .18);
-        transition: all 0.1s ease-in-out;
+        transition: all 0.2s ease-in-out;
     }
 
     #resetDashboard:active {
+        scale: 1;
         box-shadow: inset 0 2px 2px 1px rgba(0, 0, 0, .18);
-        transition: all 0.1s ease-in-out;
+        transition: all 0.2s ease-in-out;
     }
 
     #resetArrow {
@@ -308,18 +312,23 @@
         box-sizing: border-box;
     }
 
+    #tableauToolbar i {
+        transition: all 0.2s ease-in-out;
+    }
+
     #tableauToolbar i:hover {
         color: #007097;
         cursor: pointer;
-        transition: all 0.1s ease-in-out;
+        transition: all 0.2s ease-in-out;
     }
 
     #tableauToolbar i:active {
         color: #005077;
-        transition: all 0.1s ease-in-out;
+        transition: all 0.2s ease-in-out;
     }
 
     [data-title]:hover:after {
+        color: #007097;
         opacity: 1;
         transition: all 0.1s ease 0.25s;
         visibility: visible;
@@ -394,6 +403,8 @@
     }
 </style>
 <script>
+    var currentVizIndex = 0;
+    var isFullscreen = false;
     var codes = ['BIL_01', 'BIL_02', 'BIL_03', 'BIL_04', 'BIL_99']
     var heights = [1725, 925, 1325, 1525, 1875]
     var urls = [
@@ -413,13 +424,14 @@
     var options = {
         hideTabs: true,
         width: "1500px",
-        height: "1825px",
+        height: "1725px",
         onFirstInteractive: function () {
             var resetButton = document.getElementById("resetDashboard");
             resetButton.addEventListener("click", function () {
                 var url = viz.getWorkbook().getActiveSheet().getUrl();
                 var index = urls.indexOf(url);
                 switchDashboard(index);
+                mavQContainer.scrollIntoView();
             });
         }
     }
@@ -431,19 +443,20 @@
     viz.addEventListener('tabswitch', onTabSwitch);
 
     var mavQContainer = document.getElementById("mavQContainer");
+    var scale = getComputedStyle(mavQContainer).scale;
+    var minScale = .08;
+    var maxScale = .80;
     window.onload = () => {
         fixMargin();
         mavQContainer.style.visibility = "visible";
     }
     window.addEventListener("resize", fixMargin);
-    var minScale = .08;
-    var maxScale = .80;
     function fixMargin() {
         var style = getComputedStyle(mavQContainer);
         var width = parseFloat(style.width);
         var height = parseFloat(style.height);
 
-        var scale = window.innerWidth / width;
+        scale = window.innerWidth / width;
         if (scale < minScale) scale = minScale;
         else if (scale > maxScale) scale = maxScale;
         else scale = scale + "";
@@ -461,40 +474,37 @@
 
     function onTabSwitch() {
         var url = viz.getWorkbook().getActiveSheet().getUrl();
-        for (var i = 0; i < radioButtons.length; i++) {
-            if (urls[i] != url) continue;
-            uncheckRadioButtons();
-            checkRadioButton(radioButtons[i]);
-            return;
-        }
+        var index = urls.indexOf(url);
+        uncheckRadioButtons();
+        checkRadioButton(radioButtons[index]);
     }
 
     function onSwitchDashboard() {
-        for (var i = 0; i < radioButtons.length; i++) {
-            if (radioButtons[i] != event.target) continue;
-            switchDashboard(i);
-            break;
-        }
+        var navButtonArray = Array.from(radioButtons);
+        var index = navButtonArray.indexOf(event.target);
+        switchDashboard(index);
         uncheckRadioButtons();
         checkRadioButton(event.target);
     }
 
     function switchDashboard(index) {
         if (urls[index] == "") return;
+        currentVizIndex = index;
+
         viz.removeEventListener('filterchange', onFilterChange);
         viz.removeEventListener('marksselection', onFilterChange);
         viz.removeEventListener('parametervaluechange', onFilterChange);
         viz.removeEventListener('tabswitch', onTabSwitch);
         viz.dispose();
 
-        options.height = heights[index] + "px";
-        viz = new tableau.Viz(placeholderDiv, urls[index], options);
+        options.height = heights[currentVizIndex] + "px";
+        viz = new tableau.Viz(placeholderDiv, urls[currentVizIndex], options);
         viz.addEventListener('filterchange', onFilterChange);
         viz.addEventListener('marksselection', onFilterChange);
         viz.addEventListener('parametervaluechange', onFilterChange);
         viz.addEventListener('tabswitch', onTabSwitch);
 
-        fixMargin();
+        if (!isFullscreen) fixMargin();
 
         var resetButton = document.getElementById("resetDashboard");
         resetButton.style.backgroundColor = "white";
@@ -541,26 +551,42 @@
     }
 
     function downloadExcel() {
-        var checkedButton = document.querySelector('input[type="radio"]:checked');
-        var code = checkedButton.parentNode.querySelector('.code').innerHTML;
-        var index = codes.indexOf(code);
-        viz.exportCrossTabToExcel(downloads[index])
+        viz.exportCrossTabToExcel(downloads[currentVizIndex]);
+        mavQContainer.scrollIntoView({ behavior: 'smooth' })
     }
 
-    function downloadPDF() { viz.showExportPDFDialog(); }
+    function downloadPDF() {
+        scrollToUpperThirdOfViz();
+        viz.showExportPDFDialog();
+    }
 
-    function downloadPowerPoint() { viz.showExportPowerPointDialog(); }
+    function downloadPowerPoint() {
+        scrollToUpperThirdOfViz();
+        viz.showExportPowerPointDialog();
+    }
 
     function onUndoClick() { viz.undoAsync(); }
 
     function onRedoClick() { viz.redoAsync(); }
 
-    function onShareClick() { viz.showShareDialog(); }
+    function onShareClick() {
+        scrollToUpperThirdOfViz();
+        viz.showShareDialog();
+    }
 
-    function onDownloadClick() { viz.showDownloadDialog(); }
+    function onDownloadClick() {
+        scrollToUpperThirdOfViz();
+        viz.showDownloadDialog();
+    }
+
+    function scrollToUpperThirdOfViz() {
+        var height = heights[currentVizIndex] * parseFloat(scale);
+        var upperThird = height / 3;
+        var screenPosition = mavQContainer.getBoundingClientRect().top + upperThird;
+        window.scrollTo(0, screenPosition);
+    }
 
     var tableauViz = document.getElementById("tableauViz");
-    var isFullscreen = false;
     function onFullscreenClick() {
         if (document.fullscreenElement) {
             document.exitFullscreen();
@@ -577,6 +603,7 @@
             mavQContainer.style.alignItems = "center";
             mavQContainer.style.zIndex = "999999";
             mavQContainer.style.scale = "unset";
+            isFullscreen = true;
             return;
         }
         mavQContainer.style.position = "relative";
@@ -585,6 +612,7 @@
         mavQContainer.style.alignItems = "unset";
         mavQContainer.style.zIndex = "unset";
         mavQContainer.style.scale = ".80";
+        isFullscreen = false;
         window.addEventListener("resize", fixMargin);
         fixMargin();
     });
