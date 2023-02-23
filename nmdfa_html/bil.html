@@ -494,6 +494,8 @@
         viz.addEventListener('parametervaluechange', onFilterChange);
         viz.addEventListener('tabswitch', onTabSwitch);
 
+        fixMargin();
+
         var resetButton = document.getElementById("resetDashboard");
         resetButton.style.backgroundColor = "white";
         resetButton.style.color = "black";
