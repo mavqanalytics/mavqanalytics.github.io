@@ -1,14 +1,14 @@
-<script src="https://public.tableau.com/javascripts/api/tableau-2.9.1.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+<script src="https://public.tableau.com/javascripts/api/tableau-2.9.1.min.js"></script>
 <div id="wrapper">
     <div id="mavQContainer">
         <div id="mainContent">
             <div id="leftPanel">
                 <span id="downloads">
-                    <i class="fa-solid fa-file-pdf" onclick="downloadPDF()" data-title="Download PDF"></i>
-                    <i class="fa-solid fa-file-excel" onclick="downloadExcel()" data-title="Download Excel"></i>
+                    <i class="fa-solid fa-file-pdf" onclick="downloadPDF()" title="Download PDF"></i>
+                    <i class="fa-solid fa-file-excel" onclick="downloadExcel()" title="Download Excel"></i>
                     <i class="fa-solid fa-file-powerpoint" onclick="downloadPowerPoint()"
-                        data-title="Download PowerPoint"></i>
+                        title="Download PowerPoint"></i>
                 </span>
                 <button id="resetDashboard">
                     <p id="resetArrow">↺</p>RESET
@@ -23,30 +23,116 @@
                 <div id="navPanel">
                     <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
                         onmouseleave="onRadioButtonMouseLeave()">
-                        <input type="radio">
                         <span class="radioTextContainer">
-                            <p class="code">DWS_01</p>
-                            <p class="radioText">Overview Sample</p>
+                            <p class="code">FF_01</p>
+                            <p class="radioText">SHARE Federal Funding by Agency</p>
                         </span>
-                        <span class="arrowBackground"><span class="arrow"></span></span>
-                    </div>
-                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
-                        onmouseleave="onRadioButtonMouseLeave()">
+                        <p class="star">★</p>
                         <input type="radio">
-                        <span class="radioTextContainer">
-                            <p class="code">DWS_02</p>
-                            <p class="radioText">Investigation Details Sample</p>
+                        <span class="arrowBackground">
+                            <span class="arrow"></span>
                         </span>
-                        <span class="arrowBackground"><span class="arrow"></span></span>
                     </div>
                     <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
                         onmouseleave="onRadioButtonMouseLeave()">
                         <span class="radioTextContainer">
-                            <p class="code">DWS_99</p>
-                            <p class="radioText">Glossary Sample</p>
+                            <p class="code">FF_02</p>
+                            <p class="radioText">Coronavirus Federal Funds Granted to New Mexico</p>
+                        </span>
+                        <p class="star">★</p>
+                        <input type="radio">
+                        <span class="arrowBackground">
+                            <span class="arrow"></span>
+                        </span>
+                    </div>
+                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                        onmouseleave="onRadioButtonMouseLeave()">
+                        <span class="radioTextContainer">
+                            <p class="code">FF_03</p>
+                            <p class="radioText">SHARE Combined Detailed Federal Data</p>
+                        </span>
+                        <p class="star">★</p>
+                        <input type="radio">
+                        <span class="arrowBackground">
+                            <span class="arrow"></span>
+                        </span>
+                    </div>
+                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                        onmouseleave="onRadioButtonMouseLeave()">
+                        <span class="radioTextContainer">
+                            <p class="code">FF_04</p>
+                            <p class="radioText">ARPA Legislative Appropriations</p>
                         </span>
                         <input type="radio">
-                        <span class="arrowBackground"><span class="arrow"></span></span>
+                        <span class="arrowBackground">
+                            <span class="arrow"></span>
+                        </span>
+                    </div>
+                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                        onmouseleave="onRadioButtonMouseLeave()">
+                        <span class="radioTextContainer">
+                            <p class="code">FF_05</p>
+                            <p class="radioText">State Agency - Self Reporting Federal Funds</p>
+                        </span>
+                        <input type="radio">
+                        <span class="arrowBackground">
+                            <span class="arrow"></span>
+                        </span>
+                    </div>
+                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                        onmouseleave="onRadioButtonMouseLeave()">
+                        <span class="radioTextContainer">
+                            <p class="code">FF_06</p>
+                            <p class="radioText">Emergency Rental Assistance Program</p>
+                        </span>
+                        <input type="radio">
+                        <span class="arrowBackground">
+                            <span class="arrow"></span>
+                        </span>
+                    </div>
+                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                        onmouseleave="onRadioButtonMouseLeave()">
+                        <span class="radioTextContainer">
+                            <p class="code">FF_07</p>
+                            <p class="radioText">ARPA Local Funding (NEUs)</p>
+                        </span>
+                        <input type="radio">
+                        <span class="arrowBackground">
+                            <span class="arrow"></span>
+                        </span>
+                    </div>
+                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                        onmouseleave="onRadioButtonMouseLeave()">
+                        <span class="radioTextContainer">
+                            <p class="code">FF_08</p>
+                            <p class="radioText">Competitive Federal Grant Resources Available</p>
+                        </span>
+                        <input type="radio">
+                        <span class="arrowBackground">
+                            <span class="arrow"></span>
+                        </span>
+                    </div>
+                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                        onmouseleave="onRadioButtonMouseLeave()">
+                        <span class="radioTextContainer">
+                            <p class="code">FF_09</p>
+                            <p class="radioText">Large City Direct Federal Allocations</p>
+                        </span>
+                        <input type="radio">
+                        <span class="arrowBackground">
+                            <span class="arrow"></span>
+                        </span>
+                    </div>
+                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                        onmouseleave="onRadioButtonMouseLeave()">
+                        <span class="radioTextContainer">
+                            <p class="code">FF_99</p>
+                            <p class="radioText">Glossary and About ARPA</p>
+                        </span>
+                        <input type="radio">
+                        <span class="arrowBackground">
+                            <span class="arrow"></span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -56,12 +142,13 @@
         <div id="footer">
             <a id="poweredContainer" href="https://mavq.com" target="_blank" rel="noopener">
                 <p id="poweredText">Powered by</p>
-                <img src="https://mavq.com/assets/images/logo.png">
+                <img id="footerLogo" src="https://mavq.com/assets/images/logo.png">
             </a>
             <p id="copyright">© 2022 Maverick Quantum Inc. All rights reserved</p>
         </div>
     </div>
 </div>
+
 <style>
     * {
         box-sizing: border-box;
@@ -73,7 +160,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: min-content;
     }
 
     #mavQContainer {
@@ -82,7 +168,7 @@
         scale: .80;
         transform-origin: top left;
         position: relative;
-        width: 1724px;
+        width: 1508px;
         font-size: 15px;
         font-family: Arial, Helvetica, sans-serif;
         color: black;
@@ -93,10 +179,6 @@
         overflow: hidden;
         scroll-behavior: none;
         visibility: hidden;
-    }
-
-    #tableauViz {
-        margin: 0;
     }
 
     #mainContent {
@@ -110,13 +192,11 @@
     }
 
     #leftPanel {
-        background-color: white;
+        height: fit-content;
         margin-left: 12px;
-        z-index: 1;
     }
 
     #downloads {
-        background-color: white;
         margin: 12px 0 0 0;
         width: 210px;
         display: flex;
@@ -128,22 +208,20 @@
         border-radius: 15px;
         box-sizing: border-box;
         box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
-        user-select: none;
     }
 
     #downloads i {
         cursor: pointer;
-        transition: all 0.2s ease-in-out;
     }
 
     #downloads i:hover {
         color: #007097;
-        transition: all 0.2s ease-in-out;
+        transition: all 0.1s ease-in-out;
     }
 
     #downloads i:active {
         color: #005077;
-        transition: all 0.2s ease-in-out;
+        transition: all 0.1s ease-in-out;
     }
 
     .fa-file-pdf {
@@ -175,27 +253,27 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        transition: all 0.2s ease-in-out;
-        user-select: none;
     }
 
     #resetDashboard:hover {
-        scale: 1.02;
         box-shadow: 0 3px 4px 1px rgba(0, 0, 0, .18);
-        transition: all 0.2s ease-in-out;
+        transition: all 0.1s ease-in-out;
     }
 
     #resetDashboard:active {
-        scale: 1;
         box-shadow: inset 0 2px 2px 1px rgba(0, 0, 0, .18);
-        transition: all 0.2s ease-in-out;
+        transition: all 0.1s ease-in-out;
     }
 
     #resetArrow {
         position: relative;
-        top: -2px;
+        top: -3px;
         padding: 0 12px 0 0;
         font-size: 24px;
+    }
+
+    #resetArrow {
+        top: -2px;
     }
 
     #navPanel {
@@ -210,14 +288,12 @@
         border: 1px solid #ccc;
         box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .18);
         overflow: hidden;
-        user-select: none;
     }
 
     .navRadioButton {
         all: unset;
         margin: 0;
         padding: 0;
-        position: relative;
         height: 100px;
         display: flex;
         flex-direction: row;
@@ -235,33 +311,43 @@
     }
 
     .radioTextContainer {
+        all: unset;
         margin: 0;
-        line-height: 1.25;
-        padding: 9px;
+        padding: 0;
         width: 180px;
-        display: flex;
-        flex-direction: column;
+        position: relative;
         pointer-events: none;
     }
 
     .radioText {
         margin: 0;
+        pointer-events: none;
+        position: absolute;
+        top: 40px;
+        left: 9px;
+        line-height: 1.25;
+        width: 170px;
+        height: 100px;
     }
 
     .code {
-        margin: 0;
+        all: unset;
+        position: absolute;
+        top: 9px;
+        left: 9px;
         color: #999;
     }
 
     .arrowBackground {
-        background-color: #f7f7f7;
         margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 30px;
-        height: 100px;
         pointer-events: none;
+        background-color: #f7f7f7;
+        width: 30px;
+        min-width: 30px;
+        height: 100px;
+        position: relative;
+        top: 0;
+        right: 0;
     }
 
     .arrow {
@@ -272,12 +358,13 @@
         transform: rotate(-45deg);
         -webkit-transform: rotate(-45deg);
         position: relative;
-        right: 3px;
+        top: 35px;
+        left: 3px;
     }
 
     .star {
         position: relative;
-        top: 8px;
+        top: 6px;
         left: -100px;
         color: #E8B915;
         pointer-events: none;
@@ -297,23 +384,18 @@
         box-sizing: border-box;
     }
 
-    #tableauToolbar i {
-        transition: all 0.2s ease-in-out;
-    }
-
     #tableauToolbar i:hover {
         color: #007097;
         cursor: pointer;
-        transition: all 0.2s ease-in-out;
+        transition: all 0.1s ease-in-out;
     }
 
     #tableauToolbar i:active {
         color: #005077;
-        transition: all 0.2s ease-in-out;
+        transition: all 0.1s ease-in-out;
     }
 
     [data-title]:hover:after {
-        color: #007097;
         opacity: 1;
         transition: all 0.1s ease 0.25s;
         visibility: visible;
@@ -343,7 +425,7 @@
     #toolbarBlocker {
         z-index: 1;
         background-color: white;
-        height: 33px;
+        height: 26px;
         width: 1500px;
         position: absolute;
         bottom: 0;
@@ -355,9 +437,10 @@
         background-color: rgb(12, 12, 35);
         color: rgb(121, 128, 171);
         text-align: center;
-        width: 100%;
+        width: 1718px;
+        position: relative;
+        left: -12px;
         flex-shrink: 0;
-        z-index: 0;
     }
 
     #poweredContainer {
@@ -387,62 +470,62 @@
         color: rgb(121, 128, 171)
     }
 </style>
+
 <script>
-    var currentVizIndex = 0;
-    var isFullscreen = false;
-    var codes = ['DWS_01', 'DWS_02', 'DWS_99']
-    var heights = [1335, 1335, 1875]
+    var placeholderDiv = document.getElementById("tableauViz");
+    var heights = [1875, 1450, 1525, 1560, 1560, 1790, 1800, 1575, 1425, 1840];
     var urls = [
-        "https://public.tableau.com/views/NMDWSDashboardDev/DWS_01",
-        "https://public.tableau.com/views/NMDWSDashboardDev/DWS_02-ProjectDetails",
-        "https://public.tableau.com/views/NMDWSDashboardDev/DWS_99-GlossaryDashboard"
-    ]
-    var downloads = [
-        "",
-        "",
-        "",
+        "https://public.tableau.com/views/FF_01-SHAREFederalFundingbyAgency/FF_01SHAREFederalFundingbyAgency",
+        "https://public.tableau.com/views/FF_02-CoronavirusFederalFundsGrantedtoNewMexico/FF_02CoronavirusFederalFundsGrantedtoNewMexico",
+        "https://public.tableau.com/views/FF_03-SHARECombinedDetailedFederalData/FF_03SHARECombinedDetailedFederalData",
+        "https://public.tableau.com/views/FF_04-ARPALegislativeAppropriations/FF_04ARPALegislativeAppropriations",
+        "https://public.tableau.com/views/FF_05-StateAgency-SelfReportingFederalFunds/FF_05StateAgency-SelfReportingFederalFunds",
+        "https://public.tableau.com/views/FF_06-EmergencyRentalAssistanceProgram/FF_06EmergencyRentalAssistanceProgram",
+        "https://public.tableau.com/views/FF_07-ARPALocalFundingNEUs/FF_07-ARPALocalFundingNEUs",
+        "https://public.tableau.com/views/FF_08-CompetitiveFederalGrantResourcesAvailable/FF_08CompetitiveFederalGrantResourcesAvailable",
+        "https://public.tableau.com/views/FF_07-ARPALocalFundingNEUs/FF_09-LargeCityDirectFederalAllocations",
+        "https://public.tableau.com/views/FF_099-AboutARPAandGlossary_16745633594300/FF_99AboutARPAandGlossary"
     ]
     var options = {
         hideTabs: true,
         width: "1500px",
-        height: "1335px",
+        height: "1875px",
         onFirstInteractive: function () {
             var resetButton = document.getElementById("resetDashboard");
+            var url = viz.getWorkbook().getActiveSheet().getUrl();
+            var index = urls.indexOf(url);
+
             resetButton.addEventListener("click", function () {
-                var url = viz.getWorkbook().getActiveSheet().getUrl();
-                var index = urls.indexOf(url);
                 switchDashboard(index);
-                mavQContainer.scrollIntoView();
             });
         }
-    }
-    var placeholderDiv = document.getElementById("tableauViz");
+    };
     var viz = new tableau.Viz(placeholderDiv, urls[0], options);
     viz.addEventListener('filterchange', onFilterChange);
     viz.addEventListener('marksselection', onFilterChange);
     viz.addEventListener('parametervaluechange', onFilterChange);
     viz.addEventListener('tabswitch', onTabSwitch);
 
+    window.addEventListener("resize", fixMargin);
     var mavQContainer = document.getElementById("mavQContainer");
-    var scale = getComputedStyle(mavQContainer).scale;
+    window.onload = () => {
+        mavQContainer.style.visibility = "visible";
+        window.dispatchEvent(new Event("resize"));
+    };
+
     var minScale = .08;
     var maxScale = .80;
-    window.onload = () => {
-        fixMargin();
-        mavQContainer.style.visibility = "visible";
-    }
-    window.addEventListener("resize", fixMargin);
     function fixMargin() {
         var style = getComputedStyle(mavQContainer);
         var width = parseFloat(style.width);
         var height = parseFloat(style.height);
 
-        scale = window.innerWidth / width;
+        var scale = window.innerWidth / 1538;
         if (scale < minScale) scale = minScale;
         else if (scale > maxScale) scale = maxScale;
-        else scale = scale + "";
+        else scale = scale;
 
-        mavQContainer.style.scale = scale;
+        mavQContainer.style.scale = scale + "";
         mavQContainer.style.marginRight = "-" + (width - width * scale) + "px";
         mavQContainer.style.marginBottom = "-" + (height - height * scale) + "px";
     }
@@ -455,37 +538,39 @@
 
     function onTabSwitch() {
         var url = viz.getWorkbook().getActiveSheet().getUrl();
-        var index = urls.indexOf(url);
-        uncheckRadioButtons();
-        checkRadioButton(radioButtons[index]);
+        for (var i = 0; i < radioButtons.length; i++) {
+            if (urls[i] != url) continue;
+            uncheckRadioButtons();
+            checkRadioButton(radioButtons[i]);
+            window.dispatchEvent(new Event("resize"));
+            return;
+        }
     }
 
     function onSwitchDashboard() {
-        var navButtonArray = Array.from(radioButtons);
-        var index = navButtonArray.indexOf(event.target);
-        switchDashboard(index);
+        for (var i = 0; i < radioButtons.length; i++) {
+            if (radioButtons[i] != event.target) continue;
+            switchDashboard(i);
+            break;
+        }
         uncheckRadioButtons();
         checkRadioButton(event.target);
+        window.dispatchEvent(new Event("resize"));
     }
 
-    function switchDashboard(index) {
-        if (urls[index] == "") return;
-        currentVizIndex = index;
-
+    function switchDashboard(i) {
         viz.removeEventListener('filterchange', onFilterChange);
         viz.removeEventListener('marksselection', onFilterChange);
         viz.removeEventListener('parametervaluechange', onFilterChange);
         viz.removeEventListener('tabswitch', onTabSwitch);
         viz.dispose();
 
-        options.height = heights[currentVizIndex] + "px";
-        viz = new tableau.Viz(placeholderDiv, urls[currentVizIndex], options);
+        options.height = heights[i] + "px";
+        viz = new tableau.Viz(placeholderDiv, urls[i], options);
         viz.addEventListener('filterchange', onFilterChange);
         viz.addEventListener('marksselection', onFilterChange);
         viz.addEventListener('parametervaluechange', onFilterChange);
         viz.addEventListener('tabswitch', onTabSwitch);
-
-        if (!isFullscreen) fixMargin();
 
         var resetButton = document.getElementById("resetDashboard");
         resetButton.style.backgroundColor = "white";
@@ -531,43 +616,71 @@
         }
     }
 
-    function downloadExcel() {
-        viz.exportCrossTabToExcel(downloads[currentVizIndex]);
-        mavQContainer.scrollIntoView({ behavior: 'smooth' })
-    }
-
     function downloadPDF() {
-        scrollToUpperThirdOfViz();
         viz.showExportPDFDialog();
     }
 
+    function downloadExcel() {
+        var checkedButton = document.querySelector('input[type="radio"]:checked');
+        var code = checkedButton.parentNode.querySelector('.code').innerHTML;
+        switch (code) {
+            case "FF_01":
+                viz.exportCrossTabToExcel("FF_01 Total Budget Table");
+                break;
+            case "FF_02":
+                viz.exportCrossTabToExcel("1 FF_02 NM Federal Funds by Category, Agency");
+                break
+            case "FF_03":
+                viz.exportCrossTabToExcel("1 FF_03 SHARE Combined Detailed Federal Data");
+                break;
+            case "FF_04":
+                viz.exportCrossTabToExcel("1 FF_04 ARPA Legislative Appropriations");
+                break;
+            case "FF_05":
+                viz.exportCrossTabToExcel("1 FF_05 State Agency Self Reporting Federal Funds");
+                break;
+            case "FF_06":
+                viz.exportCrossTabToExcel("1 FF_06 Emergency Rental Assistance Program");
+                break;
+            case "FF_07":
+                viz.exportCrossTabToExcel("1 FF_07 ARPA Local Funding (NEUs)");
+                break;
+            case "FF_08":
+                viz.exportCrossTabToExcel("1 FF_08 Competitive Federal Grant Resources Available");
+                break;
+            case "FF_09":
+                viz.exportCrossTabToExcel("1 FF_09 Large City Allocations");
+                break;
+            case "FF_99":
+                viz.exportCrossTabToExcel("FF_99 Key Terms & Definitions");
+                break;
+        }
+    }
+
     function downloadPowerPoint() {
-        scrollToUpperThirdOfViz();
         viz.showExportPowerPointDialog();
     }
 
-    function onUndoClick() { viz.undoAsync(); }
+    function onUndoClick() {
+        viz.undoAsync();
+    }
 
-    function onRedoClick() { viz.redoAsync(); }
+    function onRedoClick() {
+        viz.redoAsync();
+    }
 
     function onShareClick() {
-        scrollToUpperThirdOfViz();
         viz.showShareDialog();
     }
 
     function onDownloadClick() {
-        scrollToUpperThirdOfViz();
         viz.showDownloadDialog();
     }
 
-    function scrollToUpperThirdOfViz() {
-        var height = heights[currentVizIndex] * parseFloat(scale);
-        var upperThird = height / 3;
-        var screenPosition = mavQContainer.getBoundingClientRect().top + upperThird;
-        window.scrollTo(0, screenPosition);
-    }
 
-    var tableauViz = document.getElementById("tableauViz");
+    var mavQContainer = document.getElementById("mavQContainer");
+    var isFullscreen = false;
+
     function onFullscreenClick() {
         if (document.fullscreenElement) {
             document.exitFullscreen();
@@ -576,6 +689,7 @@
         window.removeEventListener("resize", fixMargin);
         mavQContainer.requestFullscreen();
     }
+
     mavQContainer.addEventListener('fullscreenchange', (event) => {
         if (document.fullscreenElement) {
             mavQContainer.style.position = "absolute";
@@ -584,7 +698,6 @@
             mavQContainer.style.alignItems = "center";
             mavQContainer.style.zIndex = "999999";
             mavQContainer.style.scale = "unset";
-            isFullscreen = true;
             return;
         }
         mavQContainer.style.position = "relative";
@@ -593,7 +706,6 @@
         mavQContainer.style.alignItems = "unset";
         mavQContainer.style.zIndex = "unset";
         mavQContainer.style.scale = ".80";
-        isFullscreen = false;
         window.addEventListener("resize", fixMargin);
         fixMargin();
     });
