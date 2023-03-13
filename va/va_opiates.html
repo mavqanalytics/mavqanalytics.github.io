@@ -30,6 +30,15 @@
                         </span>
                         <span class="arrowBackground"><span class="arrow"></span></span>
                     </div>
+                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                        onmouseleave="onRadioButtonMouseLeave()">
+                        <input type="radio">
+                        <span class="radioTextContainer">
+                            <p class="code">VA_99</p>
+                            <p class="radioText">Glossary</p>
+                        </span>
+                        <span class="arrowBackground"><span class="arrow"></span></span>
+                    </div>
                 </div>
             </div>
             <div id="tableauViz"></div>
@@ -376,9 +385,11 @@
     var heights = [1525]
     var urls = [
         "https://public.tableau.com/views/VAOpiateDashboardDev/VAOpiateDashboard",
+        "https://public.tableau.com/views/VAOpiateDashboardDev/Glossary"
     ]
     var downloads = [
-        "",
+        "Overdose Death Count by Drug Type",
+        "Terms and Definitions"
     ]
     var options = {
         hideTabs: true,
