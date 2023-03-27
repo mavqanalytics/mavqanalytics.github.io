@@ -25,12 +25,12 @@
                         onmouseleave="onRadioButtonMouseLeave()">
                         <input type="radio">
                         <span class="radioTextContainer">
-                            <p class="code">DOCC_01</p>
-                            <p class="radioText">Overview Sample</p>
+                            <p class="code">NHHS_01</p>
+                            <p class="radioText">Disease Surveillance</p>
                         </span>
                         <span class="arrowBackground"><span class="arrow"></span></span>
                     </div>
-                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                    <!-- <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
                         onmouseleave="onRadioButtonMouseLeave()">
                         <input type="radio">
                         <span class="radioTextContainer">
@@ -38,7 +38,7 @@
                             <p class="radioText">Glossary Sample</p>
                         </span>
                         <span class="arrowBackground"><span class="arrow"></span></span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div id="tableauViz"></div>
@@ -381,20 +381,18 @@
 <script>
     var currentVizIndex = 0;
     var isFullscreen = false;
-    var codes = ['DWS_01', 'DWS_99']
-    var heights = [1825, 1825]
+    var codes = ['NHHS_01']
+    var heights = [1625]
     var urls = [
-        "https://public.tableau.com/views/DOCCDashboardDev/DOCCDashboard",
-        "https://public.tableau.com/views/DOCCDashboardDev/DOCCGlossary"
+        "https://public.tableau.com/views/NHDHHSDashboard/NHDashboard3"
     ]
     var downloads = [
-        "Incident Table",
-        "Glossary",
+        "Sheet 1 (11)"
     ]
     var options = {
         hideTabs: true,
         width: "1500px",
-        height: "1825px",
+        height: "1625px",
         onFirstInteractive: function () {
             var resetButton = document.getElementById("resetDashboard");
             resetButton.addEventListener("click", function () {
