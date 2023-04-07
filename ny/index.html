@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mavQ Analytics - New York</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <h1>mavQ Analytics</h1>
+    <ul></ul>
+</body>
+</html>
+<script>
+    const ul = document.querySelector('ul');
+    const fileNames = [
+        "nycha.html",
+        "docc.html",
+        "nysboe-dashboard.html",
+        "nysboe-dashboard-table.html",
+        "nysboe-table.html",
+    ]
+    const liElements = fileNames.map(fileName => {
+        return `<li><a href="https://mavqanalytics.github.io/ny/${fileName}">${fileName}</a></li>`
+    })
+    ul.innerHTML = liElements.join('');
+</script>

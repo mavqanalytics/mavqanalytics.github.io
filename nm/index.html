@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mavQ Analytics - New Mexico</title>
+</head>
+<body>
+    <h1>mavQ Analytics</h1>
+    <ul></ul>
+</body>
+</html>
+<script>
+    const ul = document.querySelector('ul');
+    const fileNames = [
+        "federalfunds.html",
+        "foodinitiative.html",
+        "icip.html",
+        "capital_outlay_dashboard.html",
+        "juniorbill.html",
+        "bil.html",
+        "bil-map-dashboard.html",
+        "nm-tourism-dashboard.html",
+        "nm-tourism-minimal-dashboard.html",
+        "dws.html",
+    ]
+    const liElements = fileNames.map(fileName => {
+        return `<li><a href="https://mavqanalytics.github.io/nm/${fileName}">${fileName}</a></li>`
+    })
+    ul.innerHTML = liElements.join('');
+</script>
