@@ -30,7 +30,7 @@
                         </span>
                         <span class="arrowBackground"><span class="arrow"></span></span>
                     </div>
-                    <!-- <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
                         onmouseleave="onRadioButtonMouseLeave()">
                         <input type="radio">
                         <span class="radioTextContainer">
@@ -38,7 +38,7 @@
                             <p class="radioText">Glossary Sample</p>
                         </span>
                         <span class="arrowBackground"><span class="arrow"></span></span>
-                    </div> -->
+                    </div>
                 </div>
             </div>
             <div id="tableauViz"></div>
@@ -381,13 +381,15 @@
 <script>
     var currentVizIndex = 0;
     var isFullscreen = false;
-    var codes = ['SA_01']
-    var heights = [1825]
+    var codes = ['SA_01', 'SA_99']
+    var heights = [1825, 1225]
     var urls = [
-        "https://public.tableau.com/views/SouthAustraliaOpioidsDashbaorddev/Dashboard1"
+        "https://public.tableau.com/views/SouthAustraliaOpioidsDashbaorddev/Dashboard1",
+        "https://public.tableau.com/views/SouthAustraliaOpioidsDashbaorddev/Dashboard2"
     ]
     var downloads = [
         "Deatil table",
+        "Glossary"
     ]
     var options = {
         hideTabs: true,
