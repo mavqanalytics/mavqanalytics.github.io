@@ -30,15 +30,15 @@
                         </span>
                         <span class="arrowBackground"><span class="arrow"></span></span>
                     </div>
-                    <!-- <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
                         onmouseleave="onRadioButtonMouseLeave()">
                         <input type="radio">
                         <span class="radioTextContainer">
                             <p class="code">NY_099</p>
-                            <p class="radioText">Glossary Sample</p>
+                            <p class="radioText">Glossary</p>
                         </span>
                         <span class="arrowBackground"><span class="arrow"></span></span>
-                    </div> -->
+                    </div>
                 </div>
             </div>
             <div id="tableauViz"></div>
@@ -381,13 +381,15 @@
 <script>
     var currentVizIndex = 0;
     var isFullscreen = false;
-    var codes = ['NY_01']
-    var heights = [1825]
+    var codes = ['NY_01', 'NY_99']
+    var heights = [1825, 1525]
     var urls = [
-        "https://public.tableau.com/views/NYSDiseaseDemodashboard/Dashboard12"
+        "https://public.tableau.com/views/NYSDiseaseDemodashboard/Dashboard12",
+        "https://public.tableau.com/views/NYSDiseaseDemodashboard/Glossary"
     ]
     var downloads = [
         "Trend (2)/disease",
+        "Terms and Definitions"
     ]
     var options = {
         hideTabs: true,
