@@ -34,6 +34,15 @@
                         onmouseleave="onRadioButtonMouseLeave()">
                         <input type="radio">
                         <span class="radioTextContainer">
+                            <p class="code">NY_02</p>
+                            <p class="radioText">Disease Statistics Map</p>
+                        </span>
+                        <span class="arrowBackground"><span class="arrow"></span></span>
+                    </div>
+                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                        onmouseleave="onRadioButtonMouseLeave()">
+                        <input type="radio">
+                        <span class="radioTextContainer">
                             <p class="code">NY_099</p>
                             <p class="radioText">Glossary</p>
                         </span>
@@ -381,14 +390,16 @@
 <script>
     var currentVizIndex = 0;
     var isFullscreen = false;
-    var codes = ['NY_01', 'NY_99']
-    var heights = [1825, 1525]
+    var codes = ['NY_01', 'NY_02', 'NY_99']
+    var heights = [1825, 1825, 1525]
     var urls = [
-        "https://public.tableau.com/views/NYSDiseaseDemodashboard/Dashboard12",
+        "https://public.tableau.com/views/NYSDiseaseDemodashboard/NYSDOHDiseaseStatistics",
+        "https://public.tableau.com/views/NYSDiseaseDemodashboard/DiseasebyCounty",
         "https://public.tableau.com/views/NYSDiseaseDemodashboard/Glossary"
     ]
     var downloads = [
         "Trend (2)/disease",
+        "County Table",
         "Terms and Definitions"
     ]
     var options = {
