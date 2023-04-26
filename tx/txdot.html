@@ -48,6 +48,15 @@
                         </span>
                         <span class="arrowBackground"><span class="arrow"></span></span>
                     </div>
+                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                        onmouseleave="onRadioButtonMouseLeave()">
+                        <input type="radio">
+                        <span class="radioTextContainer">
+                            <p class="code">TX_04</p>
+                            <p class="radioText">Projects</p>
+                        </span>
+                        <span class="arrowBackground"><span class="arrow"></span></span>
+                    </div>
                     <!-- <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
                         onmouseleave="onRadioButtonMouseLeave()">
                         <input type="radio">
@@ -399,17 +408,19 @@
 <script>
     var currentVizIndex = 0;
     var isFullscreen = false;
-    var codes = ['TX_01', 'TX_02', 'TX_03']
-    var heights = [1825, 1825, 2125]
+    var codes = ['TX_01', 'TX_02', 'TX_03', 'TX_04']
+    var heights = [1825, 1825, 2125, 2125]
     var urls = [
         "https://public.tableau.com/views/TXDOTVehicleFuelEfficiencyDashboarddev/TXDOTAutoDashboard",
         "https://public.tableau.com/views/TxDOT-Fleetdashboard/Dashboard1",
-        "https://public.tableau.com/views/TxDOTAADTDashboarddev/Dashboard1"
+        "https://public.tableau.com/views/TxDOTAADTDashboarddev/Dashboard1",
+        "https://public.tableau.com/views/TxDOT-ProjectsDashboard/Dashboard1"
     ]
     var downloads = [
         "Fuel Cost per Mile by Model",
         "YR/Vehicles",
-        "detail table"
+        "detail table",
+        "highway number"
     ]
     var options = {
         hideTabs: true,
