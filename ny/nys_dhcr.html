@@ -26,7 +26,7 @@
                         <input type="radio">
                         <span class="radioTextContainer">
                             <p class="code">NY_01</p>
-                            <p class="radioText">311 Cases</p>
+                            <p class="radioText">Case Resolution Productivity</p>
                         </span>
                         <span class="arrowBackground"><span class="arrow"></span></span>
                     </div>
@@ -35,15 +35,6 @@
                         <input type="radio">
                         <span class="radioTextContainer">
                             <p class="code">NY_02</p>
-                            <p class="radioText">311 Cases (2)</p>
-                        </span>
-                        <span class="arrowBackground"><span class="arrow"></span></span>
-                    </div>
-                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
-                        onmouseleave="onRadioButtonMouseLeave()">
-                        <input type="radio">
-                        <span class="radioTextContainer">
-                            <p class="code">NY_03</p>
                             <p class="radioText">Housing Availability</p>
                         </span>
                         <span class="arrowBackground"><span class="arrow"></span></span>
@@ -52,8 +43,8 @@
                         onmouseleave="onRadioButtonMouseLeave()">
                         <input type="radio">
                         <span class="radioTextContainer">
-                            <p class="code">NY_04</p>
-                            <p class="radioText">Complaints</p>
+                            <p class="code">NY_03</p>
+                            <p class="radioText">Building Units Complaints</p>
                         </span>
                         <span class="arrowBackground"><span class="arrow"></span></span>
                     </div>
@@ -408,10 +399,9 @@
 <script>
     var currentVizIndex = 0;
     var isFullscreen = false;
-    var codes = ['NY_01', 'NY_02', 'NY_03', 'NY_04', 'NY_99']
-    var heights = [2025, 2025, 1825, 1825, 1525]
+    var codes = ['NY_01', 'NY_02', 'NY_03', 'NY_99']
+    var heights = [2025, 1825, 1825, 1525]
     var urls = [
-        "https://public.tableau.com/views/NYCDOHMH/Dashboard1",
         "https://public.tableau.com/views/NYCDOHMHSubtypes/Dashboard1",
         "https://public.tableau.com/views/NYSDHCRDashboarddev/NYSDHCRDashboard",
         "https://public.tableau.com/views/NYSDHCRComplaintsbyBuildingdev/NYSDHCR",
@@ -419,7 +409,6 @@
 
     ]
     var downloads = [
-        "Borough/count",
         "Borough/count",
         "Detailed Table",
         '',
