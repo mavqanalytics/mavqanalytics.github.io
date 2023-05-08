@@ -24,8 +24,8 @@
                     <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
                         onmouseleave="onRadioButtonMouseLeave()">
                         <span class="radioTextContainer">
-                            <p class="code">HI_01</p>
-                            <p class="radioText">Food Initiative<br>General Fund Budget</p>
+                            <p class="code">JB_01</p>
+                            <p class="radioText">Junior Bill Appropriations</p>
                         </span>
                         <input type="radio">
                         <span class="arrowBackground">
@@ -35,40 +35,7 @@
                     <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
                         onmouseleave="onRadioButtonMouseLeave()">
                         <span class="radioTextContainer">
-                            <p class="code">HI_02</p>
-                            <p class="radioText">Community Food<br>Programs and<br>Supply Chain</p>
-                        </span>
-                        <input type="radio">
-                        <span class="arrowBackground">
-                            <span class="arrow"></span>
-                        </span>
-                    </div>
-                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
-                        onmouseleave="onRadioButtonMouseLeave()">
-                        <span class="radioTextContainer">
-                            <p class="code">HI_03</p>
-                            <p class="radioText">New Mexico Grown</p>
-                        </span>
-                        <input type="radio">
-                        <span class="arrowBackground">
-                            <span class="arrow"></span>
-                        </span>
-                    </div>
-                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
-                        onmouseleave="onRadioButtonMouseLeave()">
-                        <span class="radioTextContainer">
-                            <p class="code">HI_04</p>
-                            <p class="radioText">Self Reported Funding</p>
-                        </span>
-                        <input type="radio">
-                        <span class="arrowBackground">
-                            <span class="arrow"></span>
-                        </span>
-                    </div>
-                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
-                        onmouseleave="onRadioButtonMouseLeave()">
-                        <span class="radioTextContainer">
-                            <p class="code">HI_99</p>
+                            <p class="code">JB_99</p>
                             <p class="radioText">Glossary</p>
                         </span>
                         <input type="radio">
@@ -96,6 +63,8 @@
     }
 
     #wrapper {
+        all: unset;
+        position: relative;
         margin: 0 15px;
         display: flex;
         flex-direction: column;
@@ -104,12 +73,13 @@
     }
 
     #mavQContainer {
+        all: unset;
         display: flex;
         flex-direction: column;
         scale: .80;
         transform-origin: top left;
         position: relative;
-        width: 1508px;
+        width: 1708px;
         font-size: 15px;
         font-family: Arial, Helvetica, sans-serif;
         color: black;
@@ -378,9 +348,7 @@
         background-color: rgb(12, 12, 35);
         color: rgb(121, 128, 171);
         text-align: center;
-        width: 1718px;
-        position: relative;
-        left: -12px;
+        width: 100%;
         flex-shrink: 0;
     }
 
@@ -414,15 +382,12 @@
 <script>
     var placeholderDiv = document.getElementById("tableauViz");
     var urls = [
-        "https://public.tableau.com/views/NMFoodHungerInitiativeDashboard/BudgetDashboard",
-        "https://public.tableau.com/shared/3BGZ58Q7K",
-        "https://public.tableau.com/shared/W7KZDYS7M",
-        "https://public.tableau.com/shared/Z4S84F8K3",
-        "https://public.tableau.com/views/NMFoodHungerInitiativeDashboard/Glossary"
+        "https://public.tableau.com/views/JuniorBillAppropriations_16717483522010/JB_01JuniorBillAppropriations",
+        "https://public.tableau.com/views/JuniorBillAppropriations_16717483522010/JB_99Glossary"
     ];
     var options = {
         hideTabs: true,
-        width: "1300px",
+        width: "1500px",
         height: "1825px",
         onFirstInteractive: function () {
             var resetButton = document.getElementById("resetDashboard");
@@ -440,9 +405,9 @@
 
     var mavQContainer = document.getElementById("mavQContainer");
     window.onload = () => {
-        mavQContainer.style.visibility = "visible";
         fixMargin();
-    };
+        mavQContainer.style.visibility = "visible";
+    }
     window.addEventListener("resize", fixMargin);
     var minScale = .08;
     var maxScale = .80;
@@ -451,12 +416,12 @@
         var width = parseFloat(style.width);
         var height = parseFloat(style.height);
 
-        var scale = window.innerWidth / 1538;
+        var scale = window.innerWidth / 1738;
         if (scale < minScale) scale = minScale;
         else if (scale > maxScale) scale = maxScale;
-        else scale = scale;
+        else scale = scale + "";
 
-        mavQContainer.style.scale = scale + "";
+        mavQContainer.style.scale = scale;
         mavQContainer.style.marginRight = "-" + (width - width * scale) + "px";
         mavQContainer.style.marginBottom = "-" + (height - height * scale) + "px";
     }
@@ -516,6 +481,7 @@
         button.querySelector('input').checked = true;
         button.style.backgroundColor = "#007097";
         button.style.color = "white";
+        // button.getElementsByClassName("code")[0].style.color = "white";
         button.getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#035876";
         button.getElementsByClassName("arrow")[0].style.borderColor = "white";
     }
@@ -526,6 +492,7 @@
             radioButtons[i].querySelector('input').checked = false;
             radioButtons[i].style.backgroundColor = "#fff";
             radioButtons[i].style.color = "black";
+            // radioButtons[i].getElementsByClassName("code")[0].style.color = "#bbb";
             radioButtons[i].getElementsByClassName("arrowBackground")[0].style.backgroundColor = "#F7F7F7";
             radioButtons[i].getElementsByClassName("arrow")[0].style.borderColor = "rgb(74, 109, 147)";
         }
@@ -546,29 +513,22 @@
     }
 
     function downloadPDF() {
+        //var vizUrl = viz.getWorkbook().getActiveSheet().getUrl();
+        //var workbookName = vizUrl.split("/")[4];
+        //var sheetName = vizUrl.split("/")[5];
+        //var url = "https://public.tableau.com/views/" + workbookName + "/" + sheetName + ".pdf?%3Adisplay_static_image=y&%3AbootstrapWhenNotified=true&%3Aembed=true&%3Alanguage=en-US&:embed=y&:showVizHome=n&:apiID=host0#navType=0&navSrc=Parse";
+        //window.open(url, '_blank');
         viz.showExportPDFDialog();
     }
 
     function downloadExcel() {
         var checkedButton = document.querySelector('input[type="radio"]:checked');
         var code = checkedButton.parentNode.querySelector('.code').innerHTML;
-        switch (code) {
-            case "HI_01":
-                viz.exportCrossTabToExcel("HI_01 Detailed Budget by Agency, Program and Fiscal Year");
-                break;
-            case "HI_02":
-                viz.exportCrossTabToExcel("HI_02 Demand and Supply by County");
-                break;
-            case "HI_03":
-                viz.exportCrossTabToExcel("HI_03 Farms by County");
-                break;
-            case "HI_04":
-                viz.exportCrossTabToExcel("HI_04 Detailed Budget Information by FY, State Agency, Awarding Entity and Appropriation");
-                break;
-            case "HI_99":
-                viz.exportCrossTabToExcel("HI_99 Food Insecure Glossary");
-                break;
+        if (code === "JB_99") {
+            viz.exportCrossTabToExcel("JB_99 Glossary T&D");
+            return;
         }
+        viz.exportCrossTabToExcel("JB_01 Junior Bill Appropriations by Agency");
     }
 
     function downloadPowerPoint() {
@@ -591,10 +551,8 @@
         viz.showDownloadDialog();
     }
 
-
-    var mavQContainer = document.getElementById("mavQContainer");
+    var tableauViz = document.getElementById("tableauViz");
     var isFullscreen = false;
-
     function onFullscreenClick() {
         if (document.fullscreenElement) {
             document.exitFullscreen();
@@ -603,7 +561,6 @@
         window.removeEventListener("resize", fixMargin);
         mavQContainer.requestFullscreen();
     }
-
     mavQContainer.addEventListener('fullscreenchange', (event) => {
         if (document.fullscreenElement) {
             mavQContainer.style.position = "absolute";

@@ -24,8 +24,8 @@
                     <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
                         onmouseleave="onRadioButtonMouseLeave()">
                         <span class="radioTextContainer">
-                            <p class="code">HI_01</p>
-                            <p class="radioText">Food Initiative<br>General Fund Budget</p>
+                            <p class="code">CO_01</p>
+                            <p class="radioText">Capital Appropriations</p>
                         </span>
                         <input type="radio">
                         <span class="arrowBackground">
@@ -35,8 +35,8 @@
                     <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
                         onmouseleave="onRadioButtonMouseLeave()">
                         <span class="radioTextContainer">
-                            <p class="code">HI_02</p>
-                            <p class="radioText">Community Food<br>Programs and<br>Supply Chain</p>
+                            <p class="code">CO_02</p>
+                            <p class="radioText">Executive Order</p>
                         </span>
                         <input type="radio">
                         <span class="arrowBackground">
@@ -46,8 +46,8 @@
                     <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
                         onmouseleave="onRadioButtonMouseLeave()">
                         <span class="radioTextContainer">
-                            <p class="code">HI_03</p>
-                            <p class="radioText">New Mexico Grown</p>
+                            <p class="code">CO_03</p>
+                            <p class="radioText">Grant Agreements</p>
                         </span>
                         <input type="radio">
                         <span class="arrowBackground">
@@ -57,18 +57,7 @@
                     <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
                         onmouseleave="onRadioButtonMouseLeave()">
                         <span class="radioTextContainer">
-                            <p class="code">HI_04</p>
-                            <p class="radioText">Self Reported Funding</p>
-                        </span>
-                        <input type="radio">
-                        <span class="arrowBackground">
-                            <span class="arrow"></span>
-                        </span>
-                    </div>
-                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
-                        onmouseleave="onRadioButtonMouseLeave()">
-                        <span class="radioTextContainer">
-                            <p class="code">HI_99</p>
+                            <p class="code">CO_99</p>
                             <p class="radioText">Glossary</p>
                         </span>
                         <input type="radio">
@@ -109,7 +98,7 @@
         scale: .80;
         transform-origin: top left;
         position: relative;
-        width: 1508px;
+        width: 1708px;
         font-size: 15px;
         font-family: Arial, Helvetica, sans-serif;
         color: black;
@@ -414,15 +403,14 @@
 <script>
     var placeholderDiv = document.getElementById("tableauViz");
     var urls = [
-        "https://public.tableau.com/views/NMFoodHungerInitiativeDashboard/BudgetDashboard",
-        "https://public.tableau.com/shared/3BGZ58Q7K",
-        "https://public.tableau.com/shared/W7KZDYS7M",
-        "https://public.tableau.com/shared/Z4S84F8K3",
-        "https://public.tableau.com/views/NMFoodHungerInitiativeDashboard/Glossary"
+        "https://public.tableau.com/views/CapitalOutlayDashboard_16698440913050/CO_01-CapitalAppropriations",
+        "https://public.tableau.com/views/CapitalOutlayDashboard_16698440913050/CO_02-ExecutiveOrder",
+        "https://public.tableau.com/views/CapitalOutlayDashboard_16698440913050/CO_03-GrantAgreements",
+        "https://public.tableau.com/views/CapitalOutlayDashboard_16698440913050/CO_99-Glossary"
     ];
     var options = {
         hideTabs: true,
-        width: "1300px",
+        width: "1500px",
         height: "1825px",
         onFirstInteractive: function () {
             var resetButton = document.getElementById("resetDashboard");
@@ -451,7 +439,7 @@
         var width = parseFloat(style.width);
         var height = parseFloat(style.height);
 
-        var scale = window.innerWidth / 1538;
+        var scale = window.innerWidth / 1738;
         if (scale < minScale) scale = minScale;
         else if (scale > maxScale) scale = maxScale;
         else scale = scale;
@@ -552,22 +540,17 @@
     function downloadExcel() {
         var checkedButton = document.querySelector('input[type="radio"]:checked');
         var code = checkedButton.parentNode.querySelector('.code').innerHTML;
-        switch (code) {
-            case "HI_01":
-                viz.exportCrossTabToExcel("HI_01 Detailed Budget by Agency, Program and Fiscal Year");
-                break;
-            case "HI_02":
-                viz.exportCrossTabToExcel("HI_02 Demand and Supply by County");
-                break;
-            case "HI_03":
-                viz.exportCrossTabToExcel("HI_03 Farms by County");
-                break;
-            case "HI_04":
-                viz.exportCrossTabToExcel("HI_04 Detailed Budget Information by FY, State Agency, Awarding Entity and Appropriation");
-                break;
-            case "HI_99":
-                viz.exportCrossTabToExcel("HI_99 Food Insecure Glossary");
-                break;
+        if (code === "CO_01") {
+            viz.exportCrossTabToExcel("1 C0-01 - Capital Appropriations");
+        }
+        else if (code === "CO_02") {
+            viz.exportCrossTabToExcel("1 C0-02 Executive Order");
+        }
+        else if (code === "CO_03") {
+            viz.exportCrossTabToExcel("1 CO-03 Grant Agreements");
+        }
+        else if (code === "CO_99") {
+            viz.exportCrossTabToExcel("Key Terms & Definitions CO_99");
         }
     }
 
