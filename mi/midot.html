@@ -25,8 +25,8 @@
                         onmouseleave="onRadioButtonMouseLeave()">
                         <input type="radio">
                         <span class="radioTextContainer">
-                            <p class="code">MI_01</p>
-                            <p class="radioText">Care Improvement Registry</p>
+                            <p class="code">MI_02</p>
+                            <p class="radioText">Annual Average Daily Traffic</p>
                         </span>
                         <span class="arrowBackground"><span class="arrow"></span></span>
                     </div>
@@ -381,18 +381,18 @@
 <script>
     var currentVizIndex = 0;
     var isFullscreen = false;
-    var codes = ['MI_01']
-    var heights = [1825]
+    var codes = ['MI_02']
+    var heights = [1325]
     var urls = [
-        "https://public.tableau.com/views/MIHHSImmunizationDashboarddev/Dashboard12"
+        "https://public.tableau.com/views/MIDOTAADTDashboarddev/MIDOTAADT"
     ]
     var downloads = [
-        "Immunizations by County",
+        "Detail Table",
     ]
     var options = {
         hideTabs: true,
         width: "1500px",
-        height: "1825px",
+        height: "1325px",
         onFirstInteractive: function () {
             var resetButton = document.getElementById("resetDashboard");
             resetButton.addEventListener("click", function () {
