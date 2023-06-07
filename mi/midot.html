@@ -25,6 +25,15 @@
                         onmouseleave="onRadioButtonMouseLeave()">
                         <input type="radio">
                         <span class="radioTextContainer">
+                            <p class="code">MI_01</p>
+                            <p class="radioText">Crashes Dashboard</p>
+                        </span>
+                        <span class="arrowBackground"><span class="arrow"></span></span>
+                    </div>
+                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                        onmouseleave="onRadioButtonMouseLeave()">
+                        <input type="radio">
+                        <span class="radioTextContainer">
                             <p class="code">MI_02</p>
                             <p class="radioText">Annual Average Daily Traffic</p>
                         </span>
@@ -381,13 +390,15 @@
 <script>
     var currentVizIndex = 0;
     var isFullscreen = false;
-    var codes = ['MI_02']
-    var heights = [1325]
+    var codes = ['MI_01', 'MI_02']
+    var heights = [1525, 1325]
     var urls = [
+        "https://public.tableau.com/views/MIDOTCrashesdashboard/Dashboard1",
         "https://public.tableau.com/views/MIDOTAADTDashboarddev/MIDOTAADT"
     ]
     var downloads = [
-        "Detail Table",
+        "CRASH DETAILS",
+        "Detail Table"
     ]
     var options = {
         hideTabs: true,
