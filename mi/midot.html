@@ -26,7 +26,7 @@
                         <input type="radio">
                         <span class="radioTextContainer">
                             <p class="code">MI_01</p>
-                            <p class="radioText">Crashes Dashboard</p>
+                            <p class="radioText">Annual Average Daily Traffic</p>
                         </span>
                         <span class="arrowBackground"><span class="arrow"></span></span>
                     </div>
@@ -35,7 +35,7 @@
                         <input type="radio">
                         <span class="radioTextContainer">
                             <p class="code">MI_02</p>
-                            <p class="radioText">Annual Average Daily Traffic</p>
+                            <p class="radioText">Crashes Dashboard</p>
                         </span>
                         <span class="arrowBackground"><span class="arrow"></span></span>
                     </div>
@@ -391,10 +391,10 @@
     var currentVizIndex = 0;
     var isFullscreen = false;
     var codes = ['MI_01', 'MI_02']
-    var heights = [1525, 1325]
+    var heights = [1325, 1525]
     var urls = [
-        "https://public.tableau.com/views/MIDOTCrashesdashboard/Dashboard1",
-        "https://public.tableau.com/views/MIDOTAADTDashboarddev/MIDOTAADT"
+        "https://public.tableau.com/views/MIDOTAADTDashboarddev/MIDOTAADT",
+        "https://public.tableau.com/views/MIDOTCrashesdashboardVersion2/Dashboard1"
     ]
     var downloads = [
         "CRASH DETAILS",
@@ -403,7 +403,7 @@
     var options = {
         hideTabs: true,
         width: "1500px",
-        height: "1525px",
+        height: "1325px",
         onFirstInteractive: function () {
             var resetButton = document.getElementById("resetDashboard");
             resetButton.addEventListener("click", function () {
