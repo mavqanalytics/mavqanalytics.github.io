@@ -7,7 +7,9 @@
 </head>
 <body>
     <h1>mavQ Analytics</h1>
-    <ul></ul>
+    <ul>
+        <li><a href="https://mavqanalytics.github.io/mmcc/">MMCC</a></li>
+    </ul>
 </body>
 </html>
 <script>
@@ -18,5 +20,5 @@
     const liElements = fileNames.map(fileName => {
         return `<li><a href="https://mavqanalytics.github.io/md/${fileName}">${fileName}</a></li>`
     })
-    ul.innerHTML = liElements.join('');
+    ul.innerHTML += liElements.join('');
 </script>
