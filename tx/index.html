@@ -11,13 +11,13 @@
 </body>
 </html>
 <script>
+    const path = href = "https://mavqanalytics.github.io/tx/";
     const ul = document.querySelector('ul');
-    const fileNames = [
-        "txdot.html",
-        "tx_env.html",
-    ]
-    const liElements = fileNames.map(fileName => {
-        return `<li><a href="https://mavqanalytics.github.io/tx/${fileName}">${fileName}</a></li>`
-    })
+    const files = {
+        "txdot.html": "TXDOT Dashboard",
+        "tx_env.html": "Texas Environmental Dashboard",
+    }
+    const liElements = Object.keys(files).map(file => `<li><a href="${path}${file}">${files[file]}</a></li>`);
     ul.innerHTML = liElements.join('');
+    ul.innerHTML += `<li><a href="https://dvf-qax.datax.internal.mavq.io/superset/dashboard/84/?standalone=3&show_filters=1">Texas Environmental Dashboard in DataX</a></li>`
 </script>
