@@ -30,6 +30,24 @@
                         </span>
                         <span class="arrowBackground"><span class="arrow"></span></span>
                     </div>
+                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                        onmouseleave="onRadioButtonMouseLeave()">
+                        <input type="radio">
+                        <span class="radioTextContainer">
+                            <p class="code">VA_02</p>
+                            <p class="radioText">Program Details</p>
+                        </span>
+                        <span class="arrowBackground"><span class="arrow"></span></span>
+                    </div>
+                    <div class="navRadioButton" onclick="onSwitchDashboard()" onmouseenter="onRadioButtonMouseEnter()"
+                        onmouseleave="onRadioButtonMouseLeave()">
+                        <input type="radio">
+                        <span class="radioTextContainer">
+                            <p class="code">VA_99</p>
+                            <p class="radioText">Glossary</p>
+                        </span>
+                        <span class="arrowBackground"><span class="arrow"></span></span>
+                    </div>
                 </div>
             </div>
             <div id="tableauViz"></div>
@@ -372,13 +390,17 @@
 <script>
     var currentVizIndex = 0;
     var isFullscreen = false;
-    var codes = ['VA_01']
-    var heights = [1825]
+    var codes = ['VA_01', 'VA_02','VA_99']
+    var heights = [1825, 1525, 1525]
     var urls = [
-        "https://public.tableau.com/views/VAOpioidDashboard/Dashboard1"
+        "https://public.tableau.com/views/VAOpioidDashboard/Dashboard1",
+        "https://public.tableau.com/views/VAProgramdetailstab/Dashboard1",
+        "https://public.tableau.com/views/VAOpiateDashboardDev/Glossary"
     ]
     var downloads = [
-        "detail table"
+        "detail table",
+        "Sheet 1",
+        "Terms and Definitions"
     ]
     var options = {
         hideTabs: true,
