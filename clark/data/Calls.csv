@@ -1,31 +1,31 @@
-Display Name,Assistance Requested,Other Assistance Requested,Assistance Requested 2,CalcCasesId,Victim/Case,Victim/Case - Display Name,Victim/Case 2,Victim/Case - Display Name 2,Date,Disposition,Incoming or Outgoing Call?,Nature of Request,This call is not connected to a case,Person,Person's Phone,Who fielded the request?,Scanned?,Service Provided,Other Service,Other Emergency Justice Service,Other Legal Service,Time,User,User - Display Name,Walk in,Entered Date,Entered By,Updated Date
-42989,"Victims of Crime Questions ",,,9214,"Case ID 9214, Rya Nim, Intake Date 2023-06-14 11:25:00",9214,"Rya Nim, Primary Case Victim",11018,06/14/2023,,Incoming,"Client's wife, another router contacted the center to inquire about how to apply for VOCP benefits. 
+Display Name,Date,Time,Victim/Case,Assistance Requested,Other Assistance Requested,Assistance Requested 2,CalcCasesId,Victim/Case - Display Name,Victim/Case 2,Victim/Case - Display Name 2,Disposition,Incoming or Outgoing Call?,Nature of Request,This call is not connected to a case,Person,Person's Phone,Who fielded the request?,Scanned?,Service Provided,Other Service,Other Emergency Justice Service,Other Legal Service,User,User - Display Name,Walk in,Entered Date,Entered By,Updated Date
+42989,06/14/2023,11:27 AM,"Case ID 9214, Rya Nim, Intake Date 2023-06-14 11:25:00","Victims of Crime Questions ",,,9214,9214,"Rya Nim, Primary Case Victim",11018,,Incoming,"Client's wife, another router contacted the center to inquire about how to apply for VOCP benefits. 
 
-",Yes,,,Vegas Strong Resiliency Center,No,,,,,11:27 AM,Jen Ken,80,No,06/14/2023,Jen Ken,06/14/2023
-42990,Verifying/Confirming VOCP registration,,,9214,"Case ID 9214, Rya Nim, Intake Date 2023-06-14 11:25:00",9214,"Rya Nim, Primary Case Victim",11018,06/14/2023,,Outgoing,"Advocate collected information from client and added him to the system. Client provided proof of attendance and was assisted in completing a VOCP application. 
+",Yes,,,Vegas Strong Resiliency Center,No,,,,,Jen Ken,80,No,06/14/2023,Jen Ken,06/14/2023
+42990,06/14/2023,11:29 AM,"Case ID 9214, Rya Nim, Intake Date 2023-06-14 11:25:00",Verifying/Confirming VOCP registration,,,9214,9214,"Rya Nim, Primary Case Victim",11018,,Outgoing,"Advocate collected information from client and added him to the system. Client provided proof of attendance and was assisted in completing a VOCP application. 
 
-",Yes,,,Vegas Strong Resiliency Center,No,Provided information,,,,11:29 AM,Jen Ken,80,No,06/14/2023,Jen Ken,06/14/2023
-42991,Complete VOCP application,,,9214,"Case ID 9214, Rya Nim, Intake Date 2023-06-14 11:25:00",9214,"Rya Nim, Primary Case Victim",11018,06/15/2023,,Outgoing,Submitted VOCP application and sent proof of attendance.,Yes,,,Vegas Strong Resiliency Center,No,Verifying and confirming VOCP registration,,,,8:50 AM,Jen Ken,80,No,06/15/2023,Jen Ken,06/15/2023
-43108,Other,MH receipts,,9214,"Case ID 9214, Rya Nim, Intake Date 2023-06-14 11:25:00",9214,"Rya Nim, Primary Case Victim",11018,06/23/2023,,Incoming,"Received MH receipts for client to submit to VOC for review. Advocate asked client for PDF version of statement/receipts because it was cut off in the email. ",Yes,,,Vegas Strong Resiliency Center,No,"Follow up ",,,,1:07 PM,Jen Ken,80,No,06/23/2023,Jen Ken,06/23/2023
-43317,No Services Requested,,,9214,"Case ID 9214, Rya Nim, Intake Date 2023-06-14 11:25:00",9214,"Rya Nim, Primary Case Victim",11018,07/12/2023,,Outgoing,"Followed up with VOC to see if any updates have been  made on client's claim. 
+",Yes,,,Vegas Strong Resiliency Center,No,Provided information,,,,Jen Ken,80,No,06/14/2023,Jen Ken,06/14/2023
+42991,06/15/2023,8:50 AM,"Case ID 9214, Rya Nim, Intake Date 2023-06-14 11:25:00",Complete VOCP application,,,9214,9214,"Rya Nim, Primary Case Victim",11018,,Outgoing,Submitted VOCP application and sent proof of attendance.,Yes,,,Vegas Strong Resiliency Center,No,Verifying and confirming VOCP registration,,,,Jen Ken,80,No,06/15/2023,Jen Ken,06/15/2023
+43108,06/23/2023,1:07 PM,"Case ID 9214, Rya Nim, Intake Date 2023-06-14 11:25:00",Other,MH receipts,,9214,9214,"Rya Nim, Primary Case Victim",11018,,Incoming,"Received MH receipts for client to submit to VOC for review. Advocate asked client for PDF version of statement/receipts because it was cut off in the email. ",Yes,,,Vegas Strong Resiliency Center,No,"Follow up ",,,,Jen Ken,80,No,06/23/2023,Jen Ken,06/23/2023
+43317,07/12/2023,11:07 AM,"Case ID 9214, Rya Nim, Intake Date 2023-06-14 11:25:00",No Services Requested,,,9214,9214,"Rya Nim, Primary Case Victim",11018,,Outgoing,"Followed up with VOC to see if any updates have been  made on client's claim. 
 
-Reached out to client to see if other resources were needed at this time.",Yes,,,Vegas Strong Resiliency Center,No,Wellness check,,,,11:07 AM,Jen Ken,80,No,07/12/2023,Jen Ken,07/12/2023
-43318,No Services Requested,,,9214,"Case ID 9214, Rya Nim, Intake Date 2023-06-14 11:25:00",9214,"Rya Nim, Primary Case Victim",11018,07/12/2023,,Incoming,"Received a response from VOCP.
+Reached out to client to see if other resources were needed at this time.",Yes,,,Vegas Strong Resiliency Center,No,Wellness check,,,,Jen Ken,80,No,07/12/2023,Jen Ken,07/12/2023
+43318,07/12/2023,11:08 AM,"Case ID 9214, Rya Nim, Intake Date 2023-06-14 11:25:00",No Services Requested,,,9214,9214,"Rya Nim, Primary Case Victim",11018,,Incoming,"Received a response from VOCP.
 
 Good Morning Jennifer 
 
 Ryan Nimmo:  letter sent to the victim on 06/30/2023 asking for Insurance Information.  
-(Failure to provide us with the requested information within 15 days may result in the denial of the application for assistance).",Yes,,,Vegas Strong Resiliency Center,No,"Follow up ",,,,11:08 AM,Jen Ken,80,No,07/12/2023,Jen Ken,07/12/2023
-2369,No Services Requested,,,1346,"Case ID 1346, Kim Dal, Intake Date ",1346,"Kim Dal, Primary Case Victim",1408,02/01/2018,Handled in the Call Center,Outgoing,Left voicemail,Yes,,,Vegas Strong Resiliency Call Center,No,Wellness check,,,,3:45 PM,Eun Vas,44,No,05/17/2018,Eun Vas,07/23/2019
-40444,No Services Requested,,,8993,"Case ID 8993, Lis Del Real, Intake Date 2019-12-30 10:59:00",8993,"Lis Del Real, Primary Case Victim",10607,12/21/2022,,Outgoing,Wellness email sent,Yes,,,Vegas Strong Resiliency Center,No,Wellness check,,,,3:15 PM,Ana Far,82,No,12/21/2022,Ana Far,12/21/2022
-24185,No Services Requested,,,9101,"Case ID 9101, Ros ""Be Spano, Intake Date 2020-12-07 09:28:00",9101,"Ros ""Be Spano, Primary Case Victim",10799,12/07/2020,Handled in the Call Center,Incoming,"Phyllis Rost-Spano & Ross Spano
+(Failure to provide us with the requested information within 15 days may result in the denial of the application for assistance).",Yes,,,Vegas Strong Resiliency Center,No,"Follow up ",,,,Jen Ken,80,No,07/12/2023,Jen Ken,07/12/2023
+2369,02/01/2018,3:45 PM,"Case ID 1346, Kim Dal, Intake Date ",No Services Requested,,,1346,1346,"Kim Dal, Primary Case Victim",1408,Handled in the Call Center,Outgoing,Left voicemail,Yes,,,Vegas Strong Resiliency Call Center,No,Wellness check,,,,Eun Vas,44,No,05/17/2018,Eun Vas,07/23/2019
+40444,12/21/2022,3:15 PM,"Case ID 8993, Lis Del Real, Intake Date 2019-12-30 10:59:00",No Services Requested,,,8993,8993,"Lis Del Real, Primary Case Victim",10607,,Outgoing,Wellness email sent,Yes,,,Vegas Strong Resiliency Center,No,Wellness check,,,,Ana Far,82,No,12/21/2022,Ana Far,12/21/2022
+24185,12/07/2020,9:29 AM,"Case ID 9101, Ros ""Be Spano, Intake Date 2020-12-07 09:28:00",No Services Requested,,,9101,9101,"Ros ""Be Spano, Primary Case Victim",10799,Handled in the Call Center,Incoming,"Phyllis Rost-Spano & Ross Spano
 6257 Highland Gardens Drive 
 North Las Vegas  NV  89031
  
 Both my husband and I are Route 91 Survivors. 
 Thank you for reaching out. 
-Have a Happy Holidays!",Yes,,,Vegas Strong Resiliency Call Center,No,Updated Contact Information,,,,9:29 AM,Lor Aro,43,No,12/07/2020,Lor Aro,12/07/2020
-33347,No Services Requested,,,9160,"Case ID 9160, Kur Hug, Intake Date 2021-12-14 09:39:00",9160,"Kur Hug, Primary Case Victim",10935,12/14/2021,Handled in the Call Center,Outgoing,"Hello and thank you for submitting your intake form. My name is Lorea, and I am the social worker with the Vegas Strong Resiliency Center. I wanted to give you some information about our organization, Vegas Strong Resiliency Center.
+Have a Happy Holidays!",Yes,,,Vegas Strong Resiliency Call Center,No,Updated Contact Information,,,,Lor Aro,43,No,12/07/2020,Lor Aro,12/07/2020
+33347,12/14/2021,9:52 AM,"Case ID 9160, Kur Hug, Intake Date 2021-12-14 09:39:00",No Services Requested,,,9160,9160,"Kur Hug, Primary Case Victim",10935,Handled in the Call Center,Outgoing,"Hello and thank you for submitting your intake form. My name is Lorea, and I am the social worker with the Vegas Strong Resiliency Center. I wanted to give you some information about our organization, Vegas Strong Resiliency Center.
 
 This is our website: https://vegasstrongrc.org/
 
@@ -55,8 +55,8 @@ If you have a question, do not hesitate to contact us with any questions. You ca
 
  
 
-May you feel better each day and know that we are always thinking of you,",Yes,,,Vegas Strong Resiliency Call Center,No,Wellness check,,,,9:52 AM,Lor Aro,43,No,12/14/2021,Lor Aro,12/14/2021
-40076,No Services Requested,,,9206,"Case ID 9206, Amb DeL, Intake Date 2022-12-05 08:42:00",9206,"Amb DeL, Primary Case Victim",11005,12/05/2022,Handled in the Call Center,Incoming,"My mailing address is 
+May you feel better each day and know that we are always thinking of you,",Yes,,,Vegas Strong Resiliency Call Center,No,Wellness check,,,,Lor Aro,43,No,12/14/2021,Lor Aro,12/14/2021
+40076,12/05/2022,8:42 AM,"Case ID 9206, Amb DeL, Intake Date 2022-12-05 08:42:00",No Services Requested,,,9206,9206,"Amb DeL, Primary Case Victim",11005,Handled in the Call Center,Incoming,"My mailing address is 
 200 E Desert Rose Dr, Henderson NV 89015 
 
 
@@ -70,4 +70,4 @@ AmberSellsVegas@gmail.com
 2451 W Horizon Ridge Pkwy #100
 Henderson, NV 89052
 
-Proudly serving my community since 2003! Oh by the way, I am never too busy for any of your referrals!",Yes,,,Vegas Strong Resiliency Center,No,Updated Contact Information,,,,8:42 AM,Lor Aro,43,No,12/05/2022,Lor Aro,12/05/2022
+Proudly serving my community since 2003! Oh by the way, I am never too busy for any of your referrals!",Yes,,,Vegas Strong Resiliency Center,No,Updated Contact Information,,,,Lor Aro,43,No,12/05/2022,Lor Aro,12/05/2022
